@@ -1,0 +1,137 @@
+﻿import { InvalidTypeException, ArgumentException } from './Exceptions';
+import { Utilities } from './Utilities';
+import { Collection, CollectionOrArray } from './Collection';
+
+
+export class List<T> extends Collection<T>
+{
+    public add(obj: T): void
+    {
+        this._baseArray.push(obj);
+    }
+
+    public addRange(collectionOrArray: CollectionOrArray<T>): void
+    {
+        let array: T[]; // set default if undefined
+
+        // convert to array if collection
+        if (collectionOrArray instanceof Collection)
+        {
+            array = collectionOrArray.toArray();
+        }
+        else
+        {
+            array = collectionOrArray as T[];
+        }
+
+        // make sure we have items
+        if (array.length > 0)
+        {
+            this._baseArray = this._baseArray.concat(array);
+        }
+        else
+        {
+            throw new ArgumentException('collectionOrArray', "No elements in collectionOrArray");
+        }
+    }
+
+    public clear(): void
+    {
+        this._baseArray.length = 0;
+    }
+
+    public contains(obj: T, isEquivilent?: boolean)
+    {
+        let ret = false;
+
+        if (this.find(obj, isEquivilent || false) != undefined)
+        {
+            ret = true;
+        }
+
+        return ret;
+    }
+
+    public find(obj: T, isEquivilent?: boolean): T | undefined
+    {
+        for (let item of this._baseArray)
+        {
+            var found = false;
+
+            if (isEquivilent || false)
+            {
+                found = Utilities.equals(item, obj);
+            }
+            else
+            {
+                found = item == obj;
+            }
+            if (found)
+            {
+                return item;
+            }
+        }
+    }
+
+    public insertAt(obj: T, index: number): void
+    {
+        this._baseArray.splice(index, 0, obj);
+    }
+
+    public remove(obj: T): void
+    {
+        let index = this._baseArray.indexOf(obj);
+
+        if (index != -1)
+        {
+            this.removeAt(index);
+        }
+        else
+        {
+            throw new Error("Not in array");
+        }
+    }
+
+
+    public removeAt(index: number): void
+    {
+        this._baseArray.splice(index, 1);
+    }
+
+    public sort(sortCondition?: (a: T, b: T) => number): void
+    {
+        if (!sortCondition)
+        {
+            sortCondition = function (a, b)
+            {
+                if (a.toString() > b.toString())
+                {
+                    return 1;
+                }
+
+                if (a.toString() < b.toString())
+                {
+                    return -1;
+                }
+
+                // a must be equal to b
+                return 0;
+            };
+        }
+
+        this._baseArray.sort(sortCondition);
+    }
+}
+
+declare module "./Collection" {
+    interface Collection<T>
+    {
+        // returns the current Collection as a List
+        toList(): List<T>
+    }
+}
+
+Collection.prototype.toList = function <T>(): List<T>
+{
+    return new List<T>(this.toArray());
+}

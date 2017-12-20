@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "skipDefaultLibCheck": true,
+    "strict": true,
+    "lib": [ "dom", "es6", "es2015" ],
+    "target": "es5",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
