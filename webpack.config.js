@@ -1,24 +1,24 @@
-﻿const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+﻿/// <binding ProjectOpened='Run - Development, Run - Production' />
+const path = require('path');
+const webpack = require('webpack');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const bundleOutputDir = './dist';
 
-module.exports = (env) =>
+module.exports = () =>
 {
-    const isDevBuild = !(env && env.prod);
+    const isDevBuild = !(process.env.NODE_ENV && process.env.NODE_ENV === 'production');
+
     return [{
-        entry: { 'index': "./src/index.js" },
+        entry: { 'index': "./src/index.ts" },
+        resolve: { extensions: ['.js', '.ts'] },
         output: {
             path: path.join(__dirname, bundleOutputDir),
-            filename: '[name].js',
+            filename: `[name]${isDevBuild ? ".dev" : ""}.js`,
             publicPath: 'dist/'
         },
         module: {
-            loaders: [
-                {
-                    test: /\.jsx?$/,
-                    loader: "babel-loader"
-                }
+            rules: [
+                { test: /\.ts$/, include: /src/, use: 'awesome-typescript-loader?silent=true' }
             ]
         },
         plugins: [
@@ -32,7 +32,6 @@ module.exports = (env) =>
         ] : [
                 // Plugins that apply in production builds only
                 new webpack.optimize.UglifyJsPlugin(),
-                new ExtractTextPlugin('site.css')
             ])
     }];
 }

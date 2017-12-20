@@ -34,31 +34,23 @@ export class Collection<T>
         return this._baseArray.length;
     }
 
-    // casts each element to the new type
-    //Cast: function (toType) {
-    //
-    //},
-
-
     // Clones the Collection object
     public clone(): Collection<T>
     {
         return new Collection<T>([...this._baseArray]);
     }
 
-    public copy(into: Collection<T>): void
+    public copyTo(into: Collection<T>): void
     {
-        into._baseArray = [...this._baseArray];
+        into._baseArray.push(...this._baseArray);
     }
 
-    // iterates over each item in the Collection. The this keyword is also the item but if 
-    // it's a simple type it will be wrapped in an Object. Args are (index, value).
+    // iterates over each item in the Collection. Return false to break.
     public forEach(callback: (value: T, index: number) => boolean | void): void
     {
-        var i = 0;
-        for (i; i < this._baseArray.length; i++)
+        for (let i = 0; i < this._baseArray.length; i++)
         {
-            if (false === callback.call(this._baseArray[i], i, this._baseArray[i]))
+            if (false === callback(this._baseArray[i], i))
             {
                 break;
             }
@@ -70,16 +62,8 @@ export class Collection<T>
         return this._baseArray[index];
     }
 
-    public ofType<N extends T>(type: { new(...args: any[]): N }): Collection<N>
-    {
-        return this.asQueryable().where((item) => item instanceof type).select((item) => item as N);
-    }
-
     public toArray(): T[]
     {
         return [...this._baseArray];
     }
 }
-
-
-

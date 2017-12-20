@@ -14,7 +14,9 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
+  "compileOnSave": false,
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "tests"
   ]
 }

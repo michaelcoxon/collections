@@ -324,11 +324,17 @@ declare module "./Collection" {
     interface Collection<T>
     {
         // returns the current Collection as a queryable object
-        asQueryable(): Queryable<T>
+        asQueryable(): Queryable<T>;
+        ofType<N extends T>(type: { new(...args: any[]): N }): Collection<N>;
     }
 }
 
 Collection.prototype.asQueryable = function <T>(): Queryable<T>
 {
     return new Queryable<T>(this);
+}
+
+Collection.prototype.ofType = function <T, N extends T>(type: { new(...args: any[]): N }): Collection<N>
+{
+    return this.asQueryable().where((item) => item instanceof type).select((item) => item as N);
 }

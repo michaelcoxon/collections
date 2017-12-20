@@ -4,7 +4,7 @@
   "description": "Collections for JS and TypeScript",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -r ts-node/register tests/**/*.spec.ts"
   },
   "repository": {
     "type": "git",
@@ -20,15 +20,19 @@
     "url": "https://github.com/michaelcoxon/collections/issues"
   },
   "homepage": "https://github.com/michaelcoxon/collections#readme",
-
-
   "devDependencies": {
+    "@types/chai": "^4.0.10",
+    "@types/mocha": "^2.2.44",
     "@types/prop-types": "^15.5.2",
     "@types/webpack-env": "1.13.0",
-    "webpack": "2.5.1",
-    "typescript": "2.4.1",
-    "json-loader": "0.5.4",
+    "awesome-typescript-loader": "3.2.1",
+    "chai": "^4.1.2",
     "file-loader": "0.11.2",
-    "awesome-typescript-loader": "3.2.1"
+    "json-loader": "0.5.4",
+    "mocha": "^4.0.1",
+    "ts-node": "^4.0.2",
+    "typescript": "2.4.1",
+    "webpack": "2.5.1"
   }
+, "-vs-binding":{"ProjectOpened":["test"]}
 }
