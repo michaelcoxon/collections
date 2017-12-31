@@ -1,7 +1,14 @@
 ﻿import { ArgumentException } from './Exceptions';
 
+
+
 export namespace Utilities
 {
+    export type ConstructorFor<T> = 
+    {
+        new(value?: any): T;
+    }
+
     // returns true if the two objects are equal but not the same object. (compares public keys)
     export function equals<T>(obj1: T, obj2: T, forceJSON?: boolean): boolean
     {

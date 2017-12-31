@@ -80,15 +80,8 @@ var Collection = (function () {
         if (collectionOrArray === undefined) {
             this._baseArray = [];
         }
-        else if (Array.isArray(collectionOrArray)) {
-            // copy the array into this
-            this._baseArray = collectionOrArray;
-        }
-        else if (collectionOrArray instanceof Collection) {
-            this._baseArray = collectionOrArray.toArray();
-        }
         else {
-            throw new Exceptions_1.InvalidTypeException('collectionOrArray', 'Collection or Array');
+            this._baseArray = Collection.collectionOrArrayToArray(collectionOrArray);
         }
     }
     Object.defineProperty(Collection.prototype, "count", {
@@ -120,10 +113,22 @@ var Collection = (function () {
     Collection.prototype.toArray = function () {
         return this._baseArray.slice();
     };
+    Collection.collectionOrArrayToArray = function (collectionOrArray) {
+        if (Array.isArray(collectionOrArray)) {
+            // copy the array into this
+            return collectionOrArray.slice();
+        }
+        else if (collectionOrArray instanceof Collection) {
+            return collectionOrArray.toArray().slice();
+        }
+        else {
+            throw new Exceptions_1.InvalidTypeException('collectionOrArray', 'Collection or Array');
+        }
+    };
     return Collection;
 }());
 exports.Collection = Collection;
-
+//# sourceMappingURL=Collection.js.map
 
 /***/ }),
 /* 1 */
@@ -212,7 +217,7 @@ var FileNotFoundException = (function (_super) {
     return FileNotFoundException;
 }(Error));
 exports.FileNotFoundException = FileNotFoundException;
-
+//# sourceMappingURL=Exceptions.js.map
 
 /***/ }),
 /* 2 */
@@ -298,7 +303,7 @@ var Utilities;
     }
     Utilities.getType = getType;
 })(Utilities = exports.Utilities || (exports.Utilities = {}));
-
+//# sourceMappingURL=Utilities.js.map
 
 /***/ }),
 /* 3 */
@@ -313,18 +318,15 @@ var Enumerator = (function () {
     function Enumerator(collectionOrArray) {
         // current pointer location
         this._pointer = -1;
-        if (collectionOrArray == undefined) {
-            throw new Exceptions_1.UndefinedArgumentException("collectionOrArray");
-        }
         if (Array.isArray(collectionOrArray)) {
             // copy the array into this
-            this._baseArray = collectionOrArray;
+            this._baseArray = collectionOrArray.slice();
         }
         else if (collectionOrArray instanceof Collection_1.Collection) {
-            this._baseArray = collectionOrArray.toArray();
+            this._baseArray = collectionOrArray.toArray().slice();
         }
         else {
-            throw new TypeError('Can only Enumerate arrays and Collections');
+            throw new Exceptions_1.InvalidTypeException('collectionOrArray', 'Collection or Array');
         }
     }
     Object.defineProperty(Enumerator.prototype, "current", {
@@ -341,6 +343,9 @@ var Enumerator = (function () {
     };
     // returns the next element without moving the pointer forwards
     Enumerator.prototype.peek = function () {
+        if (this._pointer >= this._baseArray.length) {
+            throw new Exceptions_1.OutOfBoundsException("internal pointer", 0, this._baseArray.length - 1);
+        }
         return this._baseArray[this._pointer + 1];
     };
     // reset the pointer to the start
@@ -353,7 +358,7 @@ exports.Enumerator = Enumerator;
 Collection_1.Collection.prototype.getEnumerator = function () {
     return new Enumerator(this);
 };
-
+//# sourceMappingURL=Enumerator.js.map
 
 /***/ }),
 /* 4 */
@@ -384,14 +389,7 @@ var List = (function (_super) {
         this._baseArray.push(obj);
     };
     List.prototype.addRange = function (collectionOrArray) {
-        var array; // set default if undefined
-        // convert to array if collection
-        if (collectionOrArray instanceof Collection_1.Collection) {
-            array = collectionOrArray.toArray();
-        }
-        else {
-            array = collectionOrArray;
-        }
+        var array = Collection_1.Collection.collectionOrArrayToArray(collectionOrArray);
         // make sure we have items
         if (array.length > 0) {
             this._baseArray = this._baseArray.concat(array);
@@ -411,26 +409,70 @@ var List = (function (_super) {
         return ret;
     };
     List.prototype.find = function (obj, isEquivilent) {
-        for (var _i = 0, _a = this._baseArray; _i < _a.length; _i++) {
-            var item = _a[_i];
-            var found = false;
-            if (isEquivilent || false) {
-                found = Utilities_1.Utilities.equals(item, obj);
+        if (isEquivilent === void 0) { isEquivilent = false; }
+        if (isEquivilent) {
+            for (var _i = 0, _a = this._baseArray; _i < _a.length; _i++) {
+                var item = _a[_i];
+                var found = false;
+                if (isEquivilent) {
+                    found = Utilities_1.Utilities.equals(item, obj);
+                }
+                if (found) {
+                    return item;
+                }
+            }
+        }
+        else {
+            var index = this.findIndex(obj);
+            if (index !== undefined) {
+                return this.item(index);
             }
             else {
-                found = item == obj;
+                return undefined;
             }
-            if (found) {
-                return item;
+        }
+    };
+    List.prototype.findIndex = function (obj, isEquivilent) {
+        if (isEquivilent === void 0) { isEquivilent = false; }
+        if (isEquivilent) {
+            var index_1 = undefined;
+            this.forEach(function (item, i) {
+                var found = false;
+                if (isEquivilent) {
+                    found = Utilities_1.Utilities.equals(item, obj);
+                }
+                else {
+                    found = item == obj;
+                }
+                if (found) {
+                    index_1 = i;
+                    return false;
+                }
+            });
+            return index_1;
+        }
+        else {
+            var index = this._baseArray.indexOf(obj);
+            if (index == -1) {
+                return undefined;
             }
+            return index;
         }
     };
     List.prototype.insertAt = function (obj, index) {
         this._baseArray.splice(index, 0, obj);
     };
+    List.prototype.prepend = function (obj) {
+        this.insertAt(obj, 0);
+    };
+    List.prototype.prependRange = function (collectionOrArray) {
+        var array = Collection_1.Collection.collectionOrArrayToArray(collectionOrArray);
+        (_a = this._baseArray).splice.apply(_a, [0, 0].concat(array));
+        var _a;
+    };
     List.prototype.remove = function (obj) {
-        var index = this._baseArray.indexOf(obj);
-        if (index != -1) {
+        var index = this.findIndex(obj);
+        if (index != undefined) {
             this.removeAt(index);
         }
         else {
@@ -461,7 +503,7 @@ exports.List = List;
 Collection_1.Collection.prototype.toList = function () {
     return new List(this.toArray());
 };
-
+//# sourceMappingURL=List.js.map
 
 /***/ }),
 /* 5 */
@@ -491,16 +533,16 @@ var Queryable = (function (_super) {
     }
     Queryable.prototype.all = function (comparer) {
         var output = true;
-        output = this._baseArray.every(function (element) { return comparer.call(element); });
+        output = this._baseArray.every(function (element) { return comparer(element); });
         return output;
     };
     Queryable.prototype.any = function (comparer) {
         var output = false;
         if (!Array.prototype.some) {
-            output = !this.all(function (element) { return !comparer.call(element); });
+            output = !this.all(function (element) { return !comparer(element); });
         }
         else {
-            output = this._baseArray.some(function (element) { return comparer.call(element); });
+            output = this._baseArray.some(function (element) { return comparer(element); });
         }
         return output;
     };
@@ -515,19 +557,31 @@ var Queryable = (function (_super) {
             keys[_i] = arguments[_i];
         }
         var hash;
-        var temp = {};
         var hashIt = Utilities_1.Utilities.getHash;
-        if (keys.length > 0) {
-            hashIt = function (item) { return Utilities_1.Utilities.getHash(selectByArrayOfKeys(item, keys)); };
-        }
-        return this.where(function (item) {
-            hash = hashIt(item);
-            if (!temp[hash]) {
-                temp[hash] = true;
-                return true;
+        if (keys !== undefined && keys.length > 0) {
+            var temp_1 = {};
+            if (keys.length > 0) {
+                hashIt = function (item) { return Utilities_1.Utilities.getHash(selectByArrayOfKeys(item, keys)); };
             }
-            return false;
-        });
+            return this.where(function (item) {
+                hash = hashIt(item);
+                if (!temp_1[hash]) {
+                    temp_1[hash] = true;
+                    return true;
+                }
+                return false;
+            });
+        }
+        else {
+            var set = [];
+            for (var i = 0; i < this._baseArray.length; i++) {
+                if (set.indexOf(this._baseArray[i]) === -1) {
+                    set.push(this._baseArray[i]);
+                }
+            }
+            return new Queryable(set);
+        }
+        //throw new NotSupportedException("Only keyed objects, numbers and strings are supported");
     };
     Queryable.prototype.first = function () {
         if (this._baseArray.length > 0) {
@@ -552,8 +606,10 @@ var Queryable = (function (_super) {
         uniqueSet = uniqueSet.orderBy(keys);
         return uniqueSet;
     };
-    Queryable.prototype.ofType = function (type) {
-        return this.asQueryable().where(function (item) { return item instanceof type; }).select(function (item) { return item; });
+    Queryable.prototype.ofType = function (ctor) {
+        return this
+            .where(function (item) { return item instanceof ctor; })
+            .select(function (item) { return item; });
     };
     // Orders the set by specified keys where the first orderby 
     // param is first preference. the key can be a method name 
@@ -717,7 +773,7 @@ Collection_1.Collection.prototype.asQueryable = function () {
 Collection_1.Collection.prototype.ofType = function (type) {
     return this.asQueryable().where(function (item) { return item instanceof type; }).select(function (item) { return item; });
 };
-
+//# sourceMappingURL=Queryable.js.map
 
 /***/ }),
 /* 6 */
@@ -748,4 +804,4 @@ var Collections;
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=index.dev.js.map
+//# sourceMappingURL=index.debug.js.map

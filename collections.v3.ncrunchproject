@@ -1,0 +1,7 @@
+﻿<ProjectConfiguration>
+  <Settings>
+    <AdditionalFilesToIncludeForProject>
+      <Value>bin\**.*</Value>
+    </AdditionalFilesToIncludeForProject>
+  </Settings>
+</ProjectConfiguration>

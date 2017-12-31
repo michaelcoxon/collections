@@ -1,6 +1,7 @@
 ﻿import { InvalidTypeException, ArgumentException } from './Exceptions';
 import { Utilities } from './Utilities';
 import { Collection, CollectionOrArray } from './Collection';
+import { IComparer, DefaultComparer } from "./Comparer";
 
 
 export class List<T> extends Collection<T>
@@ -12,17 +13,7 @@ export class List<T> extends Collection<T>
 
     public addRange(collectionOrArray: CollectionOrArray<T>): void
     {
-        let array: T[]; // set default if undefined
-
-        // convert to array if collection
-        if (collectionOrArray instanceof Collection)
-        {
-            array = collectionOrArray.toArray();
-        }
-        else
-        {
-            array = collectionOrArray as T[];
-        }
+        let array = Collection.collectionOrArrayToArray(collectionOrArray);
 
         // make sure we have items
         if (array.length > 0)
@@ -52,24 +43,73 @@ export class List<T> extends Collection<T>
         return ret;
     }
 
-    public find(obj: T, isEquivilent?: boolean): T | undefined
+    public find(obj: T, isEquivilent: boolean = false): T | undefined
     {
-        for (let item of this._baseArray)
+        if (isEquivilent)
         {
-            var found = false;
-
-            if (isEquivilent || false)
+            for (let item of this._baseArray)
             {
-                found = Utilities.equals(item, obj);
+                var found = false;
+
+                if (isEquivilent)
+                {
+                    found = Utilities.equals(item, obj);
+                }
+                if (found)
+                {
+                    return item;
+                }
+            }
+        }
+        else
+        {
+            let index = this.findIndex(obj);
+            if (index !== undefined)
+            {
+                return this.item(index);
             }
             else
             {
-                found = item == obj;
+                return undefined;
             }
-            if (found)
+        }
+    }
+
+    public findIndex(obj: T, isEquivilent: boolean = false): number | undefined
+    {
+        if (isEquivilent)
+        {
+            let index: number | undefined = undefined;
+
+            this.forEach((item, i) =>
             {
-                return item;
+                let found = false;
+
+                if (isEquivilent)
+                {
+                    found = Utilities.equals(item, obj);
+                }
+                else
+                {
+                    found = item == obj;
+                }
+                if (found)
+                {
+                    index = i;
+                    return false;
+                }
+            });
+
+            return index;
+        }
+        else
+        {
+            let index = this._baseArray.indexOf(obj);
+            if (index == -1)
+            {
+                return undefined;
             }
+            return index;
         }
     }
 
@@ -78,11 +118,23 @@ export class List<T> extends Collection<T>
         this._baseArray.splice(index, 0, obj);
     }
 
+    public prepend(obj: T): void
+    {
+        this.insertAt(obj, 0);
+    }
+
+    public prependRange(collectionOrArray: CollectionOrArray<T>): void
+    {
+        let array = Collection.collectionOrArrayToArray(collectionOrArray);
+
+        this._baseArray.splice(0, 0, ...array);
+    }
+
     public remove(obj: T): void
     {
-        let index = this._baseArray.indexOf(obj);
+        let index = this.findIndex(obj);
 
-        if (index != -1)
+        if (index != undefined)
         {
             this.removeAt(index);
         }
@@ -92,34 +144,14 @@ export class List<T> extends Collection<T>
         }
     }
 
-
     public removeAt(index: number): void
     {
         this._baseArray.splice(index, 1);
     }
 
-    public sort(sortCondition?: (a: T, b: T) => number): void
+    public sort(comparer: IComparer<T> = new DefaultComparer<T>()): void
     {
-        if (!sortCondition)
-        {
-            sortCondition = function (a, b)
-            {
-                if (a.toString() > b.toString())
-                {
-                    return 1;
-                }
-
-                if (a.toString() < b.toString())
-                {
-                    return -1;
-                }
-
-                // a must be equal to b
-                return 0;
-            };
-        }
-
-        this._baseArray.sort(sortCondition);
+        this._baseArray.sort((a, b) => comparer.compare(a, b));
     }
 }
 

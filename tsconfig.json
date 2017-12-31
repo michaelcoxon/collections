@@ -12,11 +12,12 @@
     "lib": [ "dom", "es6", "es2015" ],
     "target": "es5",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "pretty": true
   },
-  "compileOnSave": false,
+
+  "compileOnSave": true,
   "exclude": [
-    "node_modules",
-    "tests"
+    "node_modules"
   ]
 }

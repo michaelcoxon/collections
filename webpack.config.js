@@ -13,7 +13,7 @@ module.exports = () =>
         resolve: { extensions: ['.js', '.ts'] },
         output: {
             path: path.join(__dirname, bundleOutputDir),
-            filename: `[name]${isDevBuild ? ".dev" : ""}.js`,
+            filename: `[name]${isDevBuild ? ".debug" : ""}.js`,
             publicPath: 'dist/'
         },
         module: {

@@ -1,5 +1,5 @@
 ﻿import { Collection, CollectionOrArray } from './Collection';
-import { UndefinedArgumentException } from "./Exceptions";
+import { InvalidTypeException, OutOfBoundsException } from "./Exceptions";
 
 export class Enumerator<T>
 {
@@ -11,23 +11,18 @@ export class Enumerator<T>
 
     constructor(collectionOrArray: CollectionOrArray<T>)
     {
-        if (collectionOrArray == undefined)
-        {
-            throw new UndefinedArgumentException("collectionOrArray");
-        }
-
         if (Array.isArray(collectionOrArray))
         {
             // copy the array into this
-            this._baseArray = collectionOrArray;
-
-        } else if (collectionOrArray instanceof Collection)
+            this._baseArray = [...collectionOrArray];
+        }
+        else if (collectionOrArray instanceof Collection)
         {
-            this._baseArray = collectionOrArray.toArray();
-
-        } else
+            this._baseArray = [...collectionOrArray.toArray()];
+        }
+        else
         {
-            throw new TypeError('Can only Enumerate arrays and Collections');
+            throw new InvalidTypeException('collectionOrArray', 'Collection or Array');
         }
     }
 
@@ -46,6 +41,10 @@ export class Enumerator<T>
     // returns the next element without moving the pointer forwards
     public peek(): T
     {
+        if (this._pointer >= this._baseArray.length)
+        {
+            throw new OutOfBoundsException("internal pointer", 0, this._baseArray.length - 1);
+        }
         return this._baseArray[this._pointer + 1];
     }
 

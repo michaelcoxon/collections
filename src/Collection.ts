@@ -1,4 +1,4 @@
-﻿import { InvalidTypeException } from './Exceptions';
+﻿import { InvalidTypeException, UndefinedArgumentException } from './Exceptions';
 
 export type CollectionOrArray<T> = T[] | Collection<T>;
 
@@ -14,18 +14,9 @@ export class Collection<T>
         {
             this._baseArray = [];
         }
-        else if (Array.isArray(collectionOrArray))
-        {
-            // copy the array into this
-            this._baseArray = collectionOrArray;
-        }
-        else if (collectionOrArray instanceof Collection)
-        {
-            this._baseArray = collectionOrArray.toArray();
-        }
         else
         {
-            throw new InvalidTypeException('collectionOrArray', 'Collection or Array');
+            this._baseArray = Collection.collectionOrArrayToArray(collectionOrArray);
         }
     }
 
@@ -65,5 +56,22 @@ export class Collection<T>
     public toArray(): T[]
     {
         return [...this._baseArray];
+    }
+
+    protected static collectionOrArrayToArray<T>(collectionOrArray: CollectionOrArray<T>): T[]
+    {
+        if (Array.isArray(collectionOrArray))
+        {
+            // copy the array into this
+            return [...collectionOrArray];
+        }
+        else if (collectionOrArray instanceof Collection)
+        {
+            return [...collectionOrArray.toArray()];
+        }
+        else
+        {
+            throw new InvalidTypeException('collectionOrArray', 'Collection or Array');
+        }
     }
 }
