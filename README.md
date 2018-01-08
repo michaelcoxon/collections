@@ -14,8 +14,8 @@ let myCollection = new Collection<number>(myArray);
 ```
 
 If the type can be determined by the compiler (as in the example above) it
-is not neccessary to explicitly define the type - it will just make the code
-more readable.
+is not neccessary to explicitly define the type - doing it will just make 
+the code more readable.
 
 All examples given in the documentation are JavaScript examples so that no-one 
 gets confused.
@@ -282,9 +282,10 @@ Inherits all methods from Collection.
 The Queryable class is mostly fluent by design and allows chaining of 
 *query-like* methods to filter or aggregate an array or collection.
 
-It has been modelled off of the .NET Fluent LINQ extension methods.
-
-It inherits from Collection.
+ - It has been modelled off of the .NET Fluent LINQ extension methods.
+ - It inherits from Collection.
+ - As with collections, queryables are immutable - **Every method returns 
+   a new Queryable if it returns a Queryable**
 
 ## Predicate type
 A Predicate is a delegate method that takes an item of the queryable as
