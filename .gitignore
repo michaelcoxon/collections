@@ -60,3 +60,6 @@ typings/
 # visual studio
 .vs
 *.v3.ncrunchsolution.user
+obj/
+bin/
+_NCrunch_collections/
