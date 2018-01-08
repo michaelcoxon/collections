@@ -59,6 +59,8 @@ typings/
 
 # visual studio
 .vs
+*.v3.ncrunchproject
+*.v3.ncrunchsolution
 *.v3.ncrunchsolution.user
 obj/
 bin/
