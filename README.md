@@ -279,7 +279,20 @@ Inherits all methods from Collection.
 
 
 # Queryable
+The Queryable class is mostly fluent by design and allows chaining of 
+*query-like* methods to filter or aggregate an array or collection.
+
+It has been modelled off of the .NET Fluent LINQ extension methods.
+
 It inherits from Collection.
+
+## Predicate type
+A Predicate is a delegate method that takes an item of the queryable as
+the argument, and returns a boolean value.
+
+This is used on the `all`, `any` and `where` methods of Queryable.
+
+`Predicate = (item: any) => boolean`
 
 ## Constructors
 You can create a new Queryable from either a current 
@@ -309,32 +322,50 @@ Inherits all properties from Collection.
 ## Methods
 Inherits all methods from Collection.
 
-### all(comparer: Predicate<T>): boolean
-### any(comparer: Predicate<T>): boolean
-### average<K extends keyof T>(propertyName: K): number
-### average(selector: (a: T) => number)
+### all(predicate: Predicate): boolean
+### any(): boolean
+> Returns `true` if the Queryable contains elements
+
+```js
+if(myQueryable.any())
+{
+  // do something because the queryable has elements
+}
+```
+### any(predicate: Predicate): boolean
+> Returns `true` if any of the elements satisfy the predicate.
+
+```js
+let myQueryable = new Queryable([1, 2, 3, 4]);
+if(myQueryable.any((i) => i == 2))
+{
+  // the queryable contains a '2'
+}
+```
+### average(propertyName: string): number
+### average(selector: (a: any) => number)
 ### clone(): Queryable
-### distinct<K extends keyof T>(propertyName: K): Queryable
-### distinct<R>(selector: (a: T) => R): Queryable
-### first(): T
-### firstOrDefault(): T | null
-### groupBy<K extends keyof T>(propertyName: K): Queryable
-### groupBy<TKey>(keySelector: (a: T) => TKey): Queryable
-### max<K extends keyof T>(propertyName: K): number
-### max(selector: (a: T) => number): number
-### min<K extends keyof T>(propertyName: K): number
-### min(selector: (a: T) => number): number
-### ofType<N extends T>(ctor: Utilities.ConstructorFor<N>): Queryable
-### orderBy<K extends keyof T>(propertyName: K, comparer?: IComparer<T[K]>): Queryable
-### orderBy<R>(selector: (a: T) => R, comparer?: IComparer<R>): Queryable
-### orderByDescending<K extends keyof T>(propertyName: K, comparer?: IComparer<T[K]>): Queryable
-### orderByDescending<R>(selector: (a: T) => R, comparer?: IComparer<R>): Queryable
+### distinct(propertyName: string): Queryable
+### distinct(selector: (a: any) => any): Queryable
+### first(): any
+### firstOrDefault(): any | null
+### groupBy(propertyName: string): Queryable
+### groupBy(keySelector: (a: any) => any): Queryable
+### max(propertyName: string): number
+### max(selector: (a: any) => number): number
+### min(propertyName: string): number
+### min(selector: (a: any) => number): number
+### ofType(ctor: Constructor): Queryable
+### orderBy(propertyName: K, comparer?: IComparer): Queryable
+### orderBy(selector: (a: T) => R, comparer?: IComparer): Queryable
+### orderByDescending(propertyName: K, comparer?: IComparer): Queryable
+### orderByDescending(selector: (a: any) => any, comparer?: IComparer): Queryable
 ### skip(count: number): Queryable
-### select<K extends keyof T>(propertyName: K): Queryable
-### select<TOut>(selector: (a: T) => TOut): Queryable
-### sum<K extends keyof T>(propertyName: K): number
-### sum(selector: (a: T) => number): number
+### select(propertyName: string): Queryable
+### select(selector: (a: any) => any): Queryable
+### sum(propertyName: string): number
+### sum(selector: (a: any) => number): number
 ### take(count: number): Queryable
-### where(comparer: Predicate<T>): Queryable
+### where(predicate: Predicate): Queryable
 
 

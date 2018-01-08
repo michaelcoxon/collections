@@ -44,6 +44,16 @@ describe("All", function () {
     });
 });
 describe("Any", function () {
+    it("should return true if the queryable has items", function () {
+        var array = [1, 2, 3, 4];
+        var result = new Queryable_1.Queryable(array);
+        chai_1.expect(true).to.eq(result.any());
+    });
+    it("should return false if the queryable is empty", function () {
+        var array = [];
+        var result = new Queryable_1.Queryable(array);
+        chai_1.expect(false).to.eq(result.any());
+    });
     it("should return true if any of the items match the predicate", function () {
         var array = [1, 2, 3, 4];
         var result = new Queryable_1.Queryable(array);

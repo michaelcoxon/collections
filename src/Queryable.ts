@@ -9,29 +9,36 @@ export type Predicate<T> = (item: T) => boolean;
 // public class jExt.Collections.Queryable
 export class Queryable<T> extends Collection<T>
 {
-    public all(comparer: Predicate<T>): boolean
+    public all(predicate: Predicate<T>): boolean
     {
         var output = true;
 
-        output = this._baseArray.every((element) => comparer(element));
+        output = this._baseArray.every((element) => predicate(element));
 
         return output;
     }
 
-    public any(comparer: Predicate<T>): boolean
+    public any(predicate?: Predicate<T>): boolean
     {
-        var output = false;
-
-        if (!Array.prototype.some)
+        if (predicate !== undefined)
         {
-            output = !this.all((element) => !comparer(element));
+            var output = false;
+
+            if (!Array.prototype.some)
+            {
+                output = !this.all((element) => !predicate(element));
+            }
+            else
+            {
+                output = this._baseArray.some((element) => predicate(element));
+            }
+
+            return output;
         }
         else
         {
-            output = this._baseArray.some((element) => comparer(element));
+            return this._baseArray.length > 0;
         }
-
-        return output;
     }
 
     public average<K extends keyof T>(propertyName: K): number;
@@ -202,9 +209,9 @@ export class Queryable<T> extends Collection<T>
 
     // Returns the objects that evaluate true on the provided comparer function. 
     // USAGE: obj.Where(function() { return true; });
-    public where(comparer: Predicate<T>): Queryable<T>
+    public where(predicate: Predicate<T>): Queryable<T>
     {
-        return new Queryable<T>(this._baseArray.filter(comparer));
+        return new Queryable<T>(this._baseArray.filter(predicate));
     }
 
     private internalOrderBy<R>(selector: (a: T) => R, comparer: IComparer<R>): Queryable<T>

@@ -56,6 +56,22 @@ describe("All", () =>
 
 describe("Any", () =>
 {
+    it("should return true if the queryable has items", () =>
+    {
+        const array = [1, 2, 3, 4];
+        const result = new Queryable(array);
+
+        expect(true).to.eq(result.any());
+    });
+
+    it("should return false if the queryable is empty", () =>
+    {
+        const array = [];
+        const result = new Queryable(array);
+
+        expect(false).to.eq(result.any());
+    });
+
     it("should return true if any of the items match the predicate", () =>
     {
         const array = [1, 2, 3, 4];

@@ -20,20 +20,25 @@ var Queryable = (function (_super) {
     function Queryable() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Queryable.prototype.all = function (comparer) {
+    Queryable.prototype.all = function (predicate) {
         var output = true;
-        output = this._baseArray.every(function (element) { return comparer(element); });
+        output = this._baseArray.every(function (element) { return predicate(element); });
         return output;
     };
-    Queryable.prototype.any = function (comparer) {
-        var output = false;
-        if (!Array.prototype.some) {
-            output = !this.all(function (element) { return !comparer(element); });
+    Queryable.prototype.any = function (predicate) {
+        if (predicate !== undefined) {
+            var output = false;
+            if (!Array.prototype.some) {
+                output = !this.all(function (element) { return !predicate(element); });
+            }
+            else {
+                output = this._baseArray.some(function (element) { return predicate(element); });
+            }
+            return output;
         }
         else {
-            output = this._baseArray.some(function (element) { return comparer(element); });
+            return this._baseArray.length > 0;
         }
-        return output;
     };
     Queryable.prototype.average = function (propertyNameOrSelector) {
         var selector = this.createSelector(propertyNameOrSelector);
@@ -125,8 +130,8 @@ var Queryable = (function (_super) {
     };
     // Returns the objects that evaluate true on the provided comparer function. 
     // USAGE: obj.Where(function() { return true; });
-    Queryable.prototype.where = function (comparer) {
-        return new Queryable(this._baseArray.filter(comparer));
+    Queryable.prototype.where = function (predicate) {
+        return new Queryable(this._baseArray.filter(predicate));
     };
     Queryable.prototype.internalOrderBy = function (selector, comparer) {
         var mapComparer = new Comparer_1.MapComparer(comparer, selector);
