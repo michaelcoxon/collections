@@ -1,5 +1,5 @@
 {
-  "name": "collections",
+  "name": "@michaelcoxon/collections",
   "version": "1.0.0",
   "description": "Collections for JS and TypeScript",
   "main": "dist/index.js",
