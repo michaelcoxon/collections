@@ -11,6 +11,8 @@ export class List<T> extends Collection<T>
         this._baseArray.push(obj);
     }
 
+    public addRange(array: T[]): void;
+    public addRange(collection: Collection<T>): void;
     public addRange(collectionOrArray: CollectionOrArray<T>): void
     {
         let array = Collection.collectionOrArrayToArray(collectionOrArray);
@@ -31,7 +33,7 @@ export class List<T> extends Collection<T>
         this._baseArray.length = 0;
     }
 
-    public contains(obj: T, isEquivilent?: boolean)
+    public contains(obj: T, isEquivilent?: boolean): boolean
     {
         let ret = false;
 
@@ -123,6 +125,8 @@ export class List<T> extends Collection<T>
         this.insertAt(obj, 0);
     }
 
+    public prependRange(array: T[]): void;
+    public prependRange(collection: Collection<T>): void;
     public prependRange(collectionOrArray: CollectionOrArray<T>): void
     {
         let array = Collection.collectionOrArrayToArray(collectionOrArray);

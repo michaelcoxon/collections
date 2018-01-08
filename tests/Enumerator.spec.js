@@ -58,7 +58,7 @@ describe("Move to the next item in an enumerator", function () {
         chai_1.expect(false).to.eq(en.moveNext());
     });
 });
-describe("Move to the next item in an enumerator", function () {
+describe("Peek at the next item in an enumerator", function () {
     it("should return the next item in the enumerator without advancing", function () {
         var array = [1, 2, 3, 4];
         var coll = new Collection_1.Collection(array);

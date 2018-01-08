@@ -20,25 +20,33 @@ var Enumerator = (function () {
     Object.defineProperty(Enumerator.prototype, "current", {
         // returns the current element
         get: function () {
+            if (this._pointer >= this._baseArray.length || this._pointer < 0) {
+                this.throwOutOfBoundsException();
+            }
             return this._baseArray[this._pointer];
         },
         enumerable: true,
         configurable: true
     });
     Enumerator.prototype.moveNext = function () {
-        this._pointer++;
+        if (this._pointer < this._baseArray.length) {
+            this._pointer++;
+        }
         return this._pointer < this._baseArray.length;
     };
     // returns the next element without moving the pointer forwards
     Enumerator.prototype.peek = function () {
-        if (this._pointer >= this._baseArray.length) {
-            throw new Exceptions_1.OutOfBoundsException("internal pointer", 0, this._baseArray.length - 1);
+        if (this._pointer + 1 >= this._baseArray.length) {
+            this.throwOutOfBoundsException();
         }
         return this._baseArray[this._pointer + 1];
     };
     // reset the pointer to the start
     Enumerator.prototype.reset = function () {
         this._pointer = -1;
+    };
+    Enumerator.prototype.throwOutOfBoundsException = function () {
+        throw new Exceptions_1.OutOfBoundsException("internal pointer", 0, this._baseArray.length - 1);
     };
     return Enumerator;
 }());

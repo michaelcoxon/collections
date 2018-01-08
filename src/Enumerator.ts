@@ -29,21 +29,28 @@ export class Enumerator<T>
     // returns the current element
     public get current(): T
     {
+        if (this._pointer >= this._baseArray.length || this._pointer < 0)
+        {
+            this.throwOutOfBoundsException();
+        }
         return this._baseArray[this._pointer];
     }
 
     public moveNext(): boolean
     {
-        this._pointer++;
-        return this._pointer < this._baseArray.length;
+        if (this._pointer < this._baseArray.length)
+        {
+            this._pointer++;
+        }
+        return this._pointer < this._baseArray.length
     }
 
     // returns the next element without moving the pointer forwards
     public peek(): T
     {
-        if (this._pointer >= this._baseArray.length)
+        if (this._pointer + 1 >= this._baseArray.length)
         {
-            throw new OutOfBoundsException("internal pointer", 0, this._baseArray.length - 1);
+            this.throwOutOfBoundsException();
         }
         return this._baseArray[this._pointer + 1];
     }
@@ -52,6 +59,11 @@ export class Enumerator<T>
     public reset(): void
     {
         this._pointer = -1;
+    }
+
+    private throwOutOfBoundsException(): void
+    {
+        throw new OutOfBoundsException("internal pointer", 0, this._baseArray.length - 1);
     }
 }
 

@@ -85,7 +85,7 @@ describe("Move to the next item in an enumerator", () =>
     });
 });
 
-describe("Move to the next item in an enumerator", () =>
+describe("Peek at the next item in an enumerator", () =>
 {
     it("should return the next item in the enumerator without advancing", () =>
     {
