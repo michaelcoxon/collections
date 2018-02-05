@@ -15,7 +15,7 @@
     "emitDecoratorMetadata": true,
     "pretty": true
   },
-
+  
   "compileOnSave": true,
   "exclude": [
     "node_modules"

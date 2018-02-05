@@ -746,9 +746,12 @@ var Queryable = (function (_super) {
         }
         throw new Error("The collection is empty!");
     };
-    Queryable.prototype.firstOrDefault = function () {
-        if (this._baseArray.length > 0) {
-            return this._baseArray[0];
+    Queryable.prototype.firstOrDefault = function (predicate) {
+        var set = predicate !== undefined
+            ? this.where(predicate)
+            : this;
+        if (set._baseArray.length > 0) {
+            return set._baseArray[0];
         }
         return null;
     };
@@ -758,15 +761,21 @@ var Queryable = (function (_super) {
         var keySet = this.select(keySelector).distinct(function (k) { return k; });
         return keySet.select(function (key) { return new GroupedQueryable(_this, key, keySelector); });
     };
-    Queryable.prototype.last = function () {
-        if (this._baseArray.length > 0) {
-            return this._baseArray[this._baseArray.length - 1];
+    Queryable.prototype.last = function (predicate) {
+        var set = predicate !== undefined
+            ? this.where(predicate)
+            : this;
+        if (set._baseArray.length > 0) {
+            return set._baseArray[set._baseArray.length - 1];
         }
         throw new Error("The collection is empty!");
     };
-    Queryable.prototype.lastOrDefault = function () {
-        if (this._baseArray.length > 0) {
-            return this._baseArray[this._baseArray.length - 1];
+    Queryable.prototype.lastOrDefault = function (predicate) {
+        var set = predicate !== undefined
+            ? this.where(predicate)
+            : this;
+        if (set._baseArray.length > 0) {
+            return set._baseArray[set._baseArray.length - 1];
         }
         return null;
     };
@@ -855,6 +864,7 @@ var GroupedQueryable = (function () {
     });
     return GroupedQueryable;
 }());
+exports.GroupedQueryable = GroupedQueryable;
 Collection_1.Collection.prototype.asQueryable = function () {
     return new Queryable(this);
 };

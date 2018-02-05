@@ -280,7 +280,7 @@ export class Queryable<T> extends Collection<T>
     }
 }
 
-class GroupedQueryable<T, TKey>
+export class GroupedQueryable<T, TKey>
 {
     private readonly _parentQueryable: Queryable<T>;
     private readonly _key: TKey;
@@ -309,42 +309,7 @@ class GroupedQueryable<T, TKey>
     }
 }
 
-// USAGE: SelectByArrayOfKeys(obj, ['key1','key2','key3']);
-/*
-function selectByArrayOfKeys<T, Tout extends Partial<T> | { [key: string]: any }>(obj: T, keys: string[]): Tout
-{
-    var output: any = {};
-
-    for (let item of keys)
-    {
-        let as = item.split(" as ");
-        let key: keyof T;
-        let newKey: string;
-
-        if (as.length > 1)
-        {
-            key = <keyof T>as[0];
-            newKey = as[1];
-        }
-        else
-        {
-            key = <keyof T>item;
-            newKey = item;
-        }
-
-        if (obj[key] !== undefined)
-        {
-            output[newKey] = obj[key];
-        }
-        else
-        {
-            throw new Error("Key '" + key + "' does not exist.");
-        }
-    }
-
-    return output;
-}
-*/
+// extensions
 
 declare module "./Collection" {
     interface Collection<T>

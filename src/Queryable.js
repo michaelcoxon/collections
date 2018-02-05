@@ -198,6 +198,7 @@ var GroupedQueryable = (function () {
     });
     return GroupedQueryable;
 }());
+exports.GroupedQueryable = GroupedQueryable;
 Collection_1.Collection.prototype.asQueryable = function () {
     return new Queryable(this);
 };

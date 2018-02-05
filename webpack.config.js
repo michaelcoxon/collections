@@ -6,7 +6,8 @@ const bundleOutputDir = './dist';
 
 module.exports = () =>
 {
-    const isDevBuild = !(process.env.NODE_ENV && process.env.NODE_ENV === 'production');
+    const env = process.env.NODE_ENV.trim();
+    const isDevBuild = !(env && env === 'production');
 
     return [{
         entry: { 'index': "./src/index.ts" },
