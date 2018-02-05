@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -312,6 +312,162 @@ var Utilities;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var Utilities_1 = __webpack_require__(2);
+var Exceptions_1 = __webpack_require__(1);
+var DefaultComparer = (function () {
+    function DefaultComparer() {
+    }
+    DefaultComparer.prototype.compare = function (x, y) {
+        if (typeof x == 'string' && typeof y == 'string') {
+            return _stringComparer.compare(x, y);
+        }
+        else if (typeof x == 'number' && typeof y == 'number') {
+            return _numberComparer.compare(x, y);
+        }
+        else {
+            return _objectComparer.compare(x, y);
+        }
+    };
+    DefaultComparer.prototype.equals = function (x, y) {
+        if (typeof x == 'string' && typeof y == 'string') {
+            return _stringComparer.equals(x, y);
+        }
+        else if (typeof x == 'number' && typeof y == 'number') {
+            return _numberComparer.equals(x, y);
+        }
+        else {
+            return _objectComparer.equals(x, y);
+        }
+    };
+    return DefaultComparer;
+}());
+exports.DefaultComparer = DefaultComparer;
+var DefaultStringComparer = (function () {
+    function DefaultStringComparer() {
+    }
+    DefaultStringComparer.prototype.compare = function (x, y) {
+        if (x < y) {
+            return -1;
+        }
+        if (x > y) {
+            return 1;
+        }
+        return 0;
+    };
+    DefaultStringComparer.prototype.equals = function (x, y) {
+        return x === y;
+    };
+    return DefaultStringComparer;
+}());
+exports.DefaultStringComparer = DefaultStringComparer;
+var DefaultNumberComparer = (function () {
+    function DefaultNumberComparer() {
+    }
+    DefaultNumberComparer.prototype.compare = function (x, y) {
+        return x - y;
+    };
+    DefaultNumberComparer.prototype.equals = function (x, y) {
+        return x === y;
+    };
+    return DefaultNumberComparer;
+}());
+exports.DefaultNumberComparer = DefaultNumberComparer;
+var DefaultObjectComparer = (function () {
+    function DefaultObjectComparer() {
+    }
+    DefaultObjectComparer.prototype.compare = function (x, y) {
+        if (x.toString() !== {}.toString() && y.toString() !== {}.toString()) {
+            return _stringComparer.compare(x.toString(), y.toString());
+        }
+        else {
+            return _stringComparer.compare(Utilities_1.Utilities.getHash(x), Utilities_1.Utilities.getHash(y));
+        }
+    };
+    DefaultObjectComparer.prototype.equals = function (x, y) {
+        return Utilities_1.Utilities.equals(x, y, true);
+    };
+    return DefaultObjectComparer;
+}());
+exports.DefaultObjectComparer = DefaultObjectComparer;
+var ReverseComparer = (function () {
+    function ReverseComparer(comparer) {
+        this._comparer = comparer;
+    }
+    ReverseComparer.prototype.compare = function (x, y) {
+        return this._comparer.compare(y, x);
+    };
+    ReverseComparer.prototype.equals = function (x, y) {
+        return this._comparer.equals(y, x);
+    };
+    return ReverseComparer;
+}());
+exports.ReverseComparer = ReverseComparer;
+var CustomComparer = (function () {
+    function CustomComparer(comparer, equalityComparer) {
+        this._comparer = comparer;
+        this._equalityComparer = equalityComparer;
+    }
+    CustomComparer.prototype.compare = function (x, y) {
+        if (this._comparer) {
+            return this._comparer(x, y);
+        }
+        else {
+            throw new Exceptions_1.UndefinedArgumentException("The comparer");
+        }
+    };
+    CustomComparer.prototype.equals = function (x, y) {
+        if (this._equalityComparer) {
+            return this._equalityComparer(x, y);
+        }
+        else {
+            throw new Exceptions_1.UndefinedArgumentException("The equality comparer");
+        }
+    };
+    return CustomComparer;
+}());
+exports.CustomComparer = CustomComparer;
+var MapComparer = (function () {
+    function MapComparer(comparer, selector, resolveFunctions) {
+        if (resolveFunctions === void 0) { resolveFunctions = true; }
+        this._comparer = comparer;
+        this._selector = selector;
+        this._resolveFunctions = resolveFunctions;
+    }
+    MapComparer.prototype.compare = function (x, y) {
+        var x_value = this._selector(x);
+        var y_value = this._selector(y);
+        if (this._resolveFunctions && typeof x_value === 'function' && typeof y_value === 'function') {
+            return this._comparer.compare(x_value(), y_value());
+        }
+        else {
+            return this._comparer.compare(x_value, y_value);
+        }
+    };
+    MapComparer.prototype.equals = function (x, y) {
+        var x_value = this._selector(x);
+        var y_value = this._selector(y);
+        if (this._resolveFunctions && typeof x_value === 'function' && typeof y_value === 'function') {
+            return this._comparer.equals(x_value(), y_value());
+        }
+        else {
+            return this._comparer.equals(x_value, y_value);
+        }
+    };
+    return MapComparer;
+}());
+exports.MapComparer = MapComparer;
+var _stringComparer = new DefaultStringComparer();
+var _numberComparer = new DefaultNumberComparer();
+var _objectComparer = new DefaultObjectComparer();
+//# sourceMappingURL=Comparer.js.map
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 var Collection_1 = __webpack_require__(0);
 var Exceptions_1 = __webpack_require__(1);
 var Enumerator = (function () {
@@ -332,25 +488,33 @@ var Enumerator = (function () {
     Object.defineProperty(Enumerator.prototype, "current", {
         // returns the current element
         get: function () {
+            if (this._pointer >= this._baseArray.length || this._pointer < 0) {
+                this.throwOutOfBoundsException();
+            }
             return this._baseArray[this._pointer];
         },
         enumerable: true,
         configurable: true
     });
     Enumerator.prototype.moveNext = function () {
-        this._pointer++;
+        if (this._pointer < this._baseArray.length) {
+            this._pointer++;
+        }
         return this._pointer < this._baseArray.length;
     };
     // returns the next element without moving the pointer forwards
     Enumerator.prototype.peek = function () {
-        if (this._pointer >= this._baseArray.length) {
-            throw new Exceptions_1.OutOfBoundsException("internal pointer", 0, this._baseArray.length - 1);
+        if (this._pointer + 1 >= this._baseArray.length) {
+            this.throwOutOfBoundsException();
         }
         return this._baseArray[this._pointer + 1];
     };
     // reset the pointer to the start
     Enumerator.prototype.reset = function () {
         this._pointer = -1;
+    };
+    Enumerator.prototype.throwOutOfBoundsException = function () {
+        throw new Exceptions_1.OutOfBoundsException("internal pointer", 0, this._baseArray.length - 1);
     };
     return Enumerator;
 }());
@@ -361,7 +525,7 @@ Collection_1.Collection.prototype.getEnumerator = function () {
 //# sourceMappingURL=Enumerator.js.map
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -380,6 +544,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Exceptions_1 = __webpack_require__(1);
 var Utilities_1 = __webpack_require__(2);
 var Collection_1 = __webpack_require__(0);
+var Comparer_1 = __webpack_require__(3);
 var List = (function (_super) {
     __extends(List, _super);
     function List() {
@@ -482,20 +647,9 @@ var List = (function (_super) {
     List.prototype.removeAt = function (index) {
         this._baseArray.splice(index, 1);
     };
-    List.prototype.sort = function (sortCondition) {
-        if (!sortCondition) {
-            sortCondition = function (a, b) {
-                if (a.toString() > b.toString()) {
-                    return 1;
-                }
-                if (a.toString() < b.toString()) {
-                    return -1;
-                }
-                // a must be equal to b
-                return 0;
-            };
-        }
-        this._baseArray.sort(sortCondition);
+    List.prototype.sort = function (comparer) {
+        if (comparer === void 0) { comparer = new Comparer_1.DefaultComparer(); }
+        this._baseArray.sort(function (a, b) { return comparer.compare(a, b); });
     };
     return List;
 }(Collection_1.Collection));
@@ -506,7 +660,7 @@ Collection_1.Collection.prototype.toList = function () {
 //# sourceMappingURL=List.js.map
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -525,63 +679,63 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // private helper functions
 var Collection_1 = __webpack_require__(0);
 var Utilities_1 = __webpack_require__(2);
+var Comparer_1 = __webpack_require__(3);
 // public class jExt.Collections.Queryable
 var Queryable = (function (_super) {
     __extends(Queryable, _super);
     function Queryable() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Queryable.prototype.all = function (comparer) {
+    Queryable.prototype.all = function (predicate) {
         var output = true;
-        output = this._baseArray.every(function (element) { return comparer(element); });
+        output = this._baseArray.every(function (element) { return predicate(element); });
         return output;
     };
-    Queryable.prototype.any = function (comparer) {
-        var output = false;
-        if (!Array.prototype.some) {
-            output = !this.all(function (element) { return !comparer(element); });
+    Queryable.prototype.any = function (predicate) {
+        if (predicate !== undefined) {
+            var output = false;
+            if (!Array.prototype.some) {
+                output = !this.all(function (element) { return !predicate(element); });
+            }
+            else {
+                output = this._baseArray.some(function (element) { return predicate(element); });
+            }
+            return output;
         }
         else {
-            output = this._baseArray.some(function (element) { return comparer(element); });
+            return this._baseArray.length > 0;
         }
-        return output;
+    };
+    Queryable.prototype.average = function (propertyNameOrSelector) {
+        var selector = this.createSelector(propertyNameOrSelector);
+        var sum = this.sum(function (item) { return selector(item); });
+        return sum / this.count;
     };
     // Clones the Queryable object
     Queryable.prototype.clone = function () {
         return new Queryable(_super.prototype.clone.call(this));
     };
-    // USAGE: obj.Distinct(); or obj.Distinct(['key1'],['key2']);
-    Queryable.prototype.distinct = function () {
-        var keys = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            keys[_i] = arguments[_i];
+    Queryable.prototype.distinct = function (propertyNameOrSelector) {
+        if (this._baseArray.length === 0) {
+            return this.asQueryable();
         }
-        var hash;
-        var hashIt = Utilities_1.Utilities.getHash;
-        if (keys !== undefined && keys.length > 0) {
-            var temp_1 = {};
-            if (keys.length > 0) {
-                hashIt = function (item) { return Utilities_1.Utilities.getHash(selectByArrayOfKeys(item, keys)); };
+        var selector = this.createSelector(propertyNameOrSelector);
+        var temp = {};
+        return this.where(function (item) {
+            var value = selector(item);
+            var s_value;
+            if (value instanceof Object) {
+                s_value = Utilities_1.Utilities.getHash(value);
             }
-            return this.where(function (item) {
-                hash = hashIt(item);
-                if (!temp_1[hash]) {
-                    temp_1[hash] = true;
-                    return true;
-                }
-                return false;
-            });
-        }
-        else {
-            var set = [];
-            for (var i = 0; i < this._baseArray.length; i++) {
-                if (set.indexOf(this._baseArray[i]) === -1) {
-                    set.push(this._baseArray[i]);
-                }
+            else {
+                s_value = "" + value;
             }
-            return new Queryable(set);
-        }
-        //throw new NotSupportedException("Only keyed objects, numbers and strings are supported");
+            if (!temp[s_value]) {
+                temp[s_value] = true;
+                return true;
+            }
+            return false;
+        });
     };
     Queryable.prototype.first = function () {
         if (this._baseArray.length > 0) {
@@ -595,92 +749,45 @@ var Queryable = (function (_super) {
         }
         return null;
     };
-    Queryable.prototype.groupBy = function (keys) {
-        if (!Array.isArray(keys)) {
-            return this.groupBy([keys]);
-        }
-        var pub = this;
-        var uniqueSet = this
-            .select(function (item) { return new GroupedQueryable(pub, selectByArrayOfKeys(item, keys)); })
-            .distinct("key"); // distinct by the key
-        uniqueSet = uniqueSet.orderBy(keys);
-        return uniqueSet;
+    Queryable.prototype.groupBy = function (propertyNameOrKeySelector) {
+        var _this = this;
+        var keySelector = this.createSelector(propertyNameOrKeySelector);
+        var keySet = this.select(keySelector).distinct(function (k) { return k; });
+        return keySet.select(function (key) { return new GroupedQueryable(_this, key, keySelector); });
+    };
+    Queryable.prototype.max = function (propertyNameOrSelector) {
+        var selector = this.createSelector(propertyNameOrSelector);
+        var values = this.select(function (item) { return selector(item); }).toArray();
+        return Math.max.apply(Math, values);
+    };
+    Queryable.prototype.min = function (propertyNameOrSelector) {
+        var selector = this.createSelector(propertyNameOrSelector);
+        var values = this.select(function (item) { return selector(item); }).toArray();
+        return Math.min.apply(Math, values);
     };
     Queryable.prototype.ofType = function (ctor) {
         return this
             .where(function (item) { return item instanceof ctor; })
             .select(function (item) { return item; });
     };
-    // Orders the set by specified keys where the first orderby 
-    // param is first preference. the key can be a method name 
-    // without parenthesis.
-    // USAGE: obj.OrderBy(['key1 DESC','key2','key3 ASC']);
-    //        obj.OrderBy('key1 DESC');
-    //        obj.OrderBy(function (a,b) {});
-    Queryable.prototype.orderBy = function (args) {
-        if (this._baseArray.length > 0) {
-            if (typeof args == 'string') {
-                return this.orderBy([args]);
-            }
-            if (Array.isArray(args)) {
-                var o = args.length - 1;
-                var _loop_1 = function () {
-                    if (typeof args[o] != 'string') {
-                        throw new Error("Each key must be a string.");
-                    }
-                    var sortby = args[o].split(' ');
-                    var key = sortby[0];
-                    var direction = sortby[1] !== undefined ? sortby[1].toUpperCase() : 'ASC';
-                    var directionModifier = 1;
-                    if (direction == 'DESC') {
-                        directionModifier = -1;
-                    }
-                    return { value: new Queryable(this_1.toArray().sort(function (a, b) {
-                            if (typeof a[key] === 'function') {
-                                return compare(a[key](), b[key]()) * directionModifier;
-                            }
-                            else {
-                                return compare(a[key], b[key]) * directionModifier;
-                            }
-                        })) };
-                };
-                var this_1 = this;
-                for (o; o != -1; o--) {
-                    var state_1 = _loop_1();
-                    if (typeof state_1 === "object")
-                        return state_1.value;
-                }
-            }
-            if (typeof args == 'function') {
-                return new Queryable(this.toArray().sort(args));
-            }
-            throw new Error("OrderBy type not supported.");
-        }
-        return new Queryable(this.toArray());
+    Queryable.prototype.orderBy = function (propertyNameOrSelector, comparer) {
+        return this.internalOrderBy(this.createSelector(propertyNameOrSelector), comparer || new Comparer_1.DefaultComparer());
+    };
+    Queryable.prototype.orderByDescending = function (propertyNameOrSelector, comparer) {
+        return this.internalOrderBy(this.createSelector(propertyNameOrSelector), new Comparer_1.ReverseComparer(comparer || new Comparer_1.DefaultComparer()));
     };
     Queryable.prototype.skip = function (count) {
         var array = this.toArray();
         array.splice(0, count);
         return new Queryable(array);
     };
-    // USAGE: obj.Select(['key1','key2','key3']); USAGE: obj.Select('key1');
-    Queryable.prototype.select = function (args) {
-        if (typeof args == "string") {
-            if (args == "*") {
-                throw new Error("Select type not required.");
-            }
-            return this.select([args]);
-        }
-        if (Array.isArray(args)) {
-            return new Queryable(this._baseArray.map(function (obj) { return selectByArrayOfKeys(obj, args); }));
-        }
-        if (typeof args == 'function') {
-            return new Queryable(this._baseArray.map(args));
-        }
-        throw new Error("Select type not supported.");
+    Queryable.prototype.select = function (propertyNameOrSelector) {
+        var selector = this.createSelector(propertyNameOrSelector);
+        return new Queryable(this._baseArray.map(function (item) { return selector(item); }));
     };
-    Queryable.prototype.sum = function (key) {
-        return this.select(key)
+    Queryable.prototype.sum = function (propertyNameOrSelector) {
+        var selector = this.createSelector(propertyNameOrSelector);
+        return this.select(function (item) { return selector(item); })
             .toArray()
             .reduce(function (a, c) { return a + c; }, 0);
     };
@@ -689,16 +796,31 @@ var Queryable = (function (_super) {
     };
     // Returns the objects that evaluate true on the provided comparer function. 
     // USAGE: obj.Where(function() { return true; });
-    Queryable.prototype.where = function (comparer) {
-        return new Queryable(this._baseArray.filter(comparer));
+    Queryable.prototype.where = function (predicate) {
+        return new Queryable(this._baseArray.filter(predicate));
+    };
+    Queryable.prototype.internalOrderBy = function (selector, comparer) {
+        var mapComparer = new Comparer_1.MapComparer(comparer, selector);
+        return new Queryable(this.toArray().sort(function (a, b) { return mapComparer.compare(a, b); }));
+    };
+    Queryable.prototype.createSelector = function (propertyNameOrSelector) {
+        var selector;
+        if (typeof propertyNameOrSelector === 'string') {
+            selector = function (a) { return a[propertyNameOrSelector]; };
+        }
+        else {
+            selector = propertyNameOrSelector;
+        }
+        return selector;
     };
     return Queryable;
 }(Collection_1.Collection));
 exports.Queryable = Queryable;
 var GroupedQueryable = (function () {
-    function GroupedQueryable(parentQueryable, key) {
+    function GroupedQueryable(parentQueryable, key, keySelector) {
         this._parentQueryable = parentQueryable;
         this._key = key;
+        this._keySelector = keySelector;
     }
     Object.defineProperty(GroupedQueryable.prototype, "key", {
         get: function () {
@@ -710,63 +832,14 @@ var GroupedQueryable = (function () {
     Object.defineProperty(GroupedQueryable.prototype, "groupedRows", {
         get: function () {
             var _this = this;
-            return this._groupedRows || (this._groupedRows = this._parentQueryable.where(function (groupItem) {
-                for (var keyName in _this._key) {
-                    if (_this._key[keyName] != groupItem[keyName]) {
-                        return false;
-                    }
-                }
-                return true;
-            }));
+            var comparer = new Comparer_1.DefaultComparer();
+            return this._groupedRows || (this._groupedRows = this._parentQueryable.where(function (item) { return comparer.equals(_this._keySelector(item), _this._key); }));
         },
         enumerable: true,
         configurable: true
     });
     return GroupedQueryable;
 }());
-function compare(a, b) {
-    if (typeof a == 'string' && typeof b == 'string') {
-        if (a < b) {
-            return -1;
-        }
-        if (a > b) {
-            return 1;
-        }
-        return 0;
-    }
-    if (typeof a == 'number' && typeof b == 'number') {
-        return a - b;
-    }
-    if (typeof a == 'object' && typeof b == 'object') {
-        return compare(a.toString(), b.toString());
-    }
-    throw new TypeError("Cannot sort type of '" + Utilities_1.Utilities.getType(a) + "'.");
-}
-// USAGE: SelectByArrayOfKeys(obj, ['key1','key2','key3']);
-function selectByArrayOfKeys(obj, keys) {
-    var output = {};
-    for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
-        var item = keys_1[_i];
-        var as = item.split(" as ");
-        var key = void 0;
-        var newKey = void 0;
-        if (as.length > 1) {
-            key = as[0];
-            newKey = as[1];
-        }
-        else {
-            key = item;
-            newKey = item;
-        }
-        if (obj[key] !== undefined) {
-            output[newKey] = obj[key];
-        }
-        else {
-            throw new Error("Key '" + key + "' does not exist.");
-        }
-    }
-    return output;
-}
 Collection_1.Collection.prototype.asQueryable = function () {
     return new Queryable(this);
 };
@@ -776,7 +849,7 @@ Collection_1.Collection.prototype.ofType = function (type) {
 //# sourceMappingURL=Queryable.js.map
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -788,18 +861,14 @@ Collection_1.Collection.prototype.ofType = function (type) {
  * � 2017 Michael Coxon
  * https://github.com/michaelcoxon/collections#readme
  */
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
-var Collection_1 = __webpack_require__(0);
-var Enumerator_1 = __webpack_require__(3);
-var List_1 = __webpack_require__(4);
-var Queryable_1 = __webpack_require__(5);
-var Collections;
-(function (Collections) {
-    Collections.Collection = Collection_1.Collection;
-    Collections.Enumerator = Enumerator_1.Enumerator;
-    Collections.List = List_1.List;
-    Collections.Queryable = Queryable_1.Queryable;
-})(Collections = exports.Collections || (exports.Collections = {}));
+__export(__webpack_require__(0));
+__export(__webpack_require__(4));
+__export(__webpack_require__(5));
+__export(__webpack_require__(6));
 
 
 /***/ })

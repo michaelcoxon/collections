@@ -122,4 +122,14 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <PostBuildEvent>
+      <![CDATA[cmd /c SET NODE_ENV=production && webpack --no-color]]>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <PostBuildEvent>
+      <![CDATA[cmd /c SET NODE_ENV=development && webpack --no-color]]>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>
