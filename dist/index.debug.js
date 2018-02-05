@@ -737,9 +737,12 @@ var Queryable = (function (_super) {
             return false;
         });
     };
-    Queryable.prototype.first = function () {
-        if (this._baseArray.length > 0) {
-            return this._baseArray[0];
+    Queryable.prototype.first = function (predicate) {
+        var set = predicate !== undefined
+            ? this.where(predicate)
+            : this;
+        if (set._baseArray.length > 0) {
+            return set._baseArray[0];
         }
         throw new Error("The collection is empty!");
     };

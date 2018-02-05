@@ -133,6 +133,14 @@ describe("First", () =>
         expect(1).to.eq(result.first());
     });
 
+    it("should return the first item in the Queryable after applying the filter", () =>
+    {
+        const array = [1, 2, 3, 4];
+        const result = new Queryable(array);
+
+        expect(2).to.eq(result.first(i => i % 2 == 0));
+    });
+
     it("should throw an exception if the Queryable is empty", () =>
     {
         const array = [];
@@ -157,6 +165,14 @@ describe("FirstOrDefault", () =>
         expect(1).to.eq(result.firstOrDefault());
     });
 
+    it("should return the first item in the Queryable after applying the filter", () =>
+    {
+        const array = [1, 2, 3, 4];
+        const result = new Queryable(array);
+
+        expect(2).to.eq(result.firstOrDefault(i => i % 2 == 0));
+    });
+
     it("should return null if the Queryable is empty", () =>
     {
         const array = [];
@@ -174,6 +190,14 @@ describe("Last", () =>
         const result = new Queryable(array);
 
         expect(4).to.eq(result.last());
+    });
+
+    it("should return the last item in the Queryable after applying the filter", () =>
+    {
+        const array = [1, 2, 3, 4];
+        const result = new Queryable(array);
+
+        expect(3).to.eq(result.last(i => i % 2 != 0));
     });
 
     it("should throw an exception if the Queryable is empty", () =>
@@ -198,6 +222,14 @@ describe("LastOrDefault", () =>
         const result = new Queryable(array);
 
         expect(4).to.eq(result.lastOrDefault());
+    });
+
+    it("should return the last item in the Queryable after applying the filter", () =>
+    {
+        const array = [1, 2, 3, 4];
+        const result = new Queryable(array);
+
+        expect(4).to.eq(result.lastOrDefault(i => i % 2 == 0));
     });
 
     it("should return null if the Queryable is empty", () =>

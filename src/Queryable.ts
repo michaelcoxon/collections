@@ -94,21 +94,33 @@ export class Queryable<T> extends Collection<T>
         });
     }
 
-    public first(): T
+    public first(): T;
+    public first(predicate: Predicate<T>): T;
+    public first(predicate?: Predicate<T>): T
     {
-        if (this._baseArray.length > 0)
+        let set = predicate !== undefined
+            ? this.where(predicate)
+            : this;
+
+        if (set._baseArray.length > 0)
         {
-            return this._baseArray[0];
+            return set._baseArray[0];
         }
 
         throw new Error("The collection is empty!");
     }
 
-    public firstOrDefault(): T | null
+    public firstOrDefault(): T | null;
+    public firstOrDefault(predicate: Predicate<T>): T | null;
+    public firstOrDefault(predicate?: Predicate<T>): T | null
     {
-        if (this._baseArray.length > 0)
+        let set = predicate !== undefined
+            ? this.where(predicate)
+            : this;
+
+        if (set._baseArray.length > 0)
         {
-            return this._baseArray[0];
+            return set._baseArray[0];
         }
 
         return null;
@@ -123,21 +135,33 @@ export class Queryable<T> extends Collection<T>
         return keySet.select((key) => new GroupedQueryable(this, key, keySelector));
     }
 
-    public last(): T
+    public last(): T;
+    public last(predicate: Predicate<T>): T;
+    public last(predicate?: Predicate<T>): T 
     {
-        if (this._baseArray.length > 0)
+        let set = predicate !== undefined
+            ? this.where(predicate)
+            : this;
+
+        if (set._baseArray.length > 0)
         {
-            return this._baseArray[this._baseArray.length - 1];
+            return set._baseArray[set._baseArray.length - 1];
         }
 
         throw new Error("The collection is empty!");
     }
 
-    public lastOrDefault(): T | null
+    public lastOrDefault(): T | null;
+    public lastOrDefault(predicate: Predicate<T>): T | null;
+    public lastOrDefault(predicate?: Predicate<T>): T | null
     {
-        if (this._baseArray.length > 0)
+        let set = predicate !== undefined
+            ? this.where(predicate)
+            : this;
+
+        if (set._baseArray.length > 0)
         {
-            return this._baseArray[this._baseArray.length - 1];
+            return set._baseArray[set._baseArray.length - 1];
         }
 
         return null;

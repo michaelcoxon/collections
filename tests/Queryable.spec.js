@@ -92,6 +92,11 @@ describe("First", function () {
         var result = new Queryable_1.Queryable(array);
         chai_1.expect(1).to.eq(result.first());
     });
+    it("should return the first item in the Queryable after applying the filter", function () {
+        var array = [1, 2, 3, 4];
+        var result = new Queryable_1.Queryable(array);
+        chai_1.expect(2).to.eq(result.first(function (i) { return i % 2 == 0; }));
+    });
     it("should throw an exception if the Queryable is empty", function () {
         var array = [];
         var result = new Queryable_1.Queryable(array);
@@ -108,6 +113,11 @@ describe("FirstOrDefault", function () {
         var result = new Queryable_1.Queryable(array);
         chai_1.expect(1).to.eq(result.firstOrDefault());
     });
+    it("should return the first item in the Queryable after applying the filter", function () {
+        var array = [1, 2, 3, 4];
+        var result = new Queryable_1.Queryable(array);
+        chai_1.expect(2).to.eq(result.firstOrDefault(function (i) { return i % 2 == 0; }));
+    });
     it("should return null if the Queryable is empty", function () {
         var array = [];
         var result = new Queryable_1.Queryable(array);
@@ -119,6 +129,11 @@ describe("Last", function () {
         var array = [1, 2, 3, 4];
         var result = new Queryable_1.Queryable(array);
         chai_1.expect(4).to.eq(result.last());
+    });
+    it("should return the last item in the Queryable after applying the filter", function () {
+        var array = [1, 2, 3, 4];
+        var result = new Queryable_1.Queryable(array);
+        chai_1.expect(3).to.eq(result.last(function (i) { return i % 2 != 0; }));
     });
     it("should throw an exception if the Queryable is empty", function () {
         var array = [];
@@ -135,6 +150,11 @@ describe("LastOrDefault", function () {
         var array = [1, 2, 3, 4];
         var result = new Queryable_1.Queryable(array);
         chai_1.expect(4).to.eq(result.lastOrDefault());
+    });
+    it("should return the last item in the Queryable after applying the filter", function () {
+        var array = [1, 2, 3, 4];
+        var result = new Queryable_1.Queryable(array);
+        chai_1.expect(4).to.eq(result.lastOrDefault(function (i) { return i % 2 == 0; }));
     });
     it("should return null if the Queryable is empty", function () {
         var array = [];
