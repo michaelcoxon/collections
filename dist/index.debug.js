@@ -755,6 +755,18 @@ var Queryable = (function (_super) {
         var keySet = this.select(keySelector).distinct(function (k) { return k; });
         return keySet.select(function (key) { return new GroupedQueryable(_this, key, keySelector); });
     };
+    Queryable.prototype.last = function () {
+        if (this._baseArray.length > 0) {
+            return this._baseArray[this._baseArray.length - 1];
+        }
+        throw new Error("The collection is empty!");
+    };
+    Queryable.prototype.lastOrDefault = function () {
+        if (this._baseArray.length > 0) {
+            return this._baseArray[this._baseArray.length - 1];
+        }
+        return null;
+    };
     Queryable.prototype.max = function (propertyNameOrSelector) {
         var selector = this.createSelector(propertyNameOrSelector);
         var values = this.select(function (item) { return selector(item); }).toArray();

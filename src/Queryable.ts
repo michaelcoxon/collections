@@ -123,6 +123,26 @@ export class Queryable<T> extends Collection<T>
         return keySet.select((key) => new GroupedQueryable(this, key, keySelector));
     }
 
+    public last(): T
+    {
+        if (this._baseArray.length > 0)
+        {
+            return this._baseArray[this._baseArray.length - 1];
+        }
+
+        throw new Error("The collection is empty!");
+    }
+
+    public lastOrDefault(): T | null
+    {
+        if (this._baseArray.length > 0)
+        {
+            return this._baseArray[this._baseArray.length - 1];
+        }
+
+        return null;
+    }
+
     public max<K extends keyof T>(propertyName: K): number;
     public max(selector: (a: T) => number): number;
     public max<K extends keyof T>(propertyNameOrSelector: K | ((a: T) => number)): number

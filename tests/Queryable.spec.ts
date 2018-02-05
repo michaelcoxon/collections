@@ -166,6 +166,49 @@ describe("FirstOrDefault", () =>
     });
 });
 
+describe("Last", () =>
+{
+    it("should return the last item in the Queryable", () =>
+    {
+        const array = [1, 2, 3, 4];
+        const result = new Queryable(array);
+
+        expect(4).to.eq(result.last());
+    });
+
+    it("should throw an exception if the Queryable is empty", () =>
+    {
+        const array = [];
+        const result = new Queryable(array);
+
+        try
+        {
+            result.last();
+            assert.fail(undefined, undefined, "For some reason the Queryable is not empty");
+        }
+        catch (ex) { }
+    });
+});
+
+describe("LastOrDefault", () =>
+{
+    it("should return the last item in the Queryable", () =>
+    {
+        const array = [1, 2, 3, 4];
+        const result = new Queryable(array);
+
+        expect(4).to.eq(result.lastOrDefault());
+    });
+
+    it("should return null if the Queryable is empty", () =>
+    {
+        const array = [];
+        const result = new Queryable(array);
+
+        expect(null).to.eq(result.lastOrDefault());
+    });
+});
+
 describe("Max", () =>
 {
     it("should return the max of the numbers", () =>

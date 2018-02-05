@@ -114,6 +114,34 @@ describe("FirstOrDefault", function () {
         chai_1.expect(null).to.eq(result.firstOrDefault());
     });
 });
+describe("Last", function () {
+    it("should return the last item in the Queryable", function () {
+        var array = [1, 2, 3, 4];
+        var result = new Queryable_1.Queryable(array);
+        chai_1.expect(4).to.eq(result.last());
+    });
+    it("should throw an exception if the Queryable is empty", function () {
+        var array = [];
+        var result = new Queryable_1.Queryable(array);
+        try {
+            result.last();
+            chai_1.assert.fail(undefined, undefined, "For some reason the Queryable is not empty");
+        }
+        catch (ex) { }
+    });
+});
+describe("LastOrDefault", function () {
+    it("should return the last item in the Queryable", function () {
+        var array = [1, 2, 3, 4];
+        var result = new Queryable_1.Queryable(array);
+        chai_1.expect(4).to.eq(result.lastOrDefault());
+    });
+    it("should return null if the Queryable is empty", function () {
+        var array = [];
+        var result = new Queryable_1.Queryable(array);
+        chai_1.expect(null).to.eq(result.lastOrDefault());
+    });
+});
 describe("Max", function () {
     it("should return the max of the numbers", function () {
         var array = [1, 2, 3, 4];
