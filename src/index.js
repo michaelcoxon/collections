@@ -6,16 +6,12 @@
  * � 2017 Michael Coxon
  * https://github.com/michaelcoxon/collections#readme
  */
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
-var Collection_1 = require("./Collection");
-var Enumerator_1 = require("./Enumerator");
-var List_1 = require("./List");
-var Queryable_1 = require("./Queryable");
-var Collections;
-(function (Collections) {
-    Collections.Collection = Collection_1.Collection;
-    Collections.Enumerator = Enumerator_1.Enumerator;
-    Collections.List = List_1.List;
-    Collections.Queryable = Queryable_1.Queryable;
-})(Collections = exports.Collections || (exports.Collections = {}));
+__export(require("./Collection"));
+__export(require("./Enumerator"));
+__export(require("./List"));
+__export(require("./Queryable"));
 //# sourceMappingURL=index.js.map

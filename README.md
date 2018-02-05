@@ -342,7 +342,7 @@ myList.findIndex(5); // returns undefined
 ```
 
 ### insertAt(obj: any, index: number): void
-> Inserts an item at the index and moves the subsequent items up 1 index.
+> Inserts an item at the `index` and moves the subsequent items up 1 index.
 
 ```js
 let myList = new List([1, 2, 3]);
@@ -371,7 +371,7 @@ myList.prependRange([4, 5, 6]); // will now be [4, 5, 6, 1, 2, 3]
 ```
 
 ### prependRange(collection: Collection): void
-> Inserts an collection of items at the start and moves the subsequent items up 1 index.
+> Inserts a collection of items at the start and moves the subsequent items up 1 index.
 
 ```js
 let myList = new List([1, 2, 3]);
@@ -390,7 +390,7 @@ myList.remove(1); // will now be [2, 3]
 ```
 
 ### removeAt(index: number): void
-> Removes an item at the index from the List.
+> Removes an item at the `index` from the List.
 
 ```js
 let myList = new List([1, 2, 3]);
@@ -399,7 +399,7 @@ myList.removeAt(2); // will now be [1, 2]
 ```
 
 ### sort(comparer?: IComparer): void
-> Sorts the List using the provided comparer.
+> Sorts the List using the provided `comparer`.
 
 
 
@@ -449,6 +449,8 @@ Inherits all properties from Collection.
 Inherits all methods from Collection.
 
 ### all(predicate: Predicate): boolean
+> Returns `true` if all the items match the `predicate`.
+
 ### any(): boolean
 > Returns `true` if the Queryable contains elements
 
@@ -459,7 +461,7 @@ if(myQueryable.any())
 }
 ```
 ### any(predicate: Predicate): boolean
-> Returns `true` if any of the elements satisfy the predicate.
+> Returns `true` if any of the elements satisfy the `predicate`.
 
 ```js
 let myQueryable = new Queryable([1, 2, 3, 4]);
@@ -490,8 +492,19 @@ if(myQueryable.any((i) => i == 2))
 ### select(propertyName: string): Queryable
 ### select(selector: (a: any) => any): Queryable
 ### sum(propertyName: string): number
+> Returns the sum of numbers designated by the `propertyName`.
+
+Useful for getting totals of a dataset.
+
 ### sum(selector: (a: any) => number): number
+> Returns the sum of numbers returned by the `selector`.
+
+Useful for getting totals of a dataset.
+
 ### take(count: number): Queryable
+> Returns a Queryable that subset of the items from 0 to `count`
+
 ### where(predicate: Predicate): Queryable
+> Returns a Queryable of the items that match the predicate
 
-
+Used to filter a dataset.
