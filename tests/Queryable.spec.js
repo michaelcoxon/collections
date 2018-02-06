@@ -179,7 +179,7 @@ describe("Min", function () {
     });
 });
 describe("OfType", function () {
-    var BaseClass = (function () {
+    var BaseClass = /** @class */ (function () {
         function BaseClass() {
         }
         Object.defineProperty(BaseClass.prototype, "property", {
@@ -189,7 +189,7 @@ describe("OfType", function () {
         });
         return BaseClass;
     }());
-    var DerivedClass = (function (_super) {
+    var DerivedClass = /** @class */ (function (_super) {
         __extends(DerivedClass, _super);
         function DerivedClass() {
             return _super !== null && _super.apply(this, arguments) || this;
@@ -201,7 +201,7 @@ describe("OfType", function () {
         });
         return DerivedClass;
     }(BaseClass));
-    var DerivedClass2 = (function (_super) {
+    var DerivedClass2 = /** @class */ (function (_super) {
         __extends(DerivedClass2, _super);
         function DerivedClass2() {
             return _super !== null && _super.apply(this, arguments) || this;

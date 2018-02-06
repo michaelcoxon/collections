@@ -72,9 +72,98 @@
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Exceptions_1 = __webpack_require__(1);
-var Collection = (function () {
+var ArgumentException = /** @class */ (function (_super) {
+    __extends(ArgumentException, _super);
+    function ArgumentException(argumentName, message) {
+        var _this = _super.call(this, "'" + argumentName + "' " + (message || "")) || this;
+        _this.name = 'ArgumentException';
+        return _this;
+    }
+    return ArgumentException;
+}(Error));
+exports.ArgumentException = ArgumentException;
+var InvalidTypeException = /** @class */ (function (_super) {
+    __extends(InvalidTypeException, _super);
+    function InvalidTypeException(variableName, expectedTypeName) {
+        var _this = _super.call(this, 'Type of ' + variableName + ' is not supported, ' + expectedTypeName + ' expected') || this;
+        _this.name = 'InvalidTypeException';
+        return _this;
+    }
+    return InvalidTypeException;
+}(Error));
+exports.InvalidTypeException = InvalidTypeException;
+var NotImplementedException = /** @class */ (function (_super) {
+    __extends(NotImplementedException, _super);
+    function NotImplementedException(methodName) {
+        var _this = _super.call(this, 'This method has not been implemented. "' + methodName + '"') || this;
+        _this.name = 'NotImplementedException';
+        return _this;
+    }
+    return NotImplementedException;
+}(Error));
+exports.NotImplementedException = NotImplementedException;
+var NotSupportedException = /** @class */ (function (_super) {
+    __extends(NotSupportedException, _super);
+    function NotSupportedException(name) {
+        var _this = _super.call(this, '"' + name + '" is not supported') || this;
+        _this.name = 'NotSupportedException';
+        return _this;
+    }
+    return NotSupportedException;
+}(Error));
+exports.NotSupportedException = NotSupportedException;
+var OutOfBoundsException = /** @class */ (function (_super) {
+    __extends(OutOfBoundsException, _super);
+    function OutOfBoundsException(variableName, minBound, maxBound) {
+        var _this = _super.call(this, 'The value of ' + variableName + ' is out of bounds. min: ' + minBound + ' max: ' + maxBound) || this;
+        _this.name = 'OutOfBoundsException';
+        return _this;
+    }
+    return OutOfBoundsException;
+}(Error));
+exports.OutOfBoundsException = OutOfBoundsException;
+var UndefinedArgumentException = /** @class */ (function (_super) {
+    __extends(UndefinedArgumentException, _super);
+    function UndefinedArgumentException(argumentName) {
+        var _this = _super.call(this, argumentName + ' is undefined') || this;
+        _this.name = 'UndefinedArgumentException';
+        return _this;
+    }
+    return UndefinedArgumentException;
+}(Error));
+exports.UndefinedArgumentException = UndefinedArgumentException;
+var FileNotFoundException = /** @class */ (function (_super) {
+    __extends(FileNotFoundException, _super);
+    function FileNotFoundException(filename) {
+        var _this = _super.call(this, "File '" + filename + "' is not found") || this;
+        _this.name = 'FileNotFoundException';
+        return _this;
+    }
+    return FileNotFoundException;
+}(Error));
+exports.FileNotFoundException = FileNotFoundException;
+//# sourceMappingURL=Exceptions.js.map
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Exceptions_1 = __webpack_require__(0);
+var Collection = /** @class */ (function () {
     // constructor
     function Collection(collectionOrArray) {
         if (collectionOrArray === undefined) {
@@ -129,95 +218,6 @@ var Collection = (function () {
 }());
 exports.Collection = Collection;
 //# sourceMappingURL=Collection.js.map
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var ArgumentException = (function (_super) {
-    __extends(ArgumentException, _super);
-    function ArgumentException(argumentName, message) {
-        var _this = _super.call(this, "'" + argumentName + "' " + (message || "")) || this;
-        _this.name = 'ArgumentException';
-        return _this;
-    }
-    return ArgumentException;
-}(Error));
-exports.ArgumentException = ArgumentException;
-var InvalidTypeException = (function (_super) {
-    __extends(InvalidTypeException, _super);
-    function InvalidTypeException(variableName, expectedTypeName) {
-        var _this = _super.call(this, 'Type of ' + variableName + ' is not supported, ' + expectedTypeName + ' expected') || this;
-        _this.name = 'InvalidTypeException';
-        return _this;
-    }
-    return InvalidTypeException;
-}(Error));
-exports.InvalidTypeException = InvalidTypeException;
-var NotImplementedException = (function (_super) {
-    __extends(NotImplementedException, _super);
-    function NotImplementedException(methodName) {
-        var _this = _super.call(this, 'This method has not been implemented. "' + methodName + '"') || this;
-        _this.name = 'NotImplementedException';
-        return _this;
-    }
-    return NotImplementedException;
-}(Error));
-exports.NotImplementedException = NotImplementedException;
-var NotSupportedException = (function (_super) {
-    __extends(NotSupportedException, _super);
-    function NotSupportedException(name) {
-        var _this = _super.call(this, '"' + name + '" is not supported') || this;
-        _this.name = 'NotSupportedException';
-        return _this;
-    }
-    return NotSupportedException;
-}(Error));
-exports.NotSupportedException = NotSupportedException;
-var OutOfBoundsException = (function (_super) {
-    __extends(OutOfBoundsException, _super);
-    function OutOfBoundsException(variableName, minBound, maxBound) {
-        var _this = _super.call(this, 'The value of ' + variableName + ' is out of bounds. min: ' + minBound + ' max: ' + maxBound) || this;
-        _this.name = 'OutOfBoundsException';
-        return _this;
-    }
-    return OutOfBoundsException;
-}(Error));
-exports.OutOfBoundsException = OutOfBoundsException;
-var UndefinedArgumentException = (function (_super) {
-    __extends(UndefinedArgumentException, _super);
-    function UndefinedArgumentException(argumentName) {
-        var _this = _super.call(this, argumentName + ' is undefined') || this;
-        _this.name = 'UndefinedArgumentException';
-        return _this;
-    }
-    return UndefinedArgumentException;
-}(Error));
-exports.UndefinedArgumentException = UndefinedArgumentException;
-var FileNotFoundException = (function (_super) {
-    __extends(FileNotFoundException, _super);
-    function FileNotFoundException(filename) {
-        var _this = _super.call(this, "File '" + filename + "' is not found") || this;
-        _this.name = 'FileNotFoundException';
-        return _this;
-    }
-    return FileNotFoundException;
-}(Error));
-exports.FileNotFoundException = FileNotFoundException;
-//# sourceMappingURL=Exceptions.js.map
 
 /***/ }),
 /* 2 */
@@ -313,8 +313,8 @@ var Utilities;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Utilities_1 = __webpack_require__(2);
-var Exceptions_1 = __webpack_require__(1);
-var DefaultComparer = (function () {
+var Exceptions_1 = __webpack_require__(0);
+var DefaultComparer = /** @class */ (function () {
     function DefaultComparer() {
     }
     DefaultComparer.prototype.compare = function (x, y) {
@@ -342,7 +342,7 @@ var DefaultComparer = (function () {
     return DefaultComparer;
 }());
 exports.DefaultComparer = DefaultComparer;
-var DefaultStringComparer = (function () {
+var DefaultStringComparer = /** @class */ (function () {
     function DefaultStringComparer() {
     }
     DefaultStringComparer.prototype.compare = function (x, y) {
@@ -360,7 +360,7 @@ var DefaultStringComparer = (function () {
     return DefaultStringComparer;
 }());
 exports.DefaultStringComparer = DefaultStringComparer;
-var DefaultNumberComparer = (function () {
+var DefaultNumberComparer = /** @class */ (function () {
     function DefaultNumberComparer() {
     }
     DefaultNumberComparer.prototype.compare = function (x, y) {
@@ -372,7 +372,7 @@ var DefaultNumberComparer = (function () {
     return DefaultNumberComparer;
 }());
 exports.DefaultNumberComparer = DefaultNumberComparer;
-var DefaultObjectComparer = (function () {
+var DefaultObjectComparer = /** @class */ (function () {
     function DefaultObjectComparer() {
     }
     DefaultObjectComparer.prototype.compare = function (x, y) {
@@ -389,7 +389,7 @@ var DefaultObjectComparer = (function () {
     return DefaultObjectComparer;
 }());
 exports.DefaultObjectComparer = DefaultObjectComparer;
-var ReverseComparer = (function () {
+var ReverseComparer = /** @class */ (function () {
     function ReverseComparer(comparer) {
         this._comparer = comparer;
     }
@@ -402,7 +402,7 @@ var ReverseComparer = (function () {
     return ReverseComparer;
 }());
 exports.ReverseComparer = ReverseComparer;
-var CustomComparer = (function () {
+var CustomComparer = /** @class */ (function () {
     function CustomComparer(comparer, equalityComparer) {
         this._comparer = comparer;
         this._equalityComparer = equalityComparer;
@@ -426,32 +426,20 @@ var CustomComparer = (function () {
     return CustomComparer;
 }());
 exports.CustomComparer = CustomComparer;
-var MapComparer = (function () {
-    function MapComparer(comparer, selector, resolveFunctions) {
-        if (resolveFunctions === void 0) { resolveFunctions = true; }
+var MapComparer = /** @class */ (function () {
+    function MapComparer(comparer, selector) {
         this._comparer = comparer;
         this._selector = selector;
-        this._resolveFunctions = resolveFunctions;
     }
     MapComparer.prototype.compare = function (x, y) {
         var x_value = this._selector(x);
         var y_value = this._selector(y);
-        if (this._resolveFunctions && typeof x_value === 'function' && typeof y_value === 'function') {
-            return this._comparer.compare(x_value(), y_value());
-        }
-        else {
-            return this._comparer.compare(x_value, y_value);
-        }
+        return this._comparer.compare(x_value, y_value);
     };
     MapComparer.prototype.equals = function (x, y) {
         var x_value = this._selector(x);
         var y_value = this._selector(y);
-        if (this._resolveFunctions && typeof x_value === 'function' && typeof y_value === 'function') {
-            return this._comparer.equals(x_value(), y_value());
-        }
-        else {
-            return this._comparer.equals(x_value, y_value);
-        }
+        return this._comparer.equals(x_value, y_value);
     };
     return MapComparer;
 }());
@@ -468,9 +456,9 @@ var _objectComparer = new DefaultObjectComparer();
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Collection_1 = __webpack_require__(0);
-var Exceptions_1 = __webpack_require__(1);
-var Enumerator = (function () {
+var Collection_1 = __webpack_require__(1);
+var Exceptions_1 = __webpack_require__(0);
+var Enumerator = /** @class */ (function () {
     function Enumerator(collectionOrArray) {
         // current pointer location
         this._pointer = -1;
@@ -541,11 +529,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Exceptions_1 = __webpack_require__(1);
+var Exceptions_1 = __webpack_require__(0);
 var Utilities_1 = __webpack_require__(2);
-var Collection_1 = __webpack_require__(0);
+var Collection_1 = __webpack_require__(1);
 var Comparer_1 = __webpack_require__(3);
-var List = (function (_super) {
+var List = /** @class */ (function (_super) {
     __extends(List, _super);
     function List() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -677,11 +665,12 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 // private helper functions
-var Collection_1 = __webpack_require__(0);
+var Collection_1 = __webpack_require__(1);
 var Utilities_1 = __webpack_require__(2);
+var Exceptions_1 = __webpack_require__(0);
 var Comparer_1 = __webpack_require__(3);
 // public class jExt.Collections.Queryable
-var Queryable = (function (_super) {
+var Queryable = /** @class */ (function (_super) {
     __extends(Queryable, _super);
     function Queryable() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -828,19 +817,22 @@ var Queryable = (function (_super) {
         return new Queryable(this.toArray().sort(function (a, b) { return mapComparer.compare(a, b); }));
     };
     Queryable.prototype.createSelector = function (propertyNameOrSelector) {
-        var selector;
         if (typeof propertyNameOrSelector === 'string') {
-            selector = function (a) { return a[propertyNameOrSelector]; };
+            return function (a) {
+                if (typeof a[propertyNameOrSelector] === 'function') {
+                    throw new Exceptions_1.NotSupportedException("property names that are functions ('" + propertyNameOrSelector + "')");
+                }
+                return a[propertyNameOrSelector];
+            };
         }
         else {
-            selector = propertyNameOrSelector;
+            return propertyNameOrSelector;
         }
-        return selector;
     };
     return Queryable;
 }(Collection_1.Collection));
 exports.Queryable = Queryable;
-var GroupedQueryable = (function () {
+var GroupedQueryable = /** @class */ (function () {
     function GroupedQueryable(parentQueryable, key, keySelector) {
         this._parentQueryable = parentQueryable;
         this._key = key;
@@ -890,7 +882,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(0));
+__export(__webpack_require__(1));
 __export(__webpack_require__(4));
 __export(__webpack_require__(5));
 __export(__webpack_require__(6));

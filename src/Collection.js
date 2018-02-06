@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Exceptions_1 = require("./Exceptions");
-var Collection = (function () {
+var Collection = /** @class */ (function () {
     // constructor
     function Collection(collectionOrArray) {
         if (collectionOrArray === undefined) {

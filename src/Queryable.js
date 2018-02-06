@@ -13,9 +13,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // private helper functions
 var Collection_1 = require("./Collection");
 var Utilities_1 = require("./Utilities");
+var Exceptions_1 = require("./Exceptions");
 var Comparer_1 = require("./Comparer");
 // public class jExt.Collections.Queryable
-var Queryable = (function (_super) {
+var Queryable = /** @class */ (function (_super) {
     __extends(Queryable, _super);
     function Queryable() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -162,19 +163,22 @@ var Queryable = (function (_super) {
         return new Queryable(this.toArray().sort(function (a, b) { return mapComparer.compare(a, b); }));
     };
     Queryable.prototype.createSelector = function (propertyNameOrSelector) {
-        var selector;
         if (typeof propertyNameOrSelector === 'string') {
-            selector = function (a) { return a[propertyNameOrSelector]; };
+            return function (a) {
+                if (typeof a[propertyNameOrSelector] === 'function') {
+                    throw new Exceptions_1.NotSupportedException("property names that are functions ('" + propertyNameOrSelector + "')");
+                }
+                return a[propertyNameOrSelector];
+            };
         }
         else {
-            selector = propertyNameOrSelector;
+            return propertyNameOrSelector;
         }
-        return selector;
     };
     return Queryable;
 }(Collection_1.Collection));
 exports.Queryable = Queryable;
-var GroupedQueryable = (function () {
+var GroupedQueryable = /** @class */ (function () {
     function GroupedQueryable(parentQueryable, key, keySelector) {
         this._parentQueryable = parentQueryable;
         this._key = key;

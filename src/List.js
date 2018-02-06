@@ -14,7 +14,7 @@ var Exceptions_1 = require("./Exceptions");
 var Utilities_1 = require("./Utilities");
 var Collection_1 = require("./Collection");
 var Comparer_1 = require("./Comparer");
-var List = (function (_super) {
+var List = /** @class */ (function (_super) {
     __extends(List, _super);
     function List() {
         return _super !== null && _super.apply(this, arguments) || this;

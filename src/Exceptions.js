@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var ArgumentException = (function (_super) {
+var ArgumentException = /** @class */ (function (_super) {
     __extends(ArgumentException, _super);
     function ArgumentException(argumentName, message) {
         var _this = _super.call(this, "'" + argumentName + "' " + (message || "")) || this;
@@ -20,7 +20,7 @@ var ArgumentException = (function (_super) {
     return ArgumentException;
 }(Error));
 exports.ArgumentException = ArgumentException;
-var InvalidTypeException = (function (_super) {
+var InvalidTypeException = /** @class */ (function (_super) {
     __extends(InvalidTypeException, _super);
     function InvalidTypeException(variableName, expectedTypeName) {
         var _this = _super.call(this, 'Type of ' + variableName + ' is not supported, ' + expectedTypeName + ' expected') || this;
@@ -30,7 +30,7 @@ var InvalidTypeException = (function (_super) {
     return InvalidTypeException;
 }(Error));
 exports.InvalidTypeException = InvalidTypeException;
-var NotImplementedException = (function (_super) {
+var NotImplementedException = /** @class */ (function (_super) {
     __extends(NotImplementedException, _super);
     function NotImplementedException(methodName) {
         var _this = _super.call(this, 'This method has not been implemented. "' + methodName + '"') || this;
@@ -40,7 +40,7 @@ var NotImplementedException = (function (_super) {
     return NotImplementedException;
 }(Error));
 exports.NotImplementedException = NotImplementedException;
-var NotSupportedException = (function (_super) {
+var NotSupportedException = /** @class */ (function (_super) {
     __extends(NotSupportedException, _super);
     function NotSupportedException(name) {
         var _this = _super.call(this, '"' + name + '" is not supported') || this;
@@ -50,7 +50,7 @@ var NotSupportedException = (function (_super) {
     return NotSupportedException;
 }(Error));
 exports.NotSupportedException = NotSupportedException;
-var OutOfBoundsException = (function (_super) {
+var OutOfBoundsException = /** @class */ (function (_super) {
     __extends(OutOfBoundsException, _super);
     function OutOfBoundsException(variableName, minBound, maxBound) {
         var _this = _super.call(this, 'The value of ' + variableName + ' is out of bounds. min: ' + minBound + ' max: ' + maxBound) || this;
@@ -60,7 +60,7 @@ var OutOfBoundsException = (function (_super) {
     return OutOfBoundsException;
 }(Error));
 exports.OutOfBoundsException = OutOfBoundsException;
-var UndefinedArgumentException = (function (_super) {
+var UndefinedArgumentException = /** @class */ (function (_super) {
     __extends(UndefinedArgumentException, _super);
     function UndefinedArgumentException(argumentName) {
         var _this = _super.call(this, argumentName + ' is undefined') || this;
@@ -70,7 +70,7 @@ var UndefinedArgumentException = (function (_super) {
     return UndefinedArgumentException;
 }(Error));
 exports.UndefinedArgumentException = UndefinedArgumentException;
-var FileNotFoundException = (function (_super) {
+var FileNotFoundException = /** @class */ (function (_super) {
     __extends(FileNotFoundException, _super);
     function FileNotFoundException(filename) {
         var _this = _super.call(this, "File '" + filename + "' is not found") || this;

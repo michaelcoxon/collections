@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Collection_1 = require("./Collection");
 var Exceptions_1 = require("./Exceptions");
-var Enumerator = (function () {
+var Enumerator = /** @class */ (function () {
     function Enumerator(collectionOrArray) {
         // current pointer location
         this._pointer = -1;

@@ -410,7 +410,7 @@ describe("Sort the List", () =>
         const list = new List(array);
         const expected = [4, 3, 2, 1];
 
-        list.sort(new CustomComparer((a, b) => b - a));
+        list.sort(new CustomComparer<number>((a, b) => b - a));
 
         for (let i = 0; i < list.count; i++)
         {

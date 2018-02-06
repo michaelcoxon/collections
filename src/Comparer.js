@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Utilities_1 = require("./Utilities");
 var Exceptions_1 = require("./Exceptions");
-var DefaultComparer = (function () {
+var DefaultComparer = /** @class */ (function () {
     function DefaultComparer() {
     }
     DefaultComparer.prototype.compare = function (x, y) {
@@ -30,7 +30,7 @@ var DefaultComparer = (function () {
     return DefaultComparer;
 }());
 exports.DefaultComparer = DefaultComparer;
-var DefaultStringComparer = (function () {
+var DefaultStringComparer = /** @class */ (function () {
     function DefaultStringComparer() {
     }
     DefaultStringComparer.prototype.compare = function (x, y) {
@@ -48,7 +48,7 @@ var DefaultStringComparer = (function () {
     return DefaultStringComparer;
 }());
 exports.DefaultStringComparer = DefaultStringComparer;
-var DefaultNumberComparer = (function () {
+var DefaultNumberComparer = /** @class */ (function () {
     function DefaultNumberComparer() {
     }
     DefaultNumberComparer.prototype.compare = function (x, y) {
@@ -60,7 +60,7 @@ var DefaultNumberComparer = (function () {
     return DefaultNumberComparer;
 }());
 exports.DefaultNumberComparer = DefaultNumberComparer;
-var DefaultObjectComparer = (function () {
+var DefaultObjectComparer = /** @class */ (function () {
     function DefaultObjectComparer() {
     }
     DefaultObjectComparer.prototype.compare = function (x, y) {
@@ -77,7 +77,7 @@ var DefaultObjectComparer = (function () {
     return DefaultObjectComparer;
 }());
 exports.DefaultObjectComparer = DefaultObjectComparer;
-var ReverseComparer = (function () {
+var ReverseComparer = /** @class */ (function () {
     function ReverseComparer(comparer) {
         this._comparer = comparer;
     }
@@ -90,7 +90,7 @@ var ReverseComparer = (function () {
     return ReverseComparer;
 }());
 exports.ReverseComparer = ReverseComparer;
-var CustomComparer = (function () {
+var CustomComparer = /** @class */ (function () {
     function CustomComparer(comparer, equalityComparer) {
         this._comparer = comparer;
         this._equalityComparer = equalityComparer;
@@ -114,32 +114,20 @@ var CustomComparer = (function () {
     return CustomComparer;
 }());
 exports.CustomComparer = CustomComparer;
-var MapComparer = (function () {
-    function MapComparer(comparer, selector, resolveFunctions) {
-        if (resolveFunctions === void 0) { resolveFunctions = true; }
+var MapComparer = /** @class */ (function () {
+    function MapComparer(comparer, selector) {
         this._comparer = comparer;
         this._selector = selector;
-        this._resolveFunctions = resolveFunctions;
     }
     MapComparer.prototype.compare = function (x, y) {
         var x_value = this._selector(x);
         var y_value = this._selector(y);
-        if (this._resolveFunctions && typeof x_value === 'function' && typeof y_value === 'function') {
-            return this._comparer.compare(x_value(), y_value());
-        }
-        else {
-            return this._comparer.compare(x_value, y_value);
-        }
+        return this._comparer.compare(x_value, y_value);
     };
     MapComparer.prototype.equals = function (x, y) {
         var x_value = this._selector(x);
         var y_value = this._selector(y);
-        if (this._resolveFunctions && typeof x_value === 'function' && typeof y_value === 'function') {
-            return this._comparer.equals(x_value(), y_value());
-        }
-        else {
-            return this._comparer.equals(x_value, y_value);
-        }
+        return this._comparer.equals(x_value, y_value);
     };
     return MapComparer;
 }());

@@ -128,7 +128,7 @@ export class Queryable<T> extends Collection<T>
 
     public groupBy<K extends keyof T>(propertyName: K): Queryable<GroupedQueryable<T, T[K]>>;
     public groupBy<TKey>(keySelector: (a: T) => TKey): Queryable<GroupedQueryable<T, TKey>>;
-    public groupBy<K extends keyof T, TKey>(propertyNameOrKeySelector: K | ((a: T) => TKey)): Queryable<GroupedQueryable<T, T[K] | TKey>>
+    public groupBy<K extends keyof T, TKey>(propertyNameOrKeySelector: K | ((a: T) => TKey))
     {
         let keySelector = this.createSelector(propertyNameOrKeySelector);
         let keySet = this.select(keySelector).distinct((k) => k);
@@ -203,7 +203,7 @@ export class Queryable<T> extends Collection<T>
     {
         return this.internalOrderBy(
             this.createSelector(propertyNameOrSelector),
-            comparer || new DefaultComparer());
+            comparer || new DefaultComparer<T[K] | R>());
     }
 
     // Orders the set by specified keys where the first orderby 
@@ -217,7 +217,7 @@ export class Queryable<T> extends Collection<T>
     {
         return this.internalOrderBy(
             this.createSelector(propertyNameOrSelector),
-            new ReverseComparer(comparer || new DefaultComparer()));
+            new ReverseComparer(comparer || new DefaultComparer<T[K] | R>()));
     }
 
     public skip(count: number): Queryable<T>
@@ -228,9 +228,9 @@ export class Queryable<T> extends Collection<T>
     }
 
     // USAGE: obj.Select((o)=>o.key1); USAGE: obj.Select('key1');
-    public select<K extends keyof T>(propertyName: K): Queryable<K>;
+    public select<K extends keyof T>(propertyName: K): Queryable<T[K]>;
     public select<TOut>(selector: (a: T) => TOut): Queryable<TOut>;
-    public select<K extends keyof T, TOut>(propertyNameOrSelector: K | ((a: T) => TOut)): Queryable<T[K] | TOut>
+    public select<K extends keyof T, TOut>(propertyNameOrSelector: K | ((a: T) => TOut))
     {
         let selector = this.createSelector(propertyNameOrSelector);
         return new Queryable(this._baseArray.map((item) => selector(item)));
@@ -261,22 +261,26 @@ export class Queryable<T> extends Collection<T>
     private internalOrderBy<R>(selector: (a: T) => R, comparer: IComparer<R>): Queryable<T>
     {
         let mapComparer = new MapComparer(comparer, selector);
-        return new Queryable(this.toArray().sort((a, b) => mapComparer.compare(a, b)));
+        return new Queryable<T>(this.toArray().sort((a, b) => mapComparer.compare(a, b)));
     }
 
     private createSelector<K extends keyof T, R>(propertyNameOrSelector: K | ((a: T) => R)): ((a: T) => T[K] | R)
     {
-        let selector: (a: T) => T[K] | R;
-
         if (typeof propertyNameOrSelector === 'string')
         {
-            selector = (a) => a[propertyNameOrSelector];
+            return (a: T) =>
+            {
+                if (typeof a[propertyNameOrSelector] === 'function')
+                {
+                    throw new NotSupportedException(`property names that are functions ('${propertyNameOrSelector}')`);
+                }
+                return a[propertyNameOrSelector];
+            }
         }
         else
         {
-            selector = propertyNameOrSelector as (a: T) => R;
+            return propertyNameOrSelector as (a: T) => R;
         }
-        return selector;
     }
 }
 
@@ -286,7 +290,7 @@ export class GroupedQueryable<T, TKey>
     private readonly _key: TKey;
     private readonly _keySelector: (item: T) => TKey;
 
-    private _groupedRows: Queryable<T>;
+    private _groupedRows?: Queryable<T>;
 
     constructor(parentQueryable: Queryable<T>, key: TKey, keySelector: (item: T) => TKey)
     {

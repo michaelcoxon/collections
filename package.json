@@ -1,6 +1,6 @@
 {
   "name": "@michaelcoxon/collections",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Collections for JS and TypeScript",
   "main": "dist/index.js",
   "scripts": {
@@ -28,16 +28,16 @@
     "@types/chai": "^4.0.10",
     "@types/mocha": "^2.2.44",
     "@types/prop-types": "^15.5.2",
-    "@types/webpack-env": "1.13.0",
-    "awesome-typescript-loader": "3.2.1",
+    "@types/webpack-env": "^1.13.5",
     "chai": "^4.1.2",
-    "file-loader": "0.11.2",
-    "json-loader": "0.5.4",
+    "file-loader": "^0.11.2",
     "mocha": "^4.0.1",
-    "npm-run-all": "4.0.2",
     "ts-node": "^4.0.2",
-    "typescript": "2.4.1",
-    "webpack": "2.5.1"
+    "awesome-typescript-loader": "^3.4.1",
+    "json-loader": "^0.5.7",
+    "npm-run-all": "^4.1.2",
+    "typescript": "^2.7.1",
+    "webpack": "^2.7.0"
   },
   "-vs-binding": {
     "ProjectOpened": [
