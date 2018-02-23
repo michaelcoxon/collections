@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{89925f06-dee7-4218-ac9c-f28824a53276}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -33,34 +33,33 @@
   <ItemGroup>
     <Folder Include="dist\" />
     <Folder Include="tests\" />
-    <Folder Include="src\" />
+    <Folder Include="lib\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="dist\index.debug.js" />
     <Compile Include="dist\index.js" />
-    <Compile Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="src\Collection.ts">
+    <TypeScriptCompile Include="lib\Collection.ts">
       <Publish>True</Publish>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Comparer.ts" />
-    <TypeScriptCompile Include="src\Enumerator.ts">
+    <TypeScriptCompile Include="lib\Comparer.ts" />
+    <TypeScriptCompile Include="lib\Enumerator.ts">
       <Publish>True</Publish>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Exceptions.ts">
+    <TypeScriptCompile Include="lib\Exceptions.ts">
       <Publish>True</Publish>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\index.ts">
+    <TypeScriptCompile Include="lib\index.ts">
       <Publish>True</Publish>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\List.ts">
+    <TypeScriptCompile Include="lib\List.ts">
       <Publish>True</Publish>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Queryable.ts">
+    <TypeScriptCompile Include="lib\Queryable.ts">
       <Publish>True</Publish>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Utilities.ts">
+    <TypeScriptCompile Include="lib\Utilities.ts">
       <Publish>True</Publish>
     </TypeScriptCompile>
     <TypeScriptCompile Include="tests\Collection.spec.ts">
