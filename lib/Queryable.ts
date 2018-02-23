@@ -1,7 +1,7 @@
 ﻿// private helper functions
 import { Collection } from "./Collection";
-import { Utilities } from "./Utilities";
-import { NotSupportedException } from "./Exceptions";
+import * as Utilities from "@michaelcoxon/utilities/lib/Utilities";
+import { NotSupportedException } from "@michaelcoxon/utilities/lib/Exceptions";
 import { IComparer, DefaultComparer, ReverseComparer, MapComparer } from "./Comparer";
 
 export type Predicate<T> = (item: T) => boolean;

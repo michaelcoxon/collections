@@ -1,5 +1,5 @@
-﻿import { InvalidTypeException, ArgumentException } from './Exceptions';
-import { Utilities } from './Utilities';
+﻿import { InvalidTypeException, ArgumentException } from '@michaelcoxon/utilities/lib/Exceptions';
+import * as Utilities from "@michaelcoxon/utilities/lib/Utilities";
 import { Collection, CollectionOrArray } from './Collection';
 import { IComparer, DefaultComparer } from "./Comparer";
 

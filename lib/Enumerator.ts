@@ -1,5 +1,5 @@
 ﻿import { Collection, CollectionOrArray } from './Collection';
-import { InvalidTypeException, OutOfBoundsException } from "./Exceptions";
+import { InvalidTypeException, OutOfBoundsException } from "@michaelcoxon/utilities/lib/Exceptions";
 
 export class Enumerator<T>
 {

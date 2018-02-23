@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="dist\index.debug.js" />
     <Compile Include="dist\index.js" />
+    <Compile Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="lib\Collection.ts">
@@ -47,9 +48,6 @@
     <TypeScriptCompile Include="lib\Enumerator.ts">
       <Publish>True</Publish>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="lib\Exceptions.ts">
-      <Publish>True</Publish>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="lib\index.ts">
       <Publish>True</Publish>
     </TypeScriptCompile>
@@ -57,9 +55,6 @@
       <Publish>True</Publish>
     </TypeScriptCompile>
     <TypeScriptCompile Include="lib\Queryable.ts">
-      <Publish>True</Publish>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="lib\Utilities.ts">
       <Publish>True</Publish>
     </TypeScriptCompile>
     <TypeScriptCompile Include="tests\Collection.spec.ts">

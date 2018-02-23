@@ -1,8 +1,8 @@
-﻿import { Collection } from '../src/Collection';
-import { List } from '../src/List';
+﻿import { Collection } from '../lib/Collection';
+import { List } from '../lib/List';
 import { expect, assert } from 'chai';
 import 'mocha';
-import { CustomComparer } from "../src/Comparer";
+import { CustomComparer } from "../lib/Comparer";
 
 
 

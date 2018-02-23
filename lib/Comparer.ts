@@ -1,5 +1,5 @@
-﻿import { Utilities } from "./Utilities";
-import { NotSupportedException, UndefinedArgumentException } from "./Exceptions";
+﻿import * as Utilities from "@michaelcoxon/utilities/lib/Utilities";
+import { NotSupportedException, ArgumentUndefinedException } from "@michaelcoxon/utilities/lib/Exceptions";
 
 export interface IComparer<T>
 {
@@ -138,7 +138,7 @@ export class CustomComparer<T> implements IComparer<T>
         }
         else
         {
-            throw new UndefinedArgumentException("The comparer");
+            throw new ArgumentUndefinedException("The comparer");
         }
     }
 
@@ -150,7 +150,7 @@ export class CustomComparer<T> implements IComparer<T>
         }
         else
         {
-            throw new UndefinedArgumentException("The equality comparer");
+            throw new ArgumentUndefinedException("The equality comparer");
         }
     }
 }

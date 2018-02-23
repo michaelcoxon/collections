@@ -1,5 +1,5 @@
-﻿import { Collection } from '../src/Collection';
-import { Enumerator } from '../src/Enumerator';
+﻿import { Collection } from '../lib/Collection';
+import { Enumerator } from '../lib/Enumerator';
 import { expect, assert } from 'chai';
 import 'mocha';
 
