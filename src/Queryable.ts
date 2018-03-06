@@ -1,7 +1,6 @@
 ﻿// private helper functions
 import { Collection } from "./Collection";
-import * as Utilities from "@michaelcoxon/utilities/lib/Utilities";
-import { NotSupportedException } from "@michaelcoxon/utilities/lib/Exceptions";
+import { Utilities, NotSupportedException } from "@michaelcoxon/utilities";
 import { IComparer, DefaultComparer, ReverseComparer, MapComparer } from "./Comparer";
 
 export type Predicate<T> = (item: T) => boolean;
@@ -64,7 +63,7 @@ export class Queryable<T> extends Collection<T>
     {
         if (this._baseArray.length === 0)
         {
-            return this.asQueryable();
+            return new Queryable(this);
         }
 
         let selector = this.createSelector(propertyNameOrSelector);
@@ -311,25 +310,4 @@ export class GroupedQueryable<T, TKey>
             this._groupedRows = this._parentQueryable.where((item) => comparer.equals(this._keySelector(item), this._key))
         );
     }
-}
-
-// extensions
-
-declare module "./Collection" {
-    interface Collection<T>
-    {
-        // returns the current Collection as a queryable object
-        asQueryable(): Queryable<T>;
-        ofType<N extends T>(type: { new(...args: any[]): N }): Collection<N>;
-    }
-}
-
-Collection.prototype.asQueryable = function <T>(): Queryable<T>
-{
-    return new Queryable<T>(this);
-}
-
-Collection.prototype.ofType = function <T, N extends T>(type: { new(...args: any[]): N }): Collection<N>
-{
-    return this.asQueryable().where((item) => item instanceof type).select((item) => item as N);
 }

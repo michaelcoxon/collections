@@ -1,5 +1,5 @@
 ﻿import { Collection, CollectionOrArray } from './Collection';
-import { InvalidTypeException, OutOfBoundsException } from "@michaelcoxon/utilities/lib/Exceptions";
+import { InvalidTypeException, OutOfBoundsException } from "@michaelcoxon/utilities";
 
 export class Enumerator<T>
 {
@@ -65,17 +65,4 @@ export class Enumerator<T>
     {
         throw new OutOfBoundsException("internal pointer", 0, this._baseArray.length - 1);
     }
-}
-
-declare module "./Collection" {
-    interface Collection<T>
-    {
-        // returns an Enumerator for the current Collection
-        getEnumerator(): Enumerator<T>;
-    }
-}
-
-Collection.prototype.getEnumerator = function <T>(): Enumerator<T>
-{
-    return new Enumerator<T>(this);
 }
