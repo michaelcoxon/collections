@@ -1,21 +1,21 @@
 ﻿import { InvalidTypeException, ArgumentUndefinedException } from '@michaelcoxon/utilities';
 import { ICollection } from './ICollection';
+import { IEnumerableOrArray } from './Types';
+import { enumerableOrArrayToArray } from './Utilities';
+import { IEnumerable } from './IEnumerable';
+import { EnumerableArray } from './Enumerables/EnumerableArray';
 
-export class Collection<T> implements ICollection<T>
+export class Collection<T> extends EnumerableArray<T> implements ICollection<T>, IEnumerable<T>
 {
-    // the internal array
-    protected _baseArray: T[];
-
-    // constructor
-    constructor(collectionOrArray?: EnumerableOrArray<T>)
+    constructor(enumerableOrArray?: IEnumerableOrArray<T>)
     {
-        if (collectionOrArray === undefined)
+        if (enumerableOrArray === undefined)
         {
-            this._baseArray = [];
+            super([]);
         }
         else
         {
-            this._baseArray = Collection.collectionOrArrayToArray(collectionOrArray);
+            super(enumerableOrArrayToArray(enumerableOrArray));
         }
     }
 
@@ -52,20 +52,9 @@ export class Collection<T> implements ICollection<T>
         return this._baseArray.indexOf(obj) != -1;
     }
 
-    public copyTo(collectionOrArray: EnumerableOrArray<T>, collectionOrArrayIndex: number): void
+    public copyTo(array: T[], arrayIndex: number): void
     {
-        let array: T[];
-        if (Array.isArray(collectionOrArray))
-        {
-            array = collectionOrArray;
-        }
-        else
-        {
-            array = [];
-            collectionOrArray.copyTo(array, 0);
-        }
-
-        array.splice(collectionOrArrayIndex, this.count, ...this._baseArray);
+        array.splice(arrayIndex, this.count, ...this._baseArray);
     }
 
     public remove(item: T): boolean

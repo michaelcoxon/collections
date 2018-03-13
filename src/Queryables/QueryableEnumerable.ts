@@ -1,24 +1,36 @@
-﻿// private helper functions
-import { Utilities, NotSupportedException } from "@michaelcoxon/utilities";
-import { QueryableGroup } from "./QueryableGroup";
-import { createSelector } from "../Utilities";
-import { IQueryable } from "../IQueryable";
-import { Predicate, Selector } from "../Types";
+﻿import { IQueryable } from "../IQueryable";
 import { IQueryableGroup } from "../IQueryableGroup";
-import { DefaultComparer } from "../Comparers/DefaultComparer";
-import { ReverseComparer } from "../Comparers/ReverseComparer";
-import { EnumerableArray } from "../Enumerables/EnumerableArray";
+import { IEnumerator } from "../IEnumerator";
+import { Lazy, Utilities } from "@michaelcoxon/utilities";
+import { IEnumerable } from "../IEnumerable";
+import { Predicate, Selector } from "../Types";
 import { IComparer } from "../IComparer";
+import { ReverseComparer } from "../Comparers/ReverseComparer";
+import { DefaultComparer } from "../Comparers/DefaultComparer";
+import { QueryableGroup } from "./QueryableGroup";
+import { QueryableArray } from "./QueryableArray";
 import { MapComparer } from "../Comparers/MapComparer";
+import { IList } from "../IList";
+import { IDictionary } from "../IDictionary";
 
-// public class jExt.Collections.Queryable
-export class QueryableArray<T> extends EnumerableArray<T> implements IQueryable<T>
+
+
+
+
+export class QueryableEnumerable<T> implements IQueryable<T>
 {
+    private readonly _enumerable: Lazy<IEnumerable<T>>;
+
+    constructor(enumerable: Lazy<IEnumerable<T>>)
+    {
+        this._enumerable = enumerable;
+    }
+
     public all(predicate: Predicate<T>): boolean
     {
         var output = true;
 
-        output = [...this._baseArray].every((element) => predicate(element));
+        output = [...this._enumerable.value.toArray()].every((element) => predicate(element));
 
         return output;
     }
@@ -35,14 +47,14 @@ export class QueryableArray<T> extends EnumerableArray<T> implements IQueryable<
             }
             else
             {
-                output = [...this._baseArray].some((element) => predicate(element));
+                output = [...this._enumerable.value.toArray()].some((element) => predicate(element));
             }
 
             return output;
         }
         else
         {
-            return [...this._baseArray].length > 0;
+            return [...this._enumerable.value.toArray()].length > 0;
         }
     }
 
@@ -54,15 +66,15 @@ export class QueryableArray<T> extends EnumerableArray<T> implements IQueryable<
 
     public count(): number
     {
-        return [...this._baseArray].length;
+        return [...this._enumerable.value.toArray()].length;
     }
 
     // USAGE: obj.Distinct(); or obj.Distinct(['key1'],['key2']);
     public distinct<R>(selector: (a: T) => R): IQueryable<T>
     {
-        if ([...this._baseArray].length === 0)
+        if ([...this._enumerable.value.toArray()].length === 0)
         {
-            return new QueryableArray([...this._baseArray]);
+            return new QueryableArray([...this._enumerable.value.toArray()]);
         }
 
         let temp: { [key: string]: boolean } = {};
@@ -202,7 +214,7 @@ export class QueryableArray<T> extends EnumerableArray<T> implements IQueryable<
 
     public skip(count: number): IQueryable<T>
     {
-        var array = [...this._baseArray];
+        var array = [...this._enumerable.value.toArray()];
         array.splice(0, count);
         return new QueryableArray<T>(array);
     }
@@ -210,7 +222,7 @@ export class QueryableArray<T> extends EnumerableArray<T> implements IQueryable<
     // USAGE: obj.Select((o)=>o.key1); USAGE: obj.Select('key1');
     public select<TOut>(selector: Selector<T, TOut>): IQueryable<TOut>
     {
-        return new QueryableArray([...this._baseArray].map((item) => selector(item)));
+        return new QueryableArray([...this._enumerable.value.toArray()].map((item) => selector(item)));
     }
 
     public sum(selector: (a: T) => number): number
@@ -222,20 +234,54 @@ export class QueryableArray<T> extends EnumerableArray<T> implements IQueryable<
 
     public take(count: number): IQueryable<T>
     {
-        return new QueryableArray<T>([...this._baseArray].splice(0, count));
+        return new QueryableArray<T>([...this._enumerable.value.toArray()].splice(0, count));
     }
 
     // Returns the objects that evaluate true on the provided comparer function. 
     // USAGE: obj.Where(function() { return true; });
     public where(predicate: Predicate<T>): IQueryable<T>
     {
-        return new QueryableArray<T>([...this._baseArray].filter(predicate));
+        return new QueryableArray<T>([...this._enumerable.value.toArray()].filter(predicate));
+    }
+
+    public asQueryable(): IQueryable<T>
+    {
+        return this._enumerable.value.asQueryable();
+    }
+
+    public forEach(callback: (value: T, index: number) => boolean | void): void
+    {
+        return this._enumerable.value.forEach(callback);
+    }
+
+    public getEnumerator(): IEnumerator<T>
+    {
+        return this._enumerable.value.getEnumerator();
+    }
+
+    public item(index: number): T
+    {
+        return this._enumerable.value.item(index);
+    }
+
+    public toArray(): T[]
+    {
+        return this._enumerable.value.toArray();
+    }
+
+    public toDictionary<TKey, TValue>(keySelector: (a: T) => TKey, valueSelector: (a: T) => TValue): IDictionary<TKey, TValue>
+    {
+        return this._enumerable.value.toDictionary(keySelector, valueSelector);
+    }
+
+    public toList(): IList<T>
+    {
+        return this._enumerable.value.toList();
     }
 
     private internalOrderBy<R>(selector: (a: T) => R, comparer: IComparer<R>): IQueryable<T>
     {
         let mapComparer = new MapComparer(comparer, selector);
-        return new QueryableArray<T>([...this._baseArray].sort((a, b) => mapComparer.compare(a, b)));
+        return new QueryableArray<T>([...this._enumerable.value.toArray()].sort((a, b) => mapComparer.compare(a, b)));
     }
 }
-

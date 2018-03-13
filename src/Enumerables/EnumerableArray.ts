@@ -5,6 +5,9 @@ import { IEnumerator } from "../IEnumerator";
 import { ArrayEnumerator } from "../Enumerators/ArrayEnumerator";
 import { IList } from "../IList";
 import { List } from "../List";
+import { Dictionary } from "../Dictionary";
+import { KeyValuePair } from "../KeyValuePair";
+import { IDictionary } from "../IDictionary";
 
 
 

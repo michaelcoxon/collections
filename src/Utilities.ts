@@ -1,7 +1,7 @@
 ﻿import { IEnumerableOrArray, Selector } from "./Types";
 import { InvalidTypeException, NotSupportedException } from "@michaelcoxon/utilities";
 
-export function collectionOrArrayToArray<T>(enumerableOrArray: IEnumerableOrArray<T>): T[]
+export function enumerableOrArrayToArray<T>(enumerableOrArray: IEnumerableOrArray<T>): T[]
 {
     if (Array.isArray(enumerableOrArray))
     {

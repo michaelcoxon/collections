@@ -1,13 +1,15 @@
 ﻿import { Utilities, InvalidTypeException, ArgumentException } from '@michaelcoxon/utilities';
-import { Collection, EnumerableOrArray } from './Collection';
-import { IComparer, DefaultComparer } from "./Comparer";
+import { IList } from './IList';
+import { ICollection } from './ICollection';
+import { IEnumerable } from './IEnumerable';
+import { Collection } from './Collection';
 
 
-export class List<T> extends Collection<T>
+export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, IEnumerable<T>
 {
     public addRange(array: T[]): void;
-    public addRange(collection: Collection<T>): void;
-    public addRange(collectionOrArray: EnumerableOrArray<T>): void
+    public addRange(collection: ICollection<T>): void;
+    public addRange(collectionOrArray: IEnumerableOrArray<T>): void
     {
         let array = Collection.collectionOrArrayToArray(collectionOrArray);
 

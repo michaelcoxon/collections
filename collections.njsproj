@@ -68,6 +68,7 @@
     <TypeScriptCompile Include="src\List.ts" />
     <TypeScriptCompile Include="src\IQueryable.ts" />
     <TypeScriptCompile Include="src\Queryables\QueryableArray.ts" />
+    <TypeScriptCompile Include="src\Queryables\QueryableEnumerable.ts" />
     <TypeScriptCompile Include="src\Queryables\QueryableGroup.ts" />
     <TypeScriptCompile Include="src\Types.ts" />
     <TypeScriptCompile Include="src\Utilities.ts" />
