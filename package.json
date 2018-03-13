@@ -1,8 +1,9 @@
 {
   "name": "@michaelcoxon/collections",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Collections for JS and TypeScript",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "run-tests": "mocha -r ts-node/register tests/**/*.spec.ts",
     "test": "npm-run-all -s build-dev build-prod -p run-tests",
