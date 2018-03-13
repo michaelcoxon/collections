@@ -1,4 +1,4 @@
-﻿import { InvalidTypeException, UndefinedArgumentException } from './Exceptions';
+﻿import { InvalidTypeException, ArgumentUndefinedException } from '@michaelcoxon/utilities';
 
 export type CollectionOrArray<T> = T[] | Collection<T>;
 

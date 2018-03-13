@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{89925f06-dee7-4218-ac9c-f28824a53276}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -22,47 +22,31 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Content Include="dist\index.debug.js.map" />
+    <Content Include=".npmignore" />
+    <Content Include="src\tsconfig.json" />
+    <Content Include="tsconfig.json" />
     <Content Include="LICENSE" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <Content Include="tsconfig.json">
+    <Content Include="base-tsconfig.json">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="dist\" />
     <Folder Include="tests\" />
     <Folder Include="src\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dist\index.debug.js" />
-    <Compile Include="dist\index.js" />
     <Compile Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="src\Collection.ts">
-      <Publish>True</Publish>
-    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Collection.ts" />
     <TypeScriptCompile Include="src\Comparer.ts" />
-    <TypeScriptCompile Include="src\Enumerator.ts">
-      <Publish>True</Publish>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Exceptions.ts">
-      <Publish>True</Publish>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\index.ts">
-      <Publish>True</Publish>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\List.ts">
-      <Publish>True</Publish>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Queryable.ts">
-      <Publish>True</Publish>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Utilities.ts">
-      <Publish>True</Publish>
-    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Enumerator.ts" />
+    <TypeScriptCompile Include="src\Extensions.ts" />
+    <TypeScriptCompile Include="src\index.ts" />
+    <TypeScriptCompile Include="src\List.ts" />
+    <TypeScriptCompile Include="src\Queryable.ts" />
     <TypeScriptCompile Include="tests\Collection.spec.ts">
       <TestFramework>Mocha</TestFramework>
       <Publish>True</Publish>

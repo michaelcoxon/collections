@@ -1,5 +1,4 @@
-﻿import { Utilities } from "./Utilities";
-import { NotSupportedException, UndefinedArgumentException } from "./Exceptions";
+﻿import { Utilities, NotSupportedException, ArgumentUndefinedException } from "@michaelcoxon/utilities";
 
 export interface IComparer<T>
 {
@@ -138,7 +137,7 @@ export class CustomComparer<T> implements IComparer<T>
         }
         else
         {
-            throw new UndefinedArgumentException("The comparer");
+            throw new ArgumentUndefinedException("The comparer");
         }
     }
 
@@ -150,7 +149,7 @@ export class CustomComparer<T> implements IComparer<T>
         }
         else
         {
-            throw new UndefinedArgumentException("The equality comparer");
+            throw new ArgumentUndefinedException("The equality comparer");
         }
     }
 }
@@ -159,13 +158,11 @@ export class MapComparer<T, M> implements IComparer<T>
 {
     private readonly _comparer: IComparer<M>;
     private readonly _selector: (a: T) => M;
-    private readonly _resolveFunctions: boolean;
 
-    constructor(comparer: IComparer<M>, selector: (a: T) => M, resolveFunctions: boolean = true)
+    constructor(comparer: IComparer<M>, selector: (a: T) => M)
     {
         this._comparer = comparer;
         this._selector = selector;
-        this._resolveFunctions = resolveFunctions;
     }
 
     public compare(x: T, y: T): number
@@ -173,14 +170,7 @@ export class MapComparer<T, M> implements IComparer<T>
         let x_value = this._selector(x);
         let y_value = this._selector(y);
 
-        if (this._resolveFunctions && typeof x_value === 'function' && typeof y_value === 'function')
-        {
-            return this._comparer.compare(x_value(), y_value());
-        }
-        else
-        {
-            return this._comparer.compare(x_value, y_value);
-        }
+        return this._comparer.compare(x_value, y_value);
     }
 
     public equals(x: T, y: T): boolean
@@ -188,14 +178,7 @@ export class MapComparer<T, M> implements IComparer<T>
         let x_value = this._selector(x);
         let y_value = this._selector(y);
 
-        if (this._resolveFunctions && typeof x_value === 'function' && typeof y_value === 'function')
-        {
-            return this._comparer.equals(x_value(), y_value());
-        }
-        else
-        {
-            return this._comparer.equals(x_value, y_value);
-        }
+        return this._comparer.equals(x_value, y_value);
     }
 }
 

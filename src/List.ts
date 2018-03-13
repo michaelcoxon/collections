@@ -1,5 +1,4 @@
-﻿import { InvalidTypeException, ArgumentException } from './Exceptions';
-import { Utilities } from './Utilities';
+﻿import { Utilities, InvalidTypeException, ArgumentException } from '@michaelcoxon/utilities';
 import { Collection, CollectionOrArray } from './Collection';
 import { IComparer, DefaultComparer } from "./Comparer";
 
@@ -157,17 +156,4 @@ export class List<T> extends Collection<T>
     {
         this._baseArray.sort((a, b) => comparer.compare(a, b));
     }
-}
-
-declare module "./Collection" {
-    interface Collection<T>
-    {
-        // returns the current Collection as a List
-        toList(): List<T>
-    }
-}
-
-Collection.prototype.toList = function <T>(): List<T>
-{
-    return new List<T>(this.toArray());
 }

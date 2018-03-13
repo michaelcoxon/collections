@@ -1,8 +1,8 @@
-﻿import { Collection } from '../src/Collection';
-import { List } from '../src/List';
+﻿import { Collection } from '../lib/Collection';
+import { List } from '../lib/List';
 import { expect, assert } from 'chai';
 import 'mocha';
-import { CustomComparer } from "../src/Comparer";
+import { CustomComparer } from "../lib/Comparer";
 
 
 
@@ -410,7 +410,7 @@ describe("Sort the List", () =>
         const list = new List(array);
         const expected = [4, 3, 2, 1];
 
-        list.sort(new CustomComparer((a, b) => b - a));
+        list.sort(new CustomComparer<number>((a, b) => b - a));
 
         for (let i = 0; i < list.count; i++)
         {
