@@ -9,7 +9,11 @@ declare module "./Collection" {
         // returns the current Collection as a queryable object
         asQueryable(): Queryable<T>;
 
+        forEach(callback: (value: T, index: number) => boolean | void): void;
+
         ofType<N extends T>(type: { new(...args: any[]): N }): Collection<N>;
+
+        toArray(): T[];
 
         // returns the current Collection as a List
         toList(): List<T>;
@@ -19,22 +23,6 @@ declare module "./Collection" {
     }
 }
 
-Collection.prototype.asQueryable = function <T>(): Queryable<T>
-{
-    return new Queryable<T>(this);
-}
 
-Collection.prototype.ofType = function <T, N extends T>(type: { new(...args: any[]): N }): Collection<N>
-{
-    return this.asQueryable().where((item) => item instanceof type).select((item) => item as N);
-}
 
-Collection.prototype.toList = function <T>(): List<T>
-{
-    return new List<T>(this.toArray());
-}
 
-Collection.prototype.getEnumerator = function <T>(): Enumerator<T>
-{
-    return new Enumerator<T>(this);
-}

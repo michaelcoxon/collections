@@ -6,13 +6,20 @@ import { IComparer, DefaultComparer, ReverseComparer, MapComparer } from "./Comp
 export type Predicate<T> = (item: T) => boolean;
 
 // public class jExt.Collections.Queryable
-export class Queryable<T> extends Collection<T>
+export class QueryableArray<T>
 {
+    private readonly _baseArray: T[];
+
+    constructor(array: T[])
+    {
+        [...this._baseArray] = array;
+    }
+
     public all(predicate: Predicate<T>): boolean
     {
         var output = true;
 
-        output = this._baseArray.every((element) => predicate(element));
+        output = [...this._baseArray].every((element) => predicate(element));
 
         return output;
     }
@@ -29,14 +36,14 @@ export class Queryable<T> extends Collection<T>
             }
             else
             {
-                output = this._baseArray.some((element) => predicate(element));
+                output = [...this._baseArray].some((element) => predicate(element));
             }
 
             return output;
         }
         else
         {
-            return this._baseArray.length > 0;
+            return [...this._baseArray].length > 0;
         }
     }
 
@@ -46,24 +53,22 @@ export class Queryable<T> extends Collection<T>
     {
         let selector = this.createSelector(propertyNameOrSelector);
         let sum = this.sum((item) => selector(item) as number);
-        return sum / this.count;
+        return sum / this.count();
     }
 
-
-    // Clones the Queryable object
-    public clone(): Queryable<T>
+    public count(): number
     {
-        return new Queryable<T>(super.clone());
+        return [...this._baseArray].length;
     }
 
     // USAGE: obj.Distinct(); or obj.Distinct(['key1'],['key2']);
-    public distinct<K extends keyof T>(propertyName: K): Queryable<T>;
-    public distinct<R>(selector: (a: T) => R): Queryable<T>;
-    public distinct<K extends keyof T, R>(propertyNameOrSelector: K | ((a: T) => R)): Queryable<T>
+    public distinct<K extends keyof T>(propertyName: K): QueryableArray<T>;
+    public distinct<R>(selector: (a: T) => R): QueryableArray<T>;
+    public distinct<K extends keyof T, R>(propertyNameOrSelector: K | ((a: T) => R)): QueryableArray<T>
     {
-        if (this._baseArray.length === 0)
+        if ([...this._baseArray].length === 0)
         {
-            return new Queryable(this);
+            return new QueryableArray([...this._baseArray]);
         }
 
         let selector = this.createSelector(propertyNameOrSelector);
@@ -125,8 +130,8 @@ export class Queryable<T> extends Collection<T>
         return null;
     }
 
-    public groupBy<K extends keyof T>(propertyName: K): Queryable<GroupedQueryable<T, T[K]>>;
-    public groupBy<TKey>(keySelector: (a: T) => TKey): Queryable<GroupedQueryable<T, TKey>>;
+    public groupBy<K extends keyof T>(propertyName: K): QueryableArray<GroupedQueryable<T, T[K]>>;
+    public groupBy<TKey>(keySelector: (a: T) => TKey): QueryableArray<GroupedQueryable<T, TKey>>;
     public groupBy<K extends keyof T, TKey>(propertyNameOrKeySelector: K | ((a: T) => TKey))
     {
         let keySelector = this.createSelector(propertyNameOrKeySelector);
@@ -171,7 +176,7 @@ export class Queryable<T> extends Collection<T>
     public max<K extends keyof T>(propertyNameOrSelector: K | ((a: T) => number)): number
     {
         let selector = this.createSelector(propertyNameOrSelector);
-        let values = this.select((item) => selector(item) as number).toArray();
+        let values = this.select((item) => selector(item) as number)._baseArray;
         return Math.max(...values);
     }
 
@@ -180,11 +185,11 @@ export class Queryable<T> extends Collection<T>
     public min<K extends keyof T>(propertyNameOrSelector: K | ((a: T) => number)): number
     {
         let selector = this.createSelector(propertyNameOrSelector);
-        let values = this.select((item) => selector(item) as number).toArray();
+        let values = this.select((item) => selector(item) as number)._baseArray;
         return Math.min(...values);
     }
 
-    public ofType<N extends T>(ctor: Utilities.ConstructorFor<N>): Queryable<N>
+    public ofType<N extends T>(ctor: Utilities.ConstructorFor<N>): QueryableArray<N>
     {
         return this
             .where((item) => item instanceof ctor)
@@ -196,9 +201,9 @@ export class Queryable<T> extends Collection<T>
     // without parenthesis.
     // USAGE: obj.OrderBy('key1');
     //        obj.OrderBy(function (item) { return item.key1 });
-    public orderBy<K extends keyof T>(propertyName: K, comparer?: IComparer<T[K]>): Queryable<T>;
-    public orderBy<R>(selector: (a: T) => R, comparer?: IComparer<R>): Queryable<T>;
-    public orderBy<K extends keyof T, R>(propertyNameOrSelector: K | ((a: T) => R), comparer?: IComparer<T[K] | R>): Queryable<T>
+    public orderBy<K extends keyof T>(propertyName: K, comparer?: IComparer<T[K]>): QueryableArray<T>;
+    public orderBy<R>(selector: (a: T) => R, comparer?: IComparer<R>): QueryableArray<T>;
+    public orderBy<K extends keyof T, R>(propertyNameOrSelector: K | ((a: T) => R), comparer?: IComparer<T[K] | R>): QueryableArray<T>
     {
         return this.internalOrderBy(
             this.createSelector(propertyNameOrSelector),
@@ -210,29 +215,29 @@ export class Queryable<T> extends Collection<T>
     // without parenthesis.
     // USAGE: obj.OrderByDescending('key1');
     //        obj.OrderByDescending(function (item) { return item.key1 });
-    public orderByDescending<K extends keyof T>(propertyName: K, comparer?: IComparer<T[K]>): Queryable<T>;
-    public orderByDescending<R>(selector: (a: T) => R, comparer?: IComparer<R>): Queryable<T>;
-    public orderByDescending<K extends keyof T, R>(propertyNameOrSelector: K | ((a: T) => R), comparer?: IComparer<T[K] | R>): Queryable<T>
+    public orderByDescending<K extends keyof T>(propertyName: K, comparer?: IComparer<T[K]>): QueryableArray<T>;
+    public orderByDescending<R>(selector: (a: T) => R, comparer?: IComparer<R>): QueryableArray<T>;
+    public orderByDescending<K extends keyof T, R>(propertyNameOrSelector: K | ((a: T) => R), comparer?: IComparer<T[K] | R>): QueryableArray<T>
     {
         return this.internalOrderBy(
             this.createSelector(propertyNameOrSelector),
             new ReverseComparer(comparer || new DefaultComparer<T[K] | R>()));
     }
 
-    public skip(count: number): Queryable<T>
+    public skip(count: number): QueryableArray<T>
     {
-        var array = this.toArray();
+        var array = [...this._baseArray];
         array.splice(0, count);
-        return new Queryable<T>(array);
+        return new QueryableArray<T>(array);
     }
 
     // USAGE: obj.Select((o)=>o.key1); USAGE: obj.Select('key1');
-    public select<K extends keyof T>(propertyName: K): Queryable<T[K]>;
-    public select<TOut>(selector: (a: T) => TOut): Queryable<TOut>;
+    public select<K extends keyof T>(propertyName: K): QueryableArray<T[K]>;
+    public select<TOut>(selector: (a: T) => TOut): QueryableArray<TOut>;
     public select<K extends keyof T, TOut>(propertyNameOrSelector: K | ((a: T) => TOut))
     {
         let selector = this.createSelector(propertyNameOrSelector);
-        return new Queryable(this._baseArray.map((item) => selector(item)));
+        return new QueryableArray([...this._baseArray].map((item) => selector(item)));
     }
 
     public sum<K extends keyof T>(propertyName: K): number;
@@ -241,26 +246,26 @@ export class Queryable<T> extends Collection<T>
     {
         let selector = this.createSelector(propertyNameOrSelector);
         return this.select((item) => selector(item) as number)
-            .toArray()
+            ._baseArray
             .reduce((a, c) => a + c, 0);
     }
 
-    public take(count: number): Queryable<T>
+    public take(count: number): QueryableArray<T>
     {
-        return new Queryable<T>(this.toArray().splice(0, count));
+        return new QueryableArray<T>([...this._baseArray].splice(0, count));
     }
 
     // Returns the objects that evaluate true on the provided comparer function. 
     // USAGE: obj.Where(function() { return true; });
-    public where(predicate: Predicate<T>): Queryable<T>
+    public where(predicate: Predicate<T>): QueryableArray<T>
     {
-        return new Queryable<T>(this._baseArray.filter(predicate));
+        return new QueryableArray<T>([...this._baseArray].filter(predicate));
     }
 
-    private internalOrderBy<R>(selector: (a: T) => R, comparer: IComparer<R>): Queryable<T>
+    private internalOrderBy<R>(selector: (a: T) => R, comparer: IComparer<R>): QueryableArray<T>
     {
         let mapComparer = new MapComparer(comparer, selector);
-        return new Queryable<T>(this.toArray().sort((a, b) => mapComparer.compare(a, b)));
+        return new QueryableArray<T>([...this._baseArray].sort((a, b) => mapComparer.compare(a, b)));
     }
 
     private createSelector<K extends keyof T, R>(propertyNameOrSelector: K | ((a: T) => R)): ((a: T) => T[K] | R)
@@ -285,13 +290,13 @@ export class Queryable<T> extends Collection<T>
 
 export class GroupedQueryable<T, TKey>
 {
-    private readonly _parentQueryable: Queryable<T>;
+    private readonly _parentQueryable: QueryableArray<T>;
     private readonly _key: TKey;
     private readonly _keySelector: (item: T) => TKey;
 
-    private _groupedRows?: Queryable<T>;
+    private _groupedRows?: QueryableArray<T>;
 
-    constructor(parentQueryable: Queryable<T>, key: TKey, keySelector: (item: T) => TKey)
+    constructor(parentQueryable: QueryableArray<T>, key: TKey, keySelector: (item: T) => TKey)
     {
         this._parentQueryable = parentQueryable;
         this._key = key;
@@ -303,7 +308,7 @@ export class GroupedQueryable<T, TKey>
         return this._key;
     }
 
-    public get groupedRows(): Queryable<T>
+    public get groupedRows(): QueryableArray<T>
     {
         let comparer = new DefaultComparer<TKey>();
         return this._groupedRows || (

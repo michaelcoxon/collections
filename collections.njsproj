@@ -42,11 +42,18 @@
   <ItemGroup>
     <TypeScriptCompile Include="src\Collection.ts" />
     <TypeScriptCompile Include="src\Comparer.ts" />
+    <TypeScriptCompile Include="src\Dictionary.ts" />
+    <TypeScriptCompile Include="src\Enumerable.ts" />
     <TypeScriptCompile Include="src\Enumerator.ts" />
     <TypeScriptCompile Include="src\Extensions.ts" />
+    <TypeScriptCompile Include="src\ICollection.ts" />
+    <TypeScriptCompile Include="src\IEnumerable.ts" />
+    <TypeScriptCompile Include="src\IEnumerator.ts" />
     <TypeScriptCompile Include="src\index.ts" />
+    <TypeScriptCompile Include="src\KeyValuePair.ts" />
+    <TypeScriptCompile Include="src\LinkedList.ts" />
     <TypeScriptCompile Include="src\List.ts" />
-    <TypeScriptCompile Include="src\Queryable.ts" />
+    <TypeScriptCompile Include="src\QueryableArray.ts" />
     <TypeScriptCompile Include="tests\Collection.spec.ts">
       <TestFramework>Mocha</TestFramework>
       <Publish>True</Publish>

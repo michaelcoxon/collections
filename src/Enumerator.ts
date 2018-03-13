@@ -1,4 +1,4 @@
-﻿import { Collection, CollectionOrArray } from './Collection';
+﻿import { Collection, EnumerableOrArray } from './Collection';
 import { InvalidTypeException, OutOfBoundsException } from "@michaelcoxon/utilities";
 
 export class Enumerator<T>
@@ -9,7 +9,7 @@ export class Enumerator<T>
     // current pointer location
     private _pointer: number = -1;
 
-    constructor(collectionOrArray: CollectionOrArray<T>)
+    constructor(collectionOrArray: EnumerableOrArray<T>)
     {
         if (Array.isArray(collectionOrArray))
         {

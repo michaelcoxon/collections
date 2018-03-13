@@ -1,18 +1,13 @@
 ﻿import { Utilities, InvalidTypeException, ArgumentException } from '@michaelcoxon/utilities';
-import { Collection, CollectionOrArray } from './Collection';
+import { Collection, EnumerableOrArray } from './Collection';
 import { IComparer, DefaultComparer } from "./Comparer";
 
 
 export class List<T> extends Collection<T>
 {
-    public add(obj: T): void
-    {
-        this._baseArray.push(obj);
-    }
-
     public addRange(array: T[]): void;
     public addRange(collection: Collection<T>): void;
-    public addRange(collectionOrArray: CollectionOrArray<T>): void
+    public addRange(collectionOrArray: EnumerableOrArray<T>): void
     {
         let array = Collection.collectionOrArrayToArray(collectionOrArray);
 
@@ -126,26 +121,14 @@ export class List<T> extends Collection<T>
 
     public prependRange(array: T[]): void;
     public prependRange(collection: Collection<T>): void;
-    public prependRange(collectionOrArray: CollectionOrArray<T>): void
+    public prependRange(collectionOrArray: EnumerableOrArray<T>): void
     {
         let array = Collection.collectionOrArrayToArray(collectionOrArray);
 
         this._baseArray.splice(0, 0, ...array);
     }
 
-    public remove(obj: T): void
-    {
-        let index = this.findIndex(obj);
-
-        if (index != undefined)
-        {
-            this.removeAt(index);
-        }
-        else
-        {
-            throw new Error("Not in array");
-        }
-    }
+   
 
     public removeAt(index: number): void
     {

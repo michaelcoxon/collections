@@ -5,9 +5,10 @@
  * © 2017 Michael Coxon
  * https://github.com/michaelcoxon/collections#readme
  */
-
+/*
 export * from './Collection';
 export * from './Enumerator';
 export * from './List';
 export * from './Queryable';
 export * from './Extensions';
+*/
