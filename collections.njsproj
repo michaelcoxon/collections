@@ -23,6 +23,7 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include=".npmignore" />
+    <Content Include="src\Comparers\MapComparer.ts" />
     <Content Include="src\tsconfig.json" />
     <Content Include="tsconfig.json" />
     <Content Include="LICENSE" />
@@ -33,6 +34,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="src\Enumerators\" />
+    <Folder Include="src\Enumerables\" />
+    <Folder Include="src\Comparers\" />
+    <Folder Include="src\Queryables\" />
     <Folder Include="tests\" />
     <Folder Include="src\" />
   </ItemGroup>
@@ -41,19 +46,31 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\Collection.ts" />
-    <TypeScriptCompile Include="src\Comparer.ts" />
+    <TypeScriptCompile Include="src\Comparers\CaseInsensitiveStringComparer.ts" />
+    <TypeScriptCompile Include="src\Comparers\CustomComparer.ts" />
+    <TypeScriptCompile Include="src\Comparers\DefaultComparer.ts" />
+    <TypeScriptCompile Include="src\Comparers\ReverseComparer.ts" />
+    <TypeScriptCompile Include="src\IComparer.ts" />
+    <TypeScriptCompile Include="src\IDictionary.ts" />
     <TypeScriptCompile Include="src\Dictionary.ts" />
-    <TypeScriptCompile Include="src\Enumerable.ts" />
-    <TypeScriptCompile Include="src\Enumerator.ts" />
-    <TypeScriptCompile Include="src\Extensions.ts" />
+    <TypeScriptCompile Include="src\Enumerables\EnumerableArray.ts" />
+    <TypeScriptCompile Include="src\Enumerators\ArrayEnumerator.ts" />
     <TypeScriptCompile Include="src\ICollection.ts" />
     <TypeScriptCompile Include="src\IEnumerable.ts" />
     <TypeScriptCompile Include="src\IEnumerator.ts" />
     <TypeScriptCompile Include="src\index.ts" />
+    <TypeScriptCompile Include="src\IQueryableGroup.ts" />
+    <TypeScriptCompile Include="src\IReadOnlyCollection.ts" />
+    <TypeScriptCompile Include="src\ISet.ts" />
     <TypeScriptCompile Include="src\KeyValuePair.ts" />
     <TypeScriptCompile Include="src\LinkedList.ts" />
+    <TypeScriptCompile Include="src\IList.ts" />
     <TypeScriptCompile Include="src\List.ts" />
-    <TypeScriptCompile Include="src\QueryableArray.ts" />
+    <TypeScriptCompile Include="src\IQueryable.ts" />
+    <TypeScriptCompile Include="src\Queryables\QueryableArray.ts" />
+    <TypeScriptCompile Include="src\Queryables\QueryableGroup.ts" />
+    <TypeScriptCompile Include="src\Types.ts" />
+    <TypeScriptCompile Include="src\Utilities.ts" />
     <TypeScriptCompile Include="tests\Collection.spec.ts">
       <TestFramework>Mocha</TestFramework>
       <Publish>True</Publish>

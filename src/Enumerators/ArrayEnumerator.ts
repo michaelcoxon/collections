@@ -1,7 +1,10 @@
-﻿import { Collection, EnumerableOrArray } from './Collection';
+﻿import { Collection } from '../Collection';
 import { InvalidTypeException, OutOfBoundsException } from "@michaelcoxon/utilities";
+import { IEnumerator } from '../IEnumerator';
+import { IEnumerableOrArray } from '../Types';
+import { IEnumerable } from '../IEnumerable';
 
-export class Enumerator<T>
+export class ArrayEnumerator<T> implements IEnumerator<T>
 {
     // the internal array
     private readonly _baseArray: T[];
@@ -9,21 +12,9 @@ export class Enumerator<T>
     // current pointer location
     private _pointer: number = -1;
 
-    constructor(collectionOrArray: EnumerableOrArray<T>)
+    constructor(array: T[])
     {
-        if (Array.isArray(collectionOrArray))
-        {
-            // copy the array into this
-            this._baseArray = [...collectionOrArray];
-        }
-        else if (collectionOrArray instanceof Collection)
-        {
-            this._baseArray = [...collectionOrArray.toArray()];
-        }
-        else
-        {
-            throw new InvalidTypeException('collectionOrArray', 'Collection or Array');
-        }
+        this._baseArray = array;
     }
 
     // returns the current element

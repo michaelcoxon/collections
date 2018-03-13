@@ -1,10 +1,5 @@
 ﻿import { InvalidTypeException, ArgumentUndefinedException } from '@michaelcoxon/utilities';
-import { ICollection, EnumerableOrArray } from './ICollection';
-
-export
-{
-    EnumerableOrArray
-};
+import { ICollection } from './ICollection';
 
 export class Collection<T> implements ICollection<T>
 {
@@ -73,11 +68,6 @@ export class Collection<T> implements ICollection<T>
         array.splice(collectionOrArrayIndex, this.count, ...this._baseArray);
     }
 
-    public item(index: number): T
-    {
-        return this._baseArray[index];
-    }
-
     public remove(item: T): boolean
     {
         let index = this._baseArray.indexOf(item);
@@ -96,22 +86,5 @@ export class Collection<T> implements ICollection<T>
     public removeAt(index: number): void
     {
         this._baseArray.splice(index, 1);
-    }
-
-    protected static collectionOrArrayToArray<T>(collectionOrArray: EnumerableOrArray<T>): T[]
-    {
-        if (Array.isArray(collectionOrArray))
-        {
-            // copy the array into this
-            return [...collectionOrArray];
-        }
-        else if (collectionOrArray instanceof Collection)
-        {
-            return [...collectionOrArray.toArray()];
-        }
-        else
-        {
-            throw new InvalidTypeException('collectionOrArray', 'Collection or Array');
-        }
     }
 }

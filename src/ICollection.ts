@@ -1,8 +1,5 @@
 ﻿import { IEnumerable } from "./IEnumerable";
 
-export type IEnumerableOrArray<T> = T[] | IEnumerable<T>;
-
-
 export interface ICollection<T> extends IEnumerable<T>
 {
     /** Gets the number of elements contained in the ICollection<T>. */
@@ -28,16 +25,10 @@ export interface ICollection<T> extends IEnumerable<T>
 
     /**
      * Copies the elements of the ICollection<T> to an Array, starting at a particular Array index.
-     * @param enumerableOrArray The one-dimensional Array that is the destination of the elements copied from ICollection<T>. The Array must have zero-based indexing.
-     * @param enumerableOrArrayIndex The zero-based index in array at which copying begins.
+     * @param array The one-dimensional Array that is the destination of the elements copied from ICollection<T>. The Array must have zero-based indexing.
+     * @param arrayIndex The zero-based index in array at which copying begins.
      */
-    copyTo(enumerableOrArray: IEnumerableOrArray<T>, enumerableOrArrayIndex: number): void;
-
-    /**
-     * Returns the item at the specified index
-     * @param index The index of the item to return
-     */
-    item(index: number): T;
+    copyTo(array: T[], arrayIndex: number): void;
 
     /**
      * Removes the first occurrence of a specific object from the ICollection<T>.

@@ -1,24 +1,41 @@
 ﻿import { IEnumerator } from "./IEnumerator";
-
+import { IList } from "./IList";
+import { IQueryable } from "./IQueryable";
+import { Utilities } from "@michaelcoxon/utilities";
+import { IDictionary } from "./IDictionary";
 
 
 export interface IEnumerable<T>
-{    
-    forEach(callback: (value: T, index: number) => boolean | void): void;
-        
-    // returns an Enumerator for the current Collection
-    getEnumerator(): IEnumerator<T>;
+{
     /** Returns the current IEnumerable as a queryable object */
-    asQueryable(): Queryable<T>;
+    asQueryable(): IQueryable<T>;
 
-    /** Returns an enumerator that iterates through the collection. */
+    /**
+     * Iterates over the enumerable and performs the callback on each item. Return false to break.
+     * @param callback
+     */
+    forEach(callback: (value: T, index: number) => boolean | void): void;
+
+    /** returns an Enumerator for the items */
     getEnumerator(): IEnumerator<T>;
 
-    ofType<N extends T>(type: { new(...args: any[]): N }): IEnumerable<N>;
+    /**
+     * Returns the item at the specified index
+     * @param index The index of the item to return
+     */
+    item(index: number): T;
 
+    /**
+     * Returns the item that match the type
+     * @param ctor the constructor for the type to match
+     */
+    ofType<N extends T>(ctor: Utilities.ConstructorFor<N>): IEnumerable<N>;
+
+    /** Returns the items as an array */
     toArray(): T[];
 
-    // returns the current Collection as a List
-    toList(): List<T>;
+    toDictionary<TKey, TValue>(keySelector: (a: T) => TKey, valueSelector: (a: T) => TValue): IDictionary<TKey, TValue>;
 
+    /** Returns the items as a List */
+    toList(): IList<T>;
 }
