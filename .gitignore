@@ -66,7 +66,10 @@ obj/
 bin/
 _NCrunch_collections/
 
+dts/
 lib/
+lib.es6/
+lib.es2015/
 dist/
 tests/*.js
 tests/*.js.map

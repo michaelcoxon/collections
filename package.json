@@ -1,8 +1,9 @@
 {
   "name": "@michaelcoxon/collections",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Collections for JS and TypeScript",
   "main": "dist/index.js",
+  "module": "lib.es2015/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "run-tests": "mocha -r ts-node/register tests/**/*.spec.ts",
@@ -43,7 +44,7 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
-    "@michaelcoxon/utilities": "^1.0.6"
+    "@michaelcoxon/utilities": "^1.1.0"
   },
   "-vs-binding": {
     "ProjectOpened": [
