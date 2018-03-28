@@ -73,3 +73,5 @@ lib.es2015/
 dist/
 tests/*.js
 tests/*.js.map
+src/*.js
+src/*.js.map

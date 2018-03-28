@@ -1,4 +1,4 @@
-﻿import * as Collections from '../lib';
+﻿import * as Collections from '../src';
 import { expect, assert } from 'chai';
 import 'mocha';
 

@@ -17,6 +17,7 @@
     <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
     <ToolsVersionPromptShown>0.0</ToolsVersionPromptShown>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
