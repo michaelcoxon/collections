@@ -35,10 +35,4 @@ export interface ICollection<T> extends IEnumerable<T>
      * @param item
      */
     remove(item: T): boolean;
-
-    /**
-     * Removes the object at the index from the ICollection<T>.
-     * @param index
-     */
-    removeAt(index: number): void;
 }

@@ -1,23 +1,32 @@
-﻿import { Collection, ICollection, EnumerableOrArray } from "./Collection";
-import { KeyValuePair } from "./KeyValuePair";
-import { KeyAlreadyDefinedException, KeyNotFoundException } from "./Exceptions";
-import { Utilities } from "./Utilities";
+﻿import { Collection } from "./Collection";
+import { IDictionary, KeyValuePair } from "./IDictionary";
+import { IEnumerableOrArray } from "./Types";
+import { enumerableOrArrayToArray } from "./Utilities";
+import { Utilities, KeyNotFoundException, KeyAlreadyDefinedException } from "@michaelcoxon/utilities";
+import { IQueryable } from "./IQueryable";
+import { IEnumerator } from "./IEnumerator";
+import { IList } from "./IList";
 
-export class Dictionary<TKey, TValue>
+export class Dictionary<TKey, TValue> extends Collection<KeyValuePair<TKey, TValue>> implements IDictionary<TKey, TValue>
 {
-    private readonly _hashtable: { [hash: string]: KeyValuePair<TKey, TValue> };
-    private readonly _baseArray: KeyValuePair<TKey, TValue>[];
+    private _hashtable: { [hash: string]: KeyValuePair<TKey, TValue> };
+
+    public readonly isReadOnly: boolean = false;
 
     // constructor
-    constructor(collectionOrArray?: EnumerableOrArray<KeyValuePair<TKey, TValue>>)
+    constructor(enumerableOrArray?: IEnumerableOrArray<KeyValuePair<TKey, TValue>>)
     {
+        super([]);
         this._hashtable = {};
-        this._baseArray = [];
 
-        if (collectionOrArray !== undefined)
+        if (enumerableOrArray)
         {
-            let array = Collection.collectionOrArrayToArray(collectionOrArray);
-        }
+            const items = enumerableOrArrayToArray(enumerableOrArray);
+            for (let item of items)
+            {
+                this.add(item);
+            }
+        }        
     }
 
     public get count(): number
@@ -35,28 +44,28 @@ export class Dictionary<TKey, TValue>
         return this._baseArray.map(kvp => kvp.value);
     }
 
-    public add(key: TKey, value: TValue): void
+    public add(keyValuePair: KeyValuePair<TKey, TValue>): void
     {
-        this.addKeyValuePair(new KeyValuePair(key, value));
-    }
+        let hash = Utilities.getHash(keyValuePair.key);
 
-    public addKeyValuePair(keyValuePair: KeyValuePair<TKey, TValue>): void
-    {
-        this.ensureKeysAvailable(keyValuePair.key);
-        this._baseArray.push(keyValuePair);
-        this._hashtable[Utilities.getHash(keyValuePair.key)] = keyValuePair;
-    }
-
-    public addRange(keyValuePairs: KeyValuePair<TKey, TValue>[]): void
-    {
-        this.ensureKeysAvailable(...keyValuePairs.map(kvp => kvp.key));
-        for (let kvp of keyValuePairs)
+        if (this._hashtable[Utilities.getHash(keyValuePair.key)] !== undefined)
         {
-            this.addKeyValuePair(kvp);
+            throw new KeyAlreadyDefinedException(keyValuePair.key);
         }
+
+        this._baseArray.push(keyValuePair);
+        this._hashtable[hash] = keyValuePair;
     }
 
-    public item(key:TKey): TValue
+    public addKeyValue(key: TKey, value: TValue): void
+    {
+        this.add({
+            key: key,
+            value: value
+        });
+    }
+
+    public itemByKey(key: TKey): TValue
     {
         let hash = Utilities.getHash(key);
         if (this._hashtable[hash] === undefined)
@@ -66,39 +75,57 @@ export class Dictionary<TKey, TValue>
         return this._hashtable[hash].value;
     }
 
-    public toArray(): KeyValuePair<TKey, TValue>[]
+    containsKey(key: TKey): boolean
     {
-        return [...this._baseArray];
+        let hash = Utilities.getHash(key);
+        return this._hashtable[hash] !== undefined;
     }
 
-    private ensureKeysAvailable(...keys: TKey[])
+    removeByKey(key: TKey): boolean
     {
-        for (let key of keys)
+        let hash = Utilities.getHash(key);
+
+        if (this._hashtable[hash] === undefined)
         {
-            if (this.keys.indexOf(key) != -1)
-            {
-                throw new KeyAlreadyDefinedException(key);
+            return false;
+        }
+
+        const kvp = this._hashtable[hash];
+        this._baseArray.splice(this._baseArray.indexOf(kvp), 1);
+        delete this._hashtable[hash];
+
+        return true;
+    }
+
+    tryGetValue(key: TKey): { value?: TValue; success: boolean; }
+    {
+        try
+        {
+            return {
+                value: this.itemByKey(key),
+                success: true
             }
         }
-    }
-
-    private ensureKey(key: TKey)
-    {
-        if (this.keys.indexOf(key) == -1)
+        catch
         {
-            throw new KeyNotFoundException(key);
+            return { success: false }
         }
     }
-}
 
-declare module "./Collection" {
-    interface Collection<T>
+    clear(): void
     {
-        toDictionary<TKey, TValue>(keySelector: (a: T) => TKey, valueSelector: (a: T) => TValue): Dictionary<TKey, TValue>
-    }
-}
+        super.clear();
+        this._hashtable = {};
+    }   
 
-Collection.prototype.toDictionary = function <T, TKey, TValue>(keySelector: (a: T) => TKey, valueSelector: (a: T) => TValue): Dictionary<TKey, TValue>
-{
-    return new Dictionary(this.toArray().map(i => new KeyValuePair(keySelector(i), valueSelector(i))));
+    remove(item: KeyValuePair<TKey, TValue>): boolean
+    {
+        if (super.remove(item))
+        {
+            let hash = Utilities.getHash(item.key);
+            delete this._hashtable[hash];
+            return true;
+        }
+        return false;
+    }
 }

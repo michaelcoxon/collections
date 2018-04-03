@@ -1,4 +1,4 @@
-﻿import { IEnumerable } from "./IEnumerable";
+﻿import { IEnumerable } from "./Interfaces/IEnumerable";
 
 export type IEnumerableOrArray<T> = T[] | IEnumerable<T>;
 export type Predicate<T> = (item: T) => boolean;

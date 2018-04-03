@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{89925f06-dee7-4218-ac9c-f28824a53276}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -17,6 +17,7 @@
     <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
     <ToolsVersionPromptShown>0.0</ToolsVersionPromptShown>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -24,7 +25,9 @@
     <Content Include=".gitignore" />
     <Content Include=".npmignore" />
     <Content Include="src\Comparers\MapComparer.ts" />
-    <Content Include="src\tsconfig.json" />
+    <Content Include="src\config\es2015\tsconfig.json" />
+    <Content Include="src\config\es5\tsconfig.json" />
+    <Content Include="src\config\es6\tsconfig.json" />
     <Content Include="tsconfig.json" />
     <Content Include="LICENSE" />
     <Content Include="package.json" />
@@ -34,9 +37,14 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="src\config\" />
+    <Folder Include="src\config\es2015\" />
+    <Folder Include="src\config\es5\" />
+    <Folder Include="src\config\es6\" />
     <Folder Include="src\Enumerators\" />
     <Folder Include="src\Enumerables\" />
     <Folder Include="src\Comparers\" />
+    <Folder Include="src\Interfaces\" />
     <Folder Include="src\Queryables\" />
     <Folder Include="tests\" />
     <Folder Include="src\" />
@@ -50,26 +58,28 @@
     <TypeScriptCompile Include="src\Comparers\CustomComparer.ts" />
     <TypeScriptCompile Include="src\Comparers\DefaultComparer.ts" />
     <TypeScriptCompile Include="src\Comparers\ReverseComparer.ts" />
-    <TypeScriptCompile Include="src\IComparer.ts" />
-    <TypeScriptCompile Include="src\IDictionary.ts" />
+    <TypeScriptCompile Include="src\Enumerable.ts" />
+    <TypeScriptCompile Include="src\Enumerators\EnumerableEnumerator.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IComparer.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IDictionary.ts" />
     <TypeScriptCompile Include="src\Dictionary.ts" />
-    <TypeScriptCompile Include="src\Enumerables\EnumerableArray.ts" />
+    <TypeScriptCompile Include="src\Enumerables\ArrayEnumerable.ts" />
     <TypeScriptCompile Include="src\Enumerators\ArrayEnumerator.ts" />
-    <TypeScriptCompile Include="src\ICollection.ts" />
-    <TypeScriptCompile Include="src\IEnumerable.ts" />
-    <TypeScriptCompile Include="src\IEnumerator.ts" />
+    <TypeScriptCompile Include="src\Interfaces\ICollection.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IEnumerable.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IEnumerator.ts" />
     <TypeScriptCompile Include="src\index.ts" />
-    <TypeScriptCompile Include="src\IQueryableGroup.ts" />
-    <TypeScriptCompile Include="src\IReadOnlyCollection.ts" />
-    <TypeScriptCompile Include="src\ISet.ts" />
-    <TypeScriptCompile Include="src\KeyValuePair.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IQueryableGroup.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IReadOnlyCollection.ts" />
+    <TypeScriptCompile Include="src\Interfaces\ISet.ts" />
     <TypeScriptCompile Include="src\LinkedList.ts" />
-    <TypeScriptCompile Include="src\IList.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IList.ts" />
     <TypeScriptCompile Include="src\List.ts" />
-    <TypeScriptCompile Include="src\IQueryable.ts" />
-    <TypeScriptCompile Include="src\Queryables\QueryableArray.ts" />
-    <TypeScriptCompile Include="src\Queryables\QueryableEnumerable.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IQueryable.ts" />
+    <TypeScriptCompile Include="src\Queryables\ArrayQueryable.ts" />
+    <TypeScriptCompile Include="src\Queryables\EnumerableQueryable.ts" />
     <TypeScriptCompile Include="src\Queryables\QueryableGroup.ts" />
+    <TypeScriptCompile Include="src\Set.ts" />
     <TypeScriptCompile Include="src\Types.ts" />
     <TypeScriptCompile Include="src\Utilities.ts" />
     <TypeScriptCompile Include="tests\Collection.spec.ts">

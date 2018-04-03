@@ -1,8 +1,8 @@
-﻿import { Collection } from '../lib/Collection';
-import { List } from '../lib/List';
+﻿import { Collection } from '../src/Collection';
+import { List } from '../src/List';
+import { CustomComparer } from '../src/Comparers/CustomComparer';
 import { expect, assert } from 'chai';
 import 'mocha';
-import { CustomComparer } from "../lib/Comparer";
 
 
 
@@ -171,7 +171,7 @@ describe("Find an item's index in the list", () =>
     {
         const array = [1, 2, 3, 4];
         const list = new List(array);
-        const result = list.findIndex(4);
+        const result = list.indexOf(4);
 
         expect(3).eq(result);
     });
@@ -180,7 +180,7 @@ describe("Find an item's index in the list", () =>
     {
         const array = [1, 2, 3, 4];
         const list = new List(array);
-        const result = list.findIndex(5);
+        const result = list.indexOf(5);
 
         expect(undefined).eq(result);
     });
@@ -195,7 +195,7 @@ describe("Insert an item into the list", () =>
         const expected = [-1, 1, 2, 3, 4];
         const new_item = -1;
 
-        list.insertAt(new_item, 0);
+        list.insert(new_item, 0);
 
         expect(array.length + 1).eq(list.count);
 
@@ -212,7 +212,7 @@ describe("Insert an item into the list", () =>
         const expected = [1, 2, -1, 3, 4];
         const new_item = -1;
 
-        list.insertAt(new_item, 2);
+        list.insert(new_item, 2);
 
         expect(array.length + 1).eq(list.count);
 
@@ -230,7 +230,7 @@ describe("Insert an item into the list", () =>
         const expected = [1, 2, 3, -1, 4];
         const new_item = -1;
 
-        list.insertAt(new_item, 3);
+        list.insert(new_item, 3);
 
         expect(array.length + 1).eq(list.count);
 

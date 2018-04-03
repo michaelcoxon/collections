@@ -1,4 +1,4 @@
-﻿import { IComparer } from "./DefaultComparer";
+﻿import { IComparer } from "../IComparer";
 
 export class ReverseComparer<T> implements IComparer<T>
 {

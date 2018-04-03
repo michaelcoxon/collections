@@ -1,44 +1,22 @@
 ﻿import { Utilities, InvalidTypeException, ArgumentException } from '@michaelcoxon/utilities';
-import { IList } from './IList';
-import { ICollection } from './ICollection';
-import { IEnumerable } from './IEnumerable';
+import { IList } from './Interfaces/IList';
+import { ICollection } from './Interfaces/ICollection';
+import { IEnumerable } from './Interfaces/IEnumerable';
 import { Collection } from './Collection';
+import { IEnumerableOrArray } from './Types';
+import { enumerableOrArrayToArray } from './Utilities';
+import { IComparer } from './Interfaces/IComparer';
+import { DefaultComparer } from './Comparers/DefaultComparer';
 
 
 export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, IEnumerable<T>
 {
     public addRange(array: T[]): void;
-    public addRange(collection: ICollection<T>): void;
-    public addRange(collectionOrArray: IEnumerableOrArray<T>): void
+    public addRange(enumerable: IEnumerable<T>): void;
+    public addRange(enumerableOrArray: IEnumerableOrArray<T>): void
     {
-        let array = Collection.collectionOrArrayToArray(collectionOrArray);
-
-        // make sure we have items
-        if (array.length > 0)
-        {
-            this._baseArray = this._baseArray.concat(array);
-        }
-        else
-        {
-            throw new ArgumentException('collectionOrArray', "No elements in collectionOrArray");
-        }
-    }
-
-    public clear(): void
-    {
-        this._baseArray.length = 0;
-    }
-
-    public contains(obj: T, isEquivilent?: boolean): boolean
-    {
-        let ret = false;
-
-        if (this.find(obj, isEquivilent || false) != undefined)
-        {
-            ret = true;
-        }
-
-        return ret;
+        let array = enumerableOrArrayToArray(enumerableOrArray);
+        this._baseArray = this._baseArray.concat(array);
     }
 
     public find(obj: T, isEquivilent: boolean = false): T | undefined
@@ -61,7 +39,7 @@ export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, 
         }
         else
         {
-            let index = this.findIndex(obj);
+            let index = this.indexOf(obj);
             if (index !== undefined)
             {
                 return this.item(index);
@@ -73,7 +51,7 @@ export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, 
         }
     }
 
-    public findIndex(obj: T, isEquivilent: boolean = false): number | undefined
+    public indexOf(obj: T, isEquivilent: boolean = false): number | undefined
     {
         if (isEquivilent)
         {
@@ -111,26 +89,23 @@ export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, 
         }
     }
 
-    public insertAt(obj: T, index: number): void
+    public insert(obj: T, index: number): void
     {
         this._baseArray.splice(index, 0, obj);
     }
 
     public prepend(obj: T): void
     {
-        this.insertAt(obj, 0);
+        this.insert(obj, 0);
     }
 
     public prependRange(array: T[]): void;
-    public prependRange(collection: Collection<T>): void;
-    public prependRange(collectionOrArray: EnumerableOrArray<T>): void
+    public prependRange(enumerable: Collection<T>): void;
+    public prependRange(enumerableOrArray: IEnumerableOrArray<T>): void
     {
-        let array = Collection.collectionOrArrayToArray(collectionOrArray);
-
+        let array = enumerableOrArrayToArray(enumerableOrArray);
         this._baseArray.splice(0, 0, ...array);
     }
-
-   
 
     public removeAt(index: number): void
     {

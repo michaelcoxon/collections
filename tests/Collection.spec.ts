@@ -1,4 +1,4 @@
-﻿import { Collection } from '../lib/Collection';
+﻿import { Collection } from '../src/Collection';
 import { expect } from 'chai';
 import 'mocha';
 
@@ -31,36 +31,20 @@ describe("Create a collection", () =>
     });
 });
 
-describe("Clone a collection", () =>
-{
-    it("should return a collection with the same items and is not the same collection", () =>
-    {
-        const coll1 = new Collection([1, 2, 3, 4]);
-        const coll2 = coll1.clone();
-
-        expect(coll2.count).eq(coll1.count);
-        expect(coll2).to.not.eq(coll1);
-
-        for (let i = 0; i < coll2.count; i++)
-        {
-            expect(coll2.item(i)).eq(coll1.item(i), `index ${i} is not the same`);
-        }
-    });
-});
 
 describe("Copy a collection", () =>
 {
     it("should return a collection the items appended to another collection", () =>
     {
         const coll1 = new Collection([1, 2, 3, 4]);
-        const coll2 = new Collection([-4, -3, -2, -1, 0]);
+        const array = [-4, -3, -2, -1, 0];
         const expected = new Collection([-4, -3, -2, -1, 0, 1, 2, 3, 4]);
 
-        coll1.copyTo(coll2);
+        coll1.copyTo(array, 0);
 
-        for (let i = 0; i < coll2.count; i++)
+        for (let i = 0; i < array.length; i++)
         {
-            expect(expected.item(i)).eq(coll2.item(i), `index ${i} is not the same. got ${expected.item(i)} != ${coll2.item(i)}`);
+            expect(expected.item(i)).eq(array[i], `index ${i} is not the same. got ${expected.item(i)} != ${array[i]}`);
         }
     });
 });

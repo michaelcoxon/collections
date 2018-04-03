@@ -7,12 +7,12 @@ import { Predicate, Selector } from "../Types";
 import { IQueryableGroup } from "../IQueryableGroup";
 import { DefaultComparer } from "../Comparers/DefaultComparer";
 import { ReverseComparer } from "../Comparers/ReverseComparer";
-import { EnumerableArray } from "../Enumerables/EnumerableArray";
+import { ArrayEnumerable} from "../Enumerables/ArrayEnumerable";
 import { IComparer } from "../IComparer";
 import { MapComparer } from "../Comparers/MapComparer";
 
 // public class jExt.Collections.Queryable
-export class QueryableArray<T> extends EnumerableArray<T> implements IQueryable<T>
+export class ArrayQueryable<T> extends ArrayEnumerable<T> implements IQueryable<T>
 {
     public all(predicate: Predicate<T>): boolean
     {
@@ -62,7 +62,7 @@ export class QueryableArray<T> extends EnumerableArray<T> implements IQueryable<
     {
         if ([...this._baseArray].length === 0)
         {
-            return new QueryableArray([...this._baseArray]);
+            return new ArrayQueryable([...this._baseArray]);
         }
 
         let temp: { [key: string]: boolean } = {};
@@ -204,13 +204,13 @@ export class QueryableArray<T> extends EnumerableArray<T> implements IQueryable<
     {
         var array = [...this._baseArray];
         array.splice(0, count);
-        return new QueryableArray<T>(array);
+        return new ArrayQueryable<T>(array);
     }
 
     // USAGE: obj.Select((o)=>o.key1); USAGE: obj.Select('key1');
     public select<TOut>(selector: Selector<T, TOut>): IQueryable<TOut>
     {
-        return new QueryableArray([...this._baseArray].map((item) => selector(item)));
+        return new ArrayQueryable([...this._baseArray].map((item) => selector(item)));
     }
 
     public sum(selector: (a: T) => number): number
@@ -222,20 +222,20 @@ export class QueryableArray<T> extends EnumerableArray<T> implements IQueryable<
 
     public take(count: number): IQueryable<T>
     {
-        return new QueryableArray<T>([...this._baseArray].splice(0, count));
+        return new ArrayQueryable<T>([...this._baseArray].splice(0, count));
     }
 
     // Returns the objects that evaluate true on the provided comparer function. 
     // USAGE: obj.Where(function() { return true; });
     public where(predicate: Predicate<T>): IQueryable<T>
     {
-        return new QueryableArray<T>([...this._baseArray].filter(predicate));
+        return new ArrayQueryable<T>([...this._baseArray].filter(predicate));
     }
 
     private internalOrderBy<R>(selector: (a: T) => R, comparer: IComparer<R>): IQueryable<T>
     {
         let mapComparer = new MapComparer(comparer, selector);
-        return new QueryableArray<T>([...this._baseArray].sort((a, b) => mapComparer.compare(a, b)));
+        return new ArrayQueryable<T>([...this._baseArray].sort((a, b) => mapComparer.compare(a, b)));
     }
 }
 

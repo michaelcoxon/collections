@@ -1,11 +1,11 @@
 ﻿import { InvalidTypeException, ArgumentUndefinedException } from '@michaelcoxon/utilities';
-import { ICollection } from './ICollection';
+import { ICollection } from './Interfaces/ICollection';
 import { IEnumerableOrArray } from './Types';
 import { enumerableOrArrayToArray } from './Utilities';
-import { IEnumerable } from './IEnumerable';
-import { EnumerableArray } from './Enumerables/EnumerableArray';
+import { IEnumerable } from './Interfaces/IEnumerable';
+import { ArrayEnumerable } from './Enumerables/ArrayEnumerable';
 
-export class Collection<T> extends EnumerableArray<T> implements ICollection<T>, IEnumerable<T>
+export class Collection<T> extends ArrayEnumerable<T> implements ICollection<T>, IEnumerable<T>
 {
     constructor(enumerableOrArray?: IEnumerableOrArray<T>)
     {
@@ -34,17 +34,9 @@ export class Collection<T> extends EnumerableArray<T> implements ICollection<T>,
         this._baseArray.push(obj);
     }
 
-
     public clear(): void
     {
         this._baseArray.length = 0;
-    }
-
-
-    // Clones the Collection object
-    public clone(): Collection<T>
-    {
-        return new Collection<T>([...this._baseArray]);
     }
 
     public contains(obj: T): boolean
@@ -63,17 +55,12 @@ export class Collection<T> extends EnumerableArray<T> implements ICollection<T>,
 
         if (index != undefined)
         {
-            this.removeAt(index);
+            this._baseArray.splice(index, 1);
             return true;
         }
         else
         {
             return false;
         }
-    }
-
-    public removeAt(index: number): void
-    {
-        this._baseArray.splice(index, 1);
     }
 }

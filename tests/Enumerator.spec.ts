@@ -1,14 +1,15 @@
-﻿import * as Collections from '../lib';
-import { expect, assert } from 'chai';
+﻿import { expect, assert } from 'chai';
 import 'mocha';
+import { Collection } from 'src/Collection';
+import { ArrayEnumerator } from 'src/Enumerators/ArrayEnumerator';
 
 describe("Create an enumerator", () =>
 {
     it("should return an enumerator from a collection", () =>
     {
         const array = [1, 2, 3, 4];
-        const coll = new Collections.Collection(array);
-        const en = new Collections.Enumerator(coll);
+        const coll = new Collection(array);
+        const en = new ArrayEnumerator(coll.toArray());
 
         let count = 0;
 
@@ -22,7 +23,7 @@ describe("Create an enumerator", () =>
     it("should return an enumerator from an array", () =>
     {
         const array = [1, 2, 3, 4];
-        const en = new Collections.Enumerator(array);
+        const en = new ArrayEnumerator(array);
 
         let count = 0;
 
@@ -36,7 +37,7 @@ describe("Create an enumerator", () =>
     it("should return an enumerator using the extension method", () =>
     {
         const array = [1, 2, 3, 4];
-        const coll = new Collections.Collection(array);
+        const coll = new Collection(array);
         const en = coll.getEnumerator();
 
         let count = 0;
@@ -54,8 +55,8 @@ describe("Move to the next item in an enumerator", () =>
     it("should move to the next item in the enumerator", () =>
     {
         const array = [1, 2, 3, 4];
-        const coll = new Collections.Collection(array);
-        const en = new Collections.Enumerator(coll);
+        const coll = new Collection(array);
+        const en = new ArrayEnumerator(coll.toArray());
 
         let count = 0;
 
@@ -69,8 +70,8 @@ describe("Move to the next item in an enumerator", () =>
     it("should return false when moving past the end of the enumerator", () =>
     {
         const array = [1, 2, 3, 4];
-        const coll = new Collections.Collection(array);
-        const en = new Collections.Enumerator(coll);
+        const coll = new Collection(array);
+        const en = new ArrayEnumerator(coll.toArray());
 
         let count = 0;
 
@@ -89,8 +90,8 @@ describe("Peek at the next item in an enumerator", () =>
     it("should return the next item in the enumerator without advancing", () =>
     {
         const array = [1, 2, 3, 4];
-        const coll = new Collections.Collection(array);
-        const en = new Collections.Enumerator(coll);
+        const coll = new Collection(array);
+        const en = new ArrayEnumerator(coll.toArray());
 
         let count = 0;
 
@@ -106,8 +107,8 @@ describe("Peek at the next item in an enumerator", () =>
     it("should throw an execption when cannot peek", () =>
     {
         const array = [1, 2, 3, 4];
-        const coll = new Collections.Collection(array);
-        const en = new Collections.Enumerator(coll);
+        const coll = new Collection(array);
+        const en = new ArrayEnumerator(coll.toArray());
 
         let count = 0;
 
@@ -129,8 +130,8 @@ describe("Reset the enumerator", () =>
     it("should move to the start of the enumerator", () =>
     {
         const array = [1, 2, 3, 4];
-        const coll = new Collections.Collection(array);
-        const en = new Collections.Enumerator(coll);
+        const coll = new Collection(array);
+        const en = new ArrayEnumerator(coll.toArray());
 
         let count = 0;
 

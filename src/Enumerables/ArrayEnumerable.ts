@@ -1,17 +1,16 @@
 ﻿import { IEnumerable } from "../IEnumerable";
 import { IQueryable } from "../IQueryable";
-import { QueryableArray } from "../Queryables/QueryableArray";
+import { ArrayQueryable } from "../Queryables/QueryableArray";
 import { IEnumerator } from "../IEnumerator";
 import { ArrayEnumerator } from "../Enumerators/ArrayEnumerator";
 import { IList } from "../IList";
 import { List } from "../List";
 import { Dictionary } from "../Dictionary";
-import { KeyValuePair } from "../KeyValuePair";
-import { IDictionary } from "../IDictionary";
+import { IDictionary, KeyValuePair } from "../IDictionary";
 
 
 
-export class EnumerableArray<T> implements IEnumerable<T>
+export class ArrayEnumerable<T> implements IEnumerable<T>
 {
     protected _baseArray: T[];
 
@@ -22,7 +21,7 @@ export class EnumerableArray<T> implements IEnumerable<T>
 
     public asQueryable(): IQueryable<T>
     {
-        return new QueryableArray<T>(this._baseArray);
+        return new ArrayQueryable<T>(this._baseArray);
     }
 
     // iterates over each item in the Collection. Return false to break.
@@ -61,7 +60,13 @@ export class EnumerableArray<T> implements IEnumerable<T>
 
     public toDictionary<TKey, TValue>(keySelector: (a: T) => TKey, valueSelector: (a: T) => TValue): IDictionary<TKey, TValue>
     {
-        return new Dictionary(this.toArray().map(i => new KeyValuePair(keySelector(i), valueSelector(i))));
+        return new Dictionary(this.toArray().map(i =>
+        {
+            return {
+                key: keySelector(i),
+                value: valueSelector(i)
+            }
+        }));
     }
 
     public toList(): IList<T>

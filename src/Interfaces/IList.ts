@@ -1,7 +1,6 @@
 ﻿import { ICollection } from "./ICollection";
 import { IEnumerable } from "./IEnumerable";
-import { IEnumerableOrArray } from "./Types";
-import { IComparer } from "./Comparer";
+import { IComparer } from "./IComparer";
 
 
 export interface IList<T> extends ICollection<T>, IEnumerable<T>
@@ -19,6 +18,8 @@ export interface IList<T> extends ICollection<T>, IEnumerable<T>
     prependRange(array: T[]): void;
 
     prependRange(enumerable: IEnumerable<T>): void;
+
+    removeAt(index: number): void;
 
     sort(comparer: IComparer<T>): void
 }

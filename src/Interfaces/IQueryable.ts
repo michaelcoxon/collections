@@ -1,8 +1,8 @@
-﻿import { Predicate, Selector } from "./Types";
+﻿import { Predicate, Selector } from "../Types";
 import { Utilities } from "@michaelcoxon/utilities";
-import { IComparer } from "./Comparer";
 import { IEnumerable } from "./IEnumerable";
 import { IQueryableGroup } from "./IQueryableGroup";
+import { IComparer } from "./IComparer";
 
 export interface IQueryable<T> extends IEnumerable<T>
 {

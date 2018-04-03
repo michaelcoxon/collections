@@ -1,5 +1,5 @@
 ﻿import { ArgumentUndefinedException } from "@michaelcoxon/utilities";
-import { IComparer } from "./DefaultComparer";
+import { IComparer } from "../IComparer";
 
 export class CustomComparer<T> implements IComparer<T>
 {

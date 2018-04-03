@@ -1,60 +1,62 @@
-﻿import { IQueryable } from "../IQueryable";
-import { IQueryableGroup } from "../IQueryableGroup";
-import { IEnumerator } from "../IEnumerator";
+﻿import { IQueryable } from "../Interfaces/IQueryable";
+import { IQueryableGroup } from "../Interfaces/IQueryableGroup";
+import { IEnumerator } from "../Interfaces/IEnumerator";
 import { Lazy, Utilities } from "@michaelcoxon/utilities";
-import { IEnumerable } from "../IEnumerable";
+import { IEnumerable } from "../Interfaces/IEnumerable";
 import { Predicate, Selector } from "../Types";
-import { IComparer } from "../IComparer";
+import { IComparer } from "../Interfaces/IComparer";
 import { ReverseComparer } from "../Comparers/ReverseComparer";
 import { DefaultComparer } from "../Comparers/DefaultComparer";
 import { QueryableGroup } from "./QueryableGroup";
-import { QueryableArray } from "./QueryableArray";
+import { ArrayQueryable } from "./QueryableArray";
 import { MapComparer } from "../Comparers/MapComparer";
-import { IList } from "../IList";
-import { IDictionary } from "../IDictionary";
+import { IList } from "../Interfaces/IList";
+import { IDictionary } from "../Interfaces/IDictionary";
 
 
 
 
 
-export class QueryableEnumerable<T> implements IQueryable<T>
+export class EnumerableQueryable<T> implements IQueryable<T>
 {
-    private readonly _enumerable: Lazy<IEnumerable<T>>;
+    private readonly _enumerable: IEnumerable<T>;
 
-    constructor(enumerable: Lazy<IEnumerable<T>>)
+    constructor(enumerable: IEnumerable<T>)
     {
         this._enumerable = enumerable;
     }
 
     public all(predicate: Predicate<T>): boolean
     {
-        var output = true;
+        let output = true;
+        const en = this._enumerable.getEnumerator();
 
-        output = [...this._enumerable.value.toArray()].every((element) => predicate(element));
+        while (output && en.moveNext())
+        {
+            output = predicate(en.current);
+        }
 
         return output;
     }
 
     public any(predicate?: Predicate<T>): boolean
     {
+        const en = this._enumerable.getEnumerator();
+
         if (predicate !== undefined)
         {
-            var output = false;
+            let output = false;
 
-            if (!Array.prototype.some)
+            while (!output && en.moveNext())
             {
-                output = !this.all((element) => !predicate(element));
-            }
-            else
-            {
-                output = [...this._enumerable.value.toArray()].some((element) => predicate(element));
+                output = predicate(en.current);
             }
 
             return output;
         }
         else
         {
-            return [...this._enumerable.value.toArray()].length > 0;
+            return en.moveNext();
         }
     }
 
@@ -66,20 +68,21 @@ export class QueryableEnumerable<T> implements IQueryable<T>
 
     public count(): number
     {
-        return [...this._enumerable.value.toArray()].length;
+        let itemCount = 0;
+        const en = this._enumerable.getEnumerator();
+        while (en.moveNext())
+        {
+            itemCount++;
+        }
+        return itemCount;
     }
 
     // USAGE: obj.Distinct(); or obj.Distinct(['key1'],['key2']);
     public distinct<R>(selector: (a: T) => R): IQueryable<T>
     {
-        if ([...this._enumerable.value.toArray()].length === 0)
-        {
-            return new QueryableArray([...this._enumerable.value.toArray()]);
-        }
-
         let temp: { [key: string]: boolean } = {};
 
-        return this.where((item) =>
+        return new EnumerableQueryable(this.where((item) =>
         {
             let value = selector(item);
             let s_value: string;
@@ -100,20 +103,31 @@ export class QueryableEnumerable<T> implements IQueryable<T>
             }
 
             return false;
-        });
+        }));
     }
 
     public first(): T;
     public first(predicate: Predicate<T>): T;
     public first(predicate?: Predicate<T>): T
     {
-        let set = predicate !== undefined
-            ? this.where(predicate)
-            : this;
+        const en = this._enumerable.getEnumerator();
 
-        if (set.count() > 0)
+        if (predicate !== undefined)
         {
-            return set.item(0);
+            while (en.moveNext)
+            {
+                if (predicate(en.current))
+                {
+                    return en.current;
+                }
+            }
+        }
+        else
+        {
+            while (en.moveNext)
+            {
+                return en.current;
+            }
         }
 
         throw new Error("The collection is empty!");
@@ -123,13 +137,24 @@ export class QueryableEnumerable<T> implements IQueryable<T>
     public firstOrDefault(predicate: Predicate<T>): T | null;
     public firstOrDefault(predicate?: Predicate<T>): T | null
     {
-        let set = predicate !== undefined
-            ? this.where(predicate)
-            : this;
+        const en = this._enumerable.getEnumerator();
 
-        if (set.count() > 0)
+        if (predicate !== undefined)
         {
-            return set.item(0);
+            while (en.moveNext)
+            {
+                if (predicate(en.current))
+                {
+                    return en.current;
+                }
+            }
+        }
+        else
+        {
+            while (en.moveNext)
+            {
+                return en.current;
+            }
         }
 
         return null;
@@ -145,13 +170,55 @@ export class QueryableEnumerable<T> implements IQueryable<T>
     public last(predicate: Predicate<T>): T;
     public last(predicate?: Predicate<T>): T 
     {
-        let set = predicate !== undefined
-            ? this.where(predicate)
-            : this;
-
-        if (set.count() > 0)
+        if (predicate === undefined)
         {
-            return set.item(set.count() - 1);
+            if ((this._enumerable as any).count)
+            {
+                const count = (this._enumerable as any).count;
+                if (count > 0)
+                {
+                    return this._enumerable.item(count - 1);
+                }
+            }
+            else
+            {
+                const en = this._enumerable.getEnumerator();
+                if (en.moveNext())
+                {
+                    let result: T;
+                    do
+                    {
+                        result = en.current;
+                    }
+                    while (en.moveNext());
+
+                    return result;
+                }
+            }
+        }
+        else
+        {
+            let result: T | undefined;
+            let found = false;
+            const en = this._enumerable.getEnumerator();
+
+            while (en.moveNext())
+            {
+                if (predicate(en.current))
+                {
+                    result = en.current;
+                    found = true;
+                }
+            }
+
+            if (found && result !== undefined)
+            {
+                return result;
+            }
+            else
+            {
+                throw new Error("There is no last item matching the predicate!");
+            }
         }
 
         throw new Error("The collection is empty!");
@@ -161,13 +228,51 @@ export class QueryableEnumerable<T> implements IQueryable<T>
     public lastOrDefault(predicate: Predicate<T>): T | null;
     public lastOrDefault(predicate?: Predicate<T>): T | null
     {
-        let set = predicate !== undefined
-            ? this.where(predicate)
-            : this;
-
-        if (set.count() > 0)
+        if (predicate === undefined)
         {
-            return set.item(set.count() - 1);
+            if ((this._enumerable as any).count)
+            {
+                const count = (this._enumerable as any).count;
+                if (count > 0)
+                {
+                    return this._enumerable.item(count - 1);
+                }
+            }
+            else
+            {
+                const en = this._enumerable.getEnumerator();
+                if (en.moveNext())
+                {
+                    let result: T;
+                    do
+                    {
+                        result = en.current;
+                    }
+                    while (en.moveNext());
+
+                    return result;
+                }
+            }
+        }
+        else
+        {
+            let result: T | undefined;
+            let found = false;
+            const en = this._enumerable.getEnumerator();
+
+            while (en.moveNext())
+            {
+                if (predicate(en.current))
+                {
+                    result = en.current;
+                    found = true;
+                }
+            }
+
+            if (found && result !== undefined)
+            {
+                return result;
+            }
         }
 
         return null;
@@ -214,15 +319,30 @@ export class QueryableEnumerable<T> implements IQueryable<T>
 
     public skip(count: number): IQueryable<T>
     {
-        var array = [...this._enumerable.value.toArray()];
-        array.splice(0, count);
-        return new QueryableArray<T>(array);
+        const en = this._enumerable.getEnumerator();
+
+        while (count > 0 && en.moveNext())
+        {
+            count--;
+        }
+
+        const array: T[] = [];
+
+        if (count <= 0)
+        {
+            while (en.moveNext())
+            {
+                array.push( en.current);
+            }
+        }
+
+        return new ArrayQueryable(array);
     }
 
     // USAGE: obj.Select((o)=>o.key1); USAGE: obj.Select('key1');
     public select<TOut>(selector: Selector<T, TOut>): IQueryable<TOut>
     {
-        return new QueryableArray([...this._enumerable.value.toArray()].map((item) => selector(item)));
+        return new ArrayQueryable([...this._enumerable.value.toArray()].map((item) => selector(item)));
     }
 
     public sum(selector: (a: T) => number): number
@@ -234,14 +354,14 @@ export class QueryableEnumerable<T> implements IQueryable<T>
 
     public take(count: number): IQueryable<T>
     {
-        return new QueryableArray<T>([...this._enumerable.value.toArray()].splice(0, count));
+        return new ArrayQueryable<T>([...this._enumerable.value.toArray()].splice(0, count));
     }
 
     // Returns the objects that evaluate true on the provided comparer function. 
     // USAGE: obj.Where(function() { return true; });
     public where(predicate: Predicate<T>): IQueryable<T>
     {
-        return new QueryableArray<T>([...this._enumerable.value.toArray()].filter(predicate));
+        return new ArrayQueryable<T>([...this._enumerable.value.toArray()].filter(predicate));
     }
 
     public asQueryable(): IQueryable<T>
@@ -282,6 +402,6 @@ export class QueryableEnumerable<T> implements IQueryable<T>
     private internalOrderBy<R>(selector: (a: T) => R, comparer: IComparer<R>): IQueryable<T>
     {
         let mapComparer = new MapComparer(comparer, selector);
-        return new QueryableArray<T>([...this._enumerable.value.toArray()].sort((a, b) => mapComparer.compare(a, b)));
+        return new ArrayQueryable<T>([...this._enumerable.value.toArray()].sort((a, b) => mapComparer.compare(a, b)));
     }
 }

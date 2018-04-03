@@ -1,9 +1,0 @@
-{
-  "compileOnSave": true,
-  "compilerOptions": {
-    "outDir": "../lib",
-    "declaration": true,
-    "target": "es5"
-  },
-  "extends": "../base-tsconfig"
-}
