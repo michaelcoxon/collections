@@ -6,7 +6,7 @@ import { IList } from "./Interfaces/IList";
 import { IDictionary } from "./Interfaces/IDictionary";
 import { IEnumerator } from "./Interfaces/IEnumerator";
 import { IQueryable } from "./Interfaces/IQueryable";
-import { ArgumentException } from "@michaelcoxon/utilities";
+import { ArgumentException, Undefinable } from "@michaelcoxon/utilities";
 
 
 // all of this needs to be optimised
@@ -157,7 +157,7 @@ export class Set<T> implements ISet<T>, ICollection<T>, IEnumerable<T>
         return this._collection.getEnumerator();
     }
 
-    item(index: number): T
+    item(index: number): Undefinable<T>
     {
         return this._collection.item(index);
     }

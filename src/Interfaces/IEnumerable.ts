@@ -1,8 +1,8 @@
 ﻿import { IEnumerator } from "./IEnumerator";
 import { IList } from "./IList";
 import { IQueryable } from "./IQueryable";
-import { Utilities } from "@michaelcoxon/utilities";
 import { IDictionary } from "./IDictionary";
+import { ConstructorFor, Undefinable } from "@michaelcoxon/utilities";
 
 
 export interface IEnumerable<T>
@@ -23,13 +23,13 @@ export interface IEnumerable<T>
      * Returns the item at the specified index
      * @param index The index of the item to return
      */
-    item(index: number): T;
+    item(index: number): Undefinable<T>;
 
     /**
      * Returns the item that match the type
      * @param ctor the constructor for the type to match
      */
-    ofType<N extends T>(ctor: Utilities.ConstructorFor<N>): IEnumerable<N>;
+    ofType<N extends T>(ctor: ConstructorFor<N>): IEnumerable<N>;
 
     /** Returns the items as an array */
     toArray(): T[];

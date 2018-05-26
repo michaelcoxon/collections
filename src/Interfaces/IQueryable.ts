@@ -1,8 +1,7 @@
-﻿import { Predicate, Selector } from "../Types";
-import { Utilities } from "@michaelcoxon/utilities";
-import { IEnumerable } from "./IEnumerable";
+﻿import { IEnumerable } from "./IEnumerable";
 import { IQueryableGroup } from "./IQueryableGroup";
 import { IComparer } from "./IComparer";
+import { ConstructorFor, Predicate, Selector } from "@michaelcoxon/utilities";
 
 export interface IQueryable<T> extends IEnumerable<T>
 {
@@ -38,7 +37,7 @@ export interface IQueryable<T> extends IEnumerable<T>
 
     min(selector: Selector<T, number>): number;
 
-    ofType<N extends T>(ctor: Utilities.ConstructorFor<N>): IQueryable<N>;
+    ofType<N extends T>(ctor: ConstructorFor<N>): IQueryable<N>;
 
     orderBy<R>(selector: Selector<T, R>, comparer?: IComparer<R>): IQueryable<T>;
 

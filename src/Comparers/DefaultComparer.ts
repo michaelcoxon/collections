@@ -1,5 +1,5 @@
-﻿import { Utilities, NotSupportedException, ArgumentUndefinedException } from "@michaelcoxon/utilities";
-import { IComparer } from "../IComparer";
+﻿import { IComparer } from "../Interfaces/IComparer";
+import { Utilities } from "@michaelcoxon/utilities";
 
 export class DefaultComparer<T> implements IComparer<T>
 {

@@ -1,17 +1,20 @@
 ﻿import { IQueryable } from "../Interfaces/IQueryable";
 import { IQueryableGroup } from "../Interfaces/IQueryableGroup";
 import { IEnumerator } from "../Interfaces/IEnumerator";
-import { Lazy, Utilities } from "@michaelcoxon/utilities";
+import { Lazy, Predicate, Utilities, Selector, ConstructorFor, Undefinable } from "@michaelcoxon/utilities";
 import { IEnumerable } from "../Interfaces/IEnumerable";
-import { Predicate, Selector } from "../Types";
 import { IComparer } from "../Interfaces/IComparer";
 import { ReverseComparer } from "../Comparers/ReverseComparer";
 import { DefaultComparer } from "../Comparers/DefaultComparer";
 import { QueryableGroup } from "./QueryableGroup";
-import { ArrayQueryable } from "./QueryableArray";
 import { MapComparer } from "../Comparers/MapComparer";
 import { IList } from "../Interfaces/IList";
 import { IDictionary } from "../Interfaces/IDictionary";
+import { SkipEnumerable } from "../Enumerables/SkipEnumerable";
+import { SelectEnumerable } from "../Enumerables/SelectEnumerable";
+import { WhereEnumerable } from "../Enumerables/WhereEnumerable";
+import { TakeEnumerable } from "../Enumerables/TakeEnumerable";
+import { ArrayEnumerable } from "../Enumerables/ArrayEnumerable";
 
 
 
@@ -60,9 +63,9 @@ export class EnumerableQueryable<T> implements IQueryable<T>
         }
     }
 
-    public average(selector: (a: T) => number): number
+    public average(selector: Selector<T, number>): number
     {
-        let sum = this.sum((item) => selector(item) as number);
+        let sum = this.sum(selector);
         return sum / this.count();
     }
 
@@ -110,24 +113,18 @@ export class EnumerableQueryable<T> implements IQueryable<T>
     public first(predicate: Predicate<T>): T;
     public first(predicate?: Predicate<T>): T
     {
-        const en = this._enumerable.getEnumerator();
+        let enumerable = this._enumerable;
 
         if (predicate !== undefined)
         {
-            while (en.moveNext)
-            {
-                if (predicate(en.current))
-                {
-                    return en.current;
-                }
-            }
+            enumerable = new WhereEnumerable(enumerable, predicate);
         }
-        else
+
+        const en = enumerable.getEnumerator();
+
+        if (en.moveNext())
         {
-            while (en.moveNext)
-            {
-                return en.current;
-            }
+            return en.current;
         }
 
         throw new Error("The collection is empty!");
@@ -137,24 +134,18 @@ export class EnumerableQueryable<T> implements IQueryable<T>
     public firstOrDefault(predicate: Predicate<T>): T | null;
     public firstOrDefault(predicate?: Predicate<T>): T | null
     {
-        const en = this._enumerable.getEnumerator();
+        let enumerable = this._enumerable;
 
         if (predicate !== undefined)
         {
-            while (en.moveNext)
-            {
-                if (predicate(en.current))
-                {
-                    return en.current;
-                }
-            }
+            enumerable = new WhereEnumerable(enumerable, predicate);
         }
-        else
+
+        const en = enumerable.getEnumerator();
+
+        if (en.moveNext())
         {
-            while (en.moveNext)
-            {
-                return en.current;
-            }
+            return en.current;
         }
 
         return null;
@@ -170,127 +161,76 @@ export class EnumerableQueryable<T> implements IQueryable<T>
     public last(predicate: Predicate<T>): T;
     public last(predicate?: Predicate<T>): T 
     {
-        if (predicate === undefined)
-        {
-            if ((this._enumerable as any).count)
-            {
-                const count = (this._enumerable as any).count;
-                if (count > 0)
-                {
-                    return this._enumerable.item(count - 1);
-                }
-            }
-            else
-            {
-                const en = this._enumerable.getEnumerator();
-                if (en.moveNext())
-                {
-                    let result: T;
-                    do
-                    {
-                        result = en.current;
-                    }
-                    while (en.moveNext());
+        let enumerable = this._enumerable;
 
-                    return result;
-                }
+        if (predicate !== undefined)
+        {
+            enumerable = new WhereEnumerable(enumerable, predicate);
+        }
+
+        const en = enumerable.getEnumerator();
+
+        if (en.moveNext())
+        {
+            while (en.moveNext())
+            {
+                //do nothing
             }
+            return en.current;
         }
         else
         {
-            let result: T | undefined;
-            let found = false;
-            const en = this._enumerable.getEnumerator();
-
-            while (en.moveNext())
-            {
-                if (predicate(en.current))
-                {
-                    result = en.current;
-                    found = true;
-                }
-            }
-
-            if (found && result !== undefined)
-            {
-                return result;
-            }
-            else
+            if (predicate !== undefined)
             {
                 throw new Error("There is no last item matching the predicate!");
             }
+            else
+            {
+                throw new Error("The collection is empty!");
+            }
         }
-
-        throw new Error("The collection is empty!");
     }
 
     public lastOrDefault(): T | null;
     public lastOrDefault(predicate: Predicate<T>): T | null;
     public lastOrDefault(predicate?: Predicate<T>): T | null
     {
-        if (predicate === undefined)
-        {
-            if ((this._enumerable as any).count)
-            {
-                const count = (this._enumerable as any).count;
-                if (count > 0)
-                {
-                    return this._enumerable.item(count - 1);
-                }
-            }
-            else
-            {
-                const en = this._enumerable.getEnumerator();
-                if (en.moveNext())
-                {
-                    let result: T;
-                    do
-                    {
-                        result = en.current;
-                    }
-                    while (en.moveNext());
+        let enumerable = this._enumerable;
 
-                    return result;
-                }
+        if (predicate !== undefined)
+        {
+            enumerable = new WhereEnumerable(enumerable, predicate);
+        }
+
+        const en = enumerable.getEnumerator();
+
+        if (en.moveNext())
+        {
+            while (en.moveNext())
+            {
+                //do nothing
             }
+            return en.current;
         }
         else
         {
-            let result: T | undefined;
-            let found = false;
-            const en = this._enumerable.getEnumerator();
-
-            while (en.moveNext())
-            {
-                if (predicate(en.current))
-                {
-                    result = en.current;
-                    found = true;
-                }
-            }
-
-            if (found && result !== undefined)
-            {
-                return result;
-            }
+            return null;
         }
-
-        return null;
     }
 
-    public max(selector: (a: T) => number): number
+    public max(selector: Selector<T, number>): number
     {
-        let values = this.select((item) => selector(item) as number).toArray();
+        let values = this.select(selector).toArray();
         return Math.max(...values);
     }
 
-    public min(selector: (a: T) => number): number
+    public min(selector: Selector<T, number>): number
     {
-        let values = this.select((item) => selector(item) as number).toArray();
+        let values = this.select(selector).toArray();
         return Math.min(...values);
     }
 
-    public ofType<N extends T>(ctor: Utilities.ConstructorFor<N>): IQueryable<N>
+    public ofType<N extends T>(ctor: ConstructorFor<N>): IQueryable<N>
     {
         return this
             .where((item) => item instanceof ctor)
@@ -319,33 +259,16 @@ export class EnumerableQueryable<T> implements IQueryable<T>
 
     public skip(count: number): IQueryable<T>
     {
-        const en = this._enumerable.getEnumerator();
-
-        while (count > 0 && en.moveNext())
-        {
-            count--;
-        }
-
-        const array: T[] = [];
-
-        if (count <= 0)
-        {
-            while (en.moveNext())
-            {
-                array.push( en.current);
-            }
-        }
-
-        return new ArrayQueryable(array);
+        return new SkipEnumerable(this._enumerable, count).asQueryable();
     }
 
     // USAGE: obj.Select((o)=>o.key1); USAGE: obj.Select('key1');
     public select<TOut>(selector: Selector<T, TOut>): IQueryable<TOut>
     {
-        return new ArrayQueryable([...this._enumerable.value.toArray()].map((item) => selector(item)));
+        return new SelectEnumerable(this._enumerable, selector).asQueryable();
     }
 
-    public sum(selector: (a: T) => number): number
+    public sum(selector: Selector<T, number>): number
     {
         return this.select((item) => selector(item) as number)
             .toArray()
@@ -354,54 +277,54 @@ export class EnumerableQueryable<T> implements IQueryable<T>
 
     public take(count: number): IQueryable<T>
     {
-        return new ArrayQueryable<T>([...this._enumerable.value.toArray()].splice(0, count));
+        return new TakeEnumerable(this._enumerable, count).asQueryable();
     }
 
     // Returns the objects that evaluate true on the provided comparer function. 
     // USAGE: obj.Where(function() { return true; });
     public where(predicate: Predicate<T>): IQueryable<T>
     {
-        return new ArrayQueryable<T>([...this._enumerable.value.toArray()].filter(predicate));
+        return new WhereEnumerable(this._enumerable, predicate).asQueryable();
     }
 
     public asQueryable(): IQueryable<T>
     {
-        return this._enumerable.value.asQueryable();
+        return this._enumerable.asQueryable();
     }
 
     public forEach(callback: (value: T, index: number) => boolean | void): void
     {
-        return this._enumerable.value.forEach(callback);
+        return this._enumerable.forEach(callback);
     }
 
     public getEnumerator(): IEnumerator<T>
     {
-        return this._enumerable.value.getEnumerator();
+        return this._enumerable.getEnumerator();
     }
 
-    public item(index: number): T
+    public item(index: number): Undefinable<T>
     {
-        return this._enumerable.value.item(index);
+        return this._enumerable.item(index);
     }
 
     public toArray(): T[]
     {
-        return this._enumerable.value.toArray();
+        return this._enumerable.toArray();
     }
 
     public toDictionary<TKey, TValue>(keySelector: (a: T) => TKey, valueSelector: (a: T) => TValue): IDictionary<TKey, TValue>
     {
-        return this._enumerable.value.toDictionary(keySelector, valueSelector);
+        return this._enumerable.toDictionary(keySelector, valueSelector);
     }
 
     public toList(): IList<T>
     {
-        return this._enumerable.value.toList();
+        return this._enumerable.toList();
     }
 
     private internalOrderBy<R>(selector: (a: T) => R, comparer: IComparer<R>): IQueryable<T>
     {
         let mapComparer = new MapComparer(comparer, selector);
-        return new ArrayQueryable<T>([...this._enumerable.value.toArray()].sort((a, b) => mapComparer.compare(a, b)));
+        return new ArrayEnumerable<T>([...this._enumerable.toArray()].sort((a, b) => mapComparer.compare(a, b))).asQueryable();
     }
 }

@@ -1,5 +1,7 @@
-﻿import { IEnumerableOrArray, Selector } from "./Types";
-import { InvalidTypeException, NotSupportedException } from "@michaelcoxon/utilities";
+﻿import { IEnumerableOrArray } from "./Types";
+import { InvalidTypeException, NotSupportedException, Selector } from "@michaelcoxon/utilities";
+import { IEnumerable } from "./Interfaces/IEnumerable";
+import { ArrayEnumerable } from "./Enumerables/ArrayEnumerable";
 
 export function enumerableOrArrayToArray<T>(enumerableOrArray: IEnumerableOrArray<T>): T[]
 {
@@ -30,5 +32,18 @@ export function createSelector<T, K extends keyof T, R>(propertyNameOrSelector: 
     else
     {
         return propertyNameOrSelector as (a: T) => R;
+    }
+}
+
+export function createEnumerable<T>(enumerableOrArray: IEnumerableOrArray<T>): IEnumerable<T>
+{
+    if (Array.isArray(enumerableOrArray))
+    {
+        // copy the array into this
+        return new ArrayEnumerable([...enumerableOrArray]);
+    }
+    else
+    {
+        return enumerableOrArray;
     }
 }

@@ -1,11 +1,8 @@
-﻿import { Collection } from "./Collection";
-import { IDictionary, KeyValuePair } from "./IDictionary";
-import { IEnumerableOrArray } from "./Types";
-import { enumerableOrArrayToArray } from "./Utilities";
-import { Utilities, KeyNotFoundException, KeyAlreadyDefinedException } from "@michaelcoxon/utilities";
-import { IQueryable } from "./IQueryable";
-import { IEnumerator } from "./IEnumerator";
-import { IList } from "./IList";
+﻿import { enumerableOrArrayToArray } from "./Utilities";
+import { IDictionary } from "./Interfaces/IDictionary";
+import { Collection } from "./Collection";
+import { KeyValuePair, IEnumerableOrArray } from "./Types";
+import { Utilities, KeyAlreadyDefinedException, KeyNotFoundException } from "@michaelcoxon/utilities";
 
 export class Dictionary<TKey, TValue> extends Collection<KeyValuePair<TKey, TValue>> implements IDictionary<TKey, TValue>
 {

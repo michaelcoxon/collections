@@ -1,5 +1,6 @@
 ﻿import { IEnumerator } from "../Interfaces/IEnumerator";
 import { IEnumerable } from "../Interfaces/IEnumerable";
+import { Exception } from "@michaelcoxon/utilities";
 
 
 
@@ -18,14 +19,20 @@ export class EnumerableEnumerator<T> implements IEnumerator<T>
 
     public get current(): T
     {
-        return this._enumerable.item(this._currentIndex);
+        return this._enumerable.item(this._currentIndex)!;
     }
 
     public moveNext(): boolean
     {
         try
         {
-            this.peek();
+            const item = this.peek();
+
+            if (item === undefined)
+            {
+                return false;
+            }
+
             this._currentIndex++;
             return true;
         }
@@ -37,7 +44,14 @@ export class EnumerableEnumerator<T> implements IEnumerator<T>
 
     public peek(): T
     {
-        return this._enumerable.item(this._currentIndex + 1);
+        const item = this._enumerable.item(this._currentIndex + 1);
+
+        if (item === undefined)
+        {
+            throw new Exception("End of enumerator");
+        }
+
+        return item;
     }
 
     public reset(): void

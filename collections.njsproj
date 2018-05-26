@@ -28,6 +28,7 @@
     <Content Include="src\config\es2015\tsconfig.json" />
     <Content Include="src\config\es5\tsconfig.json" />
     <Content Include="src\config\es6\tsconfig.json" />
+    <Content Include="src\Enumerables\WhereEnumerable.ts" />
     <Content Include="tsconfig.json" />
     <Content Include="LICENSE" />
     <Content Include="package.json" />
@@ -58,8 +59,11 @@
     <TypeScriptCompile Include="src\Comparers\CustomComparer.ts" />
     <TypeScriptCompile Include="src\Comparers\DefaultComparer.ts" />
     <TypeScriptCompile Include="src\Comparers\ReverseComparer.ts" />
-    <TypeScriptCompile Include="src\Enumerable.ts" />
+    <TypeScriptCompile Include="src\Enumerables\Enumerable.ts" />
+    <TypeScriptCompile Include="src\Enumerables\SelectEnumerable.ts" />
+    <TypeScriptCompile Include="src\Enumerables\TakeEnumerable.ts" />
     <TypeScriptCompile Include="src\Enumerators\EnumerableEnumerator.ts" />
+    <TypeScriptCompile Include="src\Enumerables\SkipEnumerable.ts" />
     <TypeScriptCompile Include="src\Interfaces\IComparer.ts" />
     <TypeScriptCompile Include="src\Interfaces\IDictionary.ts" />
     <TypeScriptCompile Include="src\Dictionary.ts" />
@@ -76,7 +80,6 @@
     <TypeScriptCompile Include="src\Interfaces\IList.ts" />
     <TypeScriptCompile Include="src\List.ts" />
     <TypeScriptCompile Include="src\Interfaces\IQueryable.ts" />
-    <TypeScriptCompile Include="src\Queryables\ArrayQueryable.ts" />
     <TypeScriptCompile Include="src\Queryables\EnumerableQueryable.ts" />
     <TypeScriptCompile Include="src\Queryables\QueryableGroup.ts" />
     <TypeScriptCompile Include="src\Set.ts" />

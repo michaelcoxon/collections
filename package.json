@@ -43,7 +43,7 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
-    "@michaelcoxon/utilities": "^1.0.6"
+    "@michaelcoxon/utilities": "^1.4.0"
   },
   "-vs-binding": {
     "ProjectOpened": [

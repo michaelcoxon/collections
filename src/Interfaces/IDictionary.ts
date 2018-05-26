@@ -1,11 +1,5 @@
 ﻿import { ICollection } from "./ICollection";
-
-
-export interface KeyValuePair<TKey, TValue>
-{
-    readonly key: TKey;
-    value: TValue;
-}
+import { KeyValuePair } from "../Types";
 
 export interface IDictionary<TKey, TValue> extends ICollection<KeyValuePair<TKey, TValue>>
 {

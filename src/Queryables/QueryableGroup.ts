@@ -1,12 +1,11 @@
-﻿import { IQueryableGroup } from "../IQueryableGroup";
-import { IQueryable } from "../IQueryable";
-import { DefaultComparer } from "../Comparers/DefaultComparer";
-import { Selector } from "../Types";
-import { QueryableEnumerable } from "./QueryableEnumerable";
-import { IEnumerable } from "../IEnumerable";
-import { Lazy } from "@michaelcoxon/utilities";
+﻿import { DefaultComparer } from "../Comparers/DefaultComparer";
+import { Lazy, Selector } from "@michaelcoxon/utilities";
+import { IQueryable } from "../Interfaces/IQueryable";
+import { IQueryableGroup } from "../Interfaces/IQueryableGroup";
+import { EnumerableQueryable } from "./EnumerableQueryable";
+import { IEnumerable } from "../Interfaces/IEnumerable";
 
-export class QueryableGroup<T, TKey> extends QueryableEnumerable<T> implements IQueryableGroup<T, TKey>
+export class QueryableGroup<T, TKey> extends EnumerableQueryable<T> implements IQueryableGroup<T, TKey>
 {
     private readonly _parentQueryable: IQueryable<T>;
     private readonly _key: TKey;
@@ -14,7 +13,8 @@ export class QueryableGroup<T, TKey> extends QueryableEnumerable<T> implements I
 
     constructor(parentQueryable: IQueryable<T>, key: TKey, keySelector: Selector<T, TKey>)
     {
-        super(new Lazy(() => this.getGroupedRows()));
+        let comparer = new DefaultComparer<TKey>();
+        super(parentQueryable.where((item) => comparer.equals(keySelector(item), key)));
 
         this._parentQueryable = parentQueryable;
         this._key = key;
@@ -24,11 +24,5 @@ export class QueryableGroup<T, TKey> extends QueryableEnumerable<T> implements I
     public get key(): TKey 
     {
         return this._key;
-    }
-
-    private getGroupedRows(): IEnumerable<T>
-    {
-        let comparer = new DefaultComparer<TKey>();
-        return this._parentQueryable.where((item) => comparer.equals(this._keySelector(item), this._key));
     }
 }

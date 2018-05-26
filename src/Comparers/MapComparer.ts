@@ -1,4 +1,4 @@
-﻿import { IComparer } from "../IComparer";
+﻿import { IComparer } from "../Interfaces/IComparer";
 
 export class MapComparer<T, M> implements IComparer<T>
 {

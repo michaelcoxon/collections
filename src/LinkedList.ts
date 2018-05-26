@@ -1,12 +1,16 @@
 ﻿import { ICollection } from "./Interfaces/ICollection";
 import { IEnumerable } from "./Interfaces/IEnumerable";
-import { IReadOnlyCollection } from "./Interfaces/IReadOnlyCollection";
 import { IEnumerableOrArray } from "./Types";
 import { enumerableOrArrayToArray } from "./Utilities";
-import { IList } from "./IList";
-import { IEnumerator } from "./Interfaces/IEnumerator";
 import { IQueryable } from "./Interfaces/IQueryable";
+import { IEnumerator } from "./Interfaces/IEnumerator";
 import { IDictionary } from "./Interfaces/IDictionary";
+import { IList } from "./Interfaces/IList";
+import { List } from "./List";
+import { Dictionary } from "./Dictionary";
+import { EnumerableEnumerator } from "./Enumerators/EnumerableEnumerator";
+import { EnumerableQueryable } from "./Queryables/EnumerableQueryable";
+import { Undefinable } from "@michaelcoxon/utilities";
 
 interface LinkedListItem<T>
 {
@@ -58,6 +62,8 @@ export class LinkedList<T> implements ICollection<T>, IEnumerable<T>
             this._current.next = listItem;
             this._current = listItem;
         }
+
+        this._count++;
     }
 
     clear(): void
@@ -67,7 +73,16 @@ export class LinkedList<T> implements ICollection<T>, IEnumerable<T>
 
     contains(item: T): boolean
     {
-        throw new Error("Method not implemented.");
+        if (this._root === undefined)
+        {
+            return false;
+        }
+
+        let result = false;
+
+        this.traverse(this._root, node => !(result = (node.value === item)));
+
+        return result;
     }
 
     copyTo(array: T[], arrayIndex: number): void
@@ -82,46 +97,98 @@ export class LinkedList<T> implements ICollection<T>, IEnumerable<T>
 
     asQueryable(): IQueryable<T>
     {
-        throw new Error("Method not implemented.");
+        return new EnumerableQueryable<T>(this);
     }
 
     forEach(callback: (value: T, index: number) => boolean | void): void
     {
-        throw new Error("Method not implemented.");
+        let index = 0;
+
+        if (this._root === undefined)
+        {
+            return;
+        }
+
+        return this.traverse(this._root, node => callback(node.value, index++));
     }
 
     getEnumerator(): IEnumerator<T>
     {
-        throw new Error("Method not implemented.");
+        return new EnumerableEnumerator<T>(this);
     }
 
-    item(index: number): T
+    item(index: number): Undefinable<T>
     {
-        throw new Error("Method not implemented.");
+        if (this._root !== undefined)
+        {
+            if (index == 0)
+            {
+                return this._root.value;
+            }
+
+            let count = 0;
+            let result: Undefinable<T>;
+
+            this.traverse(this._root, node =>
+            {
+                if (count == index)
+                {
+                    result = node.value;
+                }
+                count++;
+            });
+
+            return result;
+        }
+        else
+        {
+            return undefined;
+        }
     }
 
     ofType<N extends T>(ctor: new (...args: any[]) => N): IEnumerable<N>
     {
-        throw new Error("Method not implemented.");
+        return this
+            .asQueryable()
+            .where((item) => item instanceof ctor).select((item) => item as N);
     }
 
     toArray(): T[]
     {
-        throw new Error("Method not implemented.");
+        const result: T[] = [];
+        const en = this.getEnumerator();
+        let index = 0;
+
+        while (en.moveNext())
+        {
+            result.push(en.current);
+        }
+
+        return result
     }
 
     toDictionary<TKey, TValue>(keySelector: (a: T) => TKey, valueSelector: (a: T) => TValue): IDictionary<TKey, TValue>
     {
-        throw new Error("Method not implemented.");
+        return new Dictionary(this.toArray().map(i => ({ key: keySelector(i), value: valueSelector(i) })));
     }
 
     toList(): IList<T>
     {
-        throw new Error("Method not implemented.");
+        return new List(this);
     }
 
-    private traverse(node: LinkedListItem<T>, callback: ((node: LinkedListItem<T>) => boolean | undefined)): void
+    /**
+     * Traverse the collection, return false in the callback to break. return true or undefined to continue.
+     * @param node
+     * @param callback
+     */
+    private traverse(node: LinkedListItem<T>, callback: ((node: LinkedListItem<T>) => boolean | void)): void
     {
-        throw new Error("Method not implemented.");
+        const cont = callback(node);
+
+        if (cont !== false && node.next !== undefined)
+        {
+            return this.traverse(node.next, callback);
+        }
     }
 }

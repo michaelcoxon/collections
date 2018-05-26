@@ -1,14 +1,13 @@
-﻿import { IEnumerable } from "../IEnumerable";
-import { IQueryable } from "../IQueryable";
-import { ArrayQueryable } from "../Queryables/QueryableArray";
-import { IEnumerator } from "../IEnumerator";
+﻿import { IEnumerable } from "../Interfaces/IEnumerable";
+import { IQueryable } from "../Interfaces/IQueryable";
+import { IEnumerator } from "../Interfaces/IEnumerator";
 import { ArrayEnumerator } from "../Enumerators/ArrayEnumerator";
-import { IList } from "../IList";
-import { List } from "../List";
+import { Undefinable } from "@michaelcoxon/utilities";
 import { Dictionary } from "../Dictionary";
-import { IDictionary, KeyValuePair } from "../IDictionary";
-
-
+import { IList } from "../Interfaces/IList";
+import { List } from "../List";
+import { IDictionary } from "../Interfaces/IDictionary";
+import { EnumerableQueryable } from "../Queryables/EnumerableQueryable";
 
 export class ArrayEnumerable<T> implements IEnumerable<T>
 {
@@ -21,7 +20,7 @@ export class ArrayEnumerable<T> implements IEnumerable<T>
 
     public asQueryable(): IQueryable<T>
     {
-        return new ArrayQueryable<T>(this._baseArray);
+        return new EnumerableQueryable<T>(this);
     }
 
     // iterates over each item in the Collection. Return false to break.
@@ -41,9 +40,16 @@ export class ArrayEnumerable<T> implements IEnumerable<T>
         return new ArrayEnumerator<T>(this._baseArray);
     }
 
-    public item(index: number): T
+    public item(index: number): Undefinable<T>
     {
-        return this._baseArray[index];
+        try
+        {
+            return this._baseArray[index];
+        }
+        catch
+        {
+            return undefined;
+        }
     }
 
     public ofType<N extends T>(type: { new(...args: any[]): N }): IEnumerable<N>
@@ -60,13 +66,7 @@ export class ArrayEnumerable<T> implements IEnumerable<T>
 
     public toDictionary<TKey, TValue>(keySelector: (a: T) => TKey, valueSelector: (a: T) => TValue): IDictionary<TKey, TValue>
     {
-        return new Dictionary(this.toArray().map(i =>
-        {
-            return {
-                key: keySelector(i),
-                value: valueSelector(i)
-            }
-        }));
+        return new Dictionary(this.toArray().map(i => ({ key: keySelector(i), value: valueSelector(i) })));
     }
 
     public toList(): IList<T>

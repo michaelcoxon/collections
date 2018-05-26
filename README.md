@@ -1,4 +1,8 @@
 # collections
+![](https://img.shields.io/github/license/michaelcoxon/collections.svg)
+[![npm](https://img.shields.io/npm/dt/@michaelcoxon/collections.svg)](https://www.npmjs.com/package/@michaelcoxon/collections)
+
+
 Collections for JS and TypeScript
 
 Check out the tests for a more comprehesive doco.

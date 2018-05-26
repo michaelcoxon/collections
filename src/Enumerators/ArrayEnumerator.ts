@@ -1,8 +1,6 @@
 ﻿import { Collection } from '../Collection';
-import { InvalidTypeException, OutOfBoundsException } from "@michaelcoxon/utilities";
-import { IEnumerator } from '../IEnumerator';
-import { IEnumerableOrArray } from '../Types';
-import { IEnumerable } from '../IEnumerable';
+import { OutOfBoundsException } from "@michaelcoxon/utilities";
+import { IEnumerator } from '../Interfaces/IEnumerator';
 
 export class ArrayEnumerator<T> implements IEnumerator<T>
 {
