@@ -1,7 +1,8 @@
 ﻿import { IEnumerableOrArray } from "./Types";
 import { InvalidTypeException, NotSupportedException, Selector } from "@michaelcoxon/utilities";
 import { IEnumerable } from "./Interfaces/IEnumerable";
-import { ArrayEnumerable } from "./Enumerables/ArrayEnumerable";
+import { ArrayEnumerable } from "./BaseCollections";
+
 
 export function enumerableOrArrayToArray<T>(enumerableOrArray: IEnumerableOrArray<T>): T[]
 {

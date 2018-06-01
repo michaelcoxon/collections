@@ -1,7 +1,7 @@
 import { ISet } from "./Interfaces/ISet";
 import { IEnumerable } from "./Interfaces/IEnumerable";
 import { ICollection } from "./Interfaces/ICollection";
-import { Collection } from "./Collection";
+import { Collection } from "./BaseCollections";
 import { IList } from "./Interfaces/IList";
 import { IDictionary } from "./Interfaces/IDictionary";
 import { IEnumerator } from "./Interfaces/IEnumerator";

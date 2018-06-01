@@ -1,6 +1,7 @@
-﻿import { Collection } from '../src/Collection';
-import { expect } from 'chai';
+﻿import { Collection } from "../src/BaseCollections";
+import { expect, assert } from 'chai';
 import 'mocha';
+import { ArgumentException } from "@michaelcoxon/utilities";
 
 describe("Create a collection", () =>
 {
@@ -38,14 +39,54 @@ describe("Copy a collection", () =>
     {
         const coll1 = new Collection([1, 2, 3, 4]);
         const array = [-4, -3, -2, -1, 0];
-        const expected = new Collection([-4, -3, -2, -1, 0, 1, 2, 3, 4]);
+        const expected = new Collection([1, 2, 3, 4, 0]);
 
         coll1.copyTo(array, 0);
 
-        for (let i = 0; i < array.length; i++)
+        for (let i = 0; i < expected.count; i++)
         {
             expect(expected.item(i)).eq(array[i], `index ${i} is not the same. got ${expected.item(i)} != ${array[i]}`);
         }
+    });
+
+    it("should throw an exception when the collection is larger than the array", (done) =>
+    {
+        const coll1 = new Collection([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        const array = [-4, -3, -2, -1, 0];
+
+        try
+        {
+            coll1.copyTo(array, 0);
+            assert.fail();
+        }
+        catch (ex)
+        {
+            if (!(ex instanceof ArgumentException))
+            {
+                assert.fail();
+            }
+        }
+        done();
+    });
+
+    it("should throw an exception when the index is set to a position that the collection cannot fit in", (done) =>
+    {
+        const coll1 = new Collection([1, 2, 3, 4]);
+        const array = [-4, -3, -2, -1, 0];
+
+        try
+        {
+            coll1.copyTo(array, 2);
+            assert.fail();
+        }
+        catch (ex)
+        {
+            if (!(ex instanceof ArgumentException))
+            {
+                assert.fail();
+            }
+        }
+        done();
     });
 });
 

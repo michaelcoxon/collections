@@ -7,7 +7,7 @@ import { IQueryable } from "../Interfaces/IQueryable";
 import { EnumerableQueryable } from "../Queryables/EnumerableQueryable";
 import { Dictionary } from "../Dictionary";
 import { IList } from "../Interfaces/IList";
-import { List } from "../List";
+import { List } from "../BaseCollections";
 import { IDictionary } from "../Interfaces/IDictionary";
 
 export class SelectEnumerable<T, TReturn> implements IEnumerable<TReturn>

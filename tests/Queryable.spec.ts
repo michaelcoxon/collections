@@ -1,7 +1,16 @@
-﻿import { Collection } from '../src/Collection';
+﻿import { Numbers, setDefaultLogger, ConsoleLogger, LogLevel, getDefaultLogger } from "@michaelcoxon/utilities";
+
+setDefaultLogger(new ConsoleLogger(console, {
+    loggingVerbosity: LogLevel.Trace,
+    useTraceMethodForTraceLogLevel: false
+}));
+
+import { ArrayEnumerable, Collection } from "../src/BaseCollections";
+import { Enumerable } from "../src/Enumerables/Enumerable";
 import { expect, assert } from 'chai';
 import 'mocha';
-import { ArrayEnumerable } from 'src/Enumerables/ArrayEnumerable';
+
+const logger = getDefaultLogger();
 
 describe("Create a Queryable", () =>
 {
@@ -10,7 +19,7 @@ describe("Create a Queryable", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(array.length).eq(result.count);
+        expect(array.length).eq(result.count());
 
         for (let i = 0; i < result.count(); i++)
         {
@@ -23,7 +32,7 @@ describe("Create a Queryable", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(array.length).eq(result.count);
+        expect(array.length).eq(result.count());
 
         for (let i = 0; i < result.count(); i++)
         {
@@ -107,15 +116,15 @@ describe("Distinct", () =>
         const query = new ArrayEnumerable(array).asQueryable();
         const expected = [1, 2, 3, 4];
 
-        expect(array.length).eq(query.count);
+        expect(query.count()).eq(array.length);
 
         const result = query.distinct((n) => n);
 
-        expect(expected.length).eq(result.count);
+        expect(result.count()).eq(expected.length);
 
         for (let i = 0; i < result.count(); i++)
         {
-            expect(expected[i]).eq(result.item(i), `index ${i} is not the same`);
+            expect(result.item(i)).eq(expected[i], `index ${i} is not the same`);
         }
     });
 });
@@ -260,7 +269,7 @@ describe("Min", () =>
 
         const result = query.min((i) => i);
 
-        expect(1).to.eq(result);
+        expect(result).to.eq(1);
     });
 });
 
@@ -292,13 +301,13 @@ describe("OfType", () =>
         ];
 
         const query = new ArrayEnumerable(array).asQueryable();
-        const result = query.ofType(DerivedClass).toArray();
+        const result = query.ofType(DerivedClass);
 
-        expect(3).to.eq(result.length);
+        expect(result.count()).to.eq(3);
 
-        expect("derived value").to.eq(result[0].property);
-        expect("derived 2 value").to.eq(result[1].property);
-        expect("derived value").to.eq(result[2].property);
+        expect(result.item(0)!.property).to.eq("derived value");
+        expect(result.item(1)!.property).to.eq("derived 2 value");
+        expect(result.item(2)!.property).to.eq("derived value");
     });
 });
 
@@ -465,4 +474,49 @@ describe("Take", () =>
             expect(expected[i]).eq(result.item(i), `index ${i} is not the same`);
         }
     });
+});
+
+describe("Where", () =>
+{
+    it("should return the items that match the predicate", () =>
+    {
+        const array = [1, 2, 3, 4];
+        const query = new ArrayEnumerable(array).asQueryable();
+
+        const result = query.where((i) => Numbers.isEven(i));
+
+        expect(result.count()).to.eq(2);
+
+        expect(result.item(0)).to.eq(2);
+        expect(result.item(1)).to.eq(4);
+    });
+});
+
+
+describe("Big sets", () =>
+{
+    it("should select all even numbers", (done) =>
+    {
+        logger.trace(`init: ${new Date().getTime()}`);
+
+        const enumerable = Enumerable.range(1, 5);
+        logger.trace(`enumerable: ${new Date().getTime()}`);
+
+        const query = enumerable.asQueryable();
+        logger.trace(`query: ${new Date().getTime()}`);
+
+        const evenNumbers = query.where(i => Numbers.isEven(i))
+        logger.trace(`evenNumbers: ${new Date().getTime()}`);
+
+        const result = evenNumbers.toArray();
+        logger.trace(`result: ${new Date().getTime()}`);
+
+        for (let i = 0; i < result.length; i++)
+        {
+            assert.isTrue(Numbers.isEven(result[i]));
+        }
+
+        done();
+    })
+        .timeout(0);
 });

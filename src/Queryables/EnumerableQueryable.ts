@@ -6,7 +6,6 @@ import { IEnumerable } from "../Interfaces/IEnumerable";
 import { IComparer } from "../Interfaces/IComparer";
 import { ReverseComparer } from "../Comparers/ReverseComparer";
 import { DefaultComparer } from "../Comparers/DefaultComparer";
-import { QueryableGroup } from "./QueryableGroup";
 import { MapComparer } from "../Comparers/MapComparer";
 import { IList } from "../Interfaces/IList";
 import { IDictionary } from "../Interfaces/IDictionary";
@@ -14,7 +13,7 @@ import { SkipEnumerable } from "../Enumerables/SkipEnumerable";
 import { SelectEnumerable } from "../Enumerables/SelectEnumerable";
 import { WhereEnumerable } from "../Enumerables/WhereEnumerable";
 import { TakeEnumerable } from "../Enumerables/TakeEnumerable";
-import { ArrayEnumerable } from "../Enumerables/ArrayEnumerable";
+import { ArrayEnumerable } from "../BaseCollections";
 
 
 
@@ -77,6 +76,7 @@ export class EnumerableQueryable<T> implements IQueryable<T>
         {
             itemCount++;
         }
+
         return itemCount;
     }
 
@@ -172,11 +172,14 @@ export class EnumerableQueryable<T> implements IQueryable<T>
 
         if (en.moveNext())
         {
+            let value = en.current;
+
             while (en.moveNext())
             {
-                //do nothing
+                value = en.current;
             }
-            return en.current;
+
+            return value;
         }
         else
         {
@@ -206,11 +209,14 @@ export class EnumerableQueryable<T> implements IQueryable<T>
 
         if (en.moveNext())
         {
+            let value = en.current;
+
             while (en.moveNext())
             {
-                //do nothing
+                value = en.current;
             }
-            return en.current;
+
+            return value;
         }
         else
         {
@@ -220,28 +226,25 @@ export class EnumerableQueryable<T> implements IQueryable<T>
 
     public max(selector: Selector<T, number>): number
     {
-        let values = this.select(selector).toArray();
+        const values = this.select(selector).toArray();
         return Math.max(...values);
     }
 
     public min(selector: Selector<T, number>): number
     {
-        let values = this.select(selector).toArray();
+        const values = this.select(selector).toArray();
         return Math.min(...values);
     }
 
     public ofType<N extends T>(ctor: ConstructorFor<N>): IQueryable<N>
     {
-        return this
-            .where((item) => item instanceof ctor)
-            .select((item) => item as N);
+        return this.where((item) => item instanceof ctor).select((item) => item as N);
     }
 
     // Orders the set by specified keys where the first orderby 
     // param is first preference. the key can be a method name 
     // without parenthesis.
-    // USAGE: obj.OrderBy('key1');
-    //        obj.OrderBy(function (item) { return item.key1 });
+    // USAGE: obj.OrderBy(function (item) { return item.key1 });
     public orderBy<R>(selector: (a: T) => R, comparer?: IComparer<R>): IQueryable<T>
     {
         return this.internalOrderBy(selector, comparer || new DefaultComparer<R>());
@@ -250,8 +253,7 @@ export class EnumerableQueryable<T> implements IQueryable<T>
     // Orders the set by specified keys where the first orderby 
     // param is first preference. the key can be a method name 
     // without parenthesis.
-    // USAGE: obj.OrderByDescending('key1');
-    //        obj.OrderByDescending(function (item) { return item.key1 });
+    // USAGE: obj.OrderByDescending(function (item) { return item.key1 });
     public orderByDescending<R>(selector: (a: T) => R, comparer?: IComparer<R>): IQueryable<T>
     {
         return this.internalOrderBy(selector, new ReverseComparer(comparer || new DefaultComparer<R>()));
@@ -326,5 +328,27 @@ export class EnumerableQueryable<T> implements IQueryable<T>
     {
         let mapComparer = new MapComparer(comparer, selector);
         return new ArrayEnumerable<T>([...this._enumerable.toArray()].sort((a, b) => mapComparer.compare(a, b))).asQueryable();
+    }
+}
+
+export class QueryableGroup<T, TKey> extends EnumerableQueryable<T> implements IQueryableGroup<T, TKey>
+{
+    private readonly _parentQueryable: IQueryable<T>;
+    private readonly _key: TKey;
+    private readonly _keySelector: (item: T) => TKey;
+
+    constructor(parentQueryable: IQueryable<T>, key: TKey, keySelector: Selector<T, TKey>)
+    {
+        let comparer = new DefaultComparer<TKey>();
+        super(parentQueryable.where((item) => comparer.equals(keySelector(item), key)));
+
+        this._parentQueryable = parentQueryable;
+        this._key = key;
+        this._keySelector = keySelector;
+    }
+
+    public get key(): TKey 
+    {
+        return this._key;
     }
 }

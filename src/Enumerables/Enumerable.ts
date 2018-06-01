@@ -1,4 +1,4 @@
-﻿import { List } from "../List";
+﻿import { List, ArrayEnumerable } from "../BaseCollections";
 import { Dictionary } from "../Dictionary";
 import { IEnumerable } from "../Interfaces/IEnumerable";
 import { IQueryable } from "../Interfaces/IQueryable";
@@ -7,9 +7,9 @@ import { IEnumerator } from "../Interfaces/IEnumerator";
 import { EnumerableEnumerator } from "../Enumerators/EnumerableEnumerator";
 import { IDictionary } from "../Interfaces/IDictionary";
 import { IList } from "../Interfaces/IList";
-import { Undefinable } from "@michaelcoxon/utilities";
+import { Undefinable, NotSupportedException, Exception, ArgumentException, getDefaultLogger } from "@michaelcoxon/utilities";
 
-
+const logger = getDefaultLogger();
 
 export class Enumerable<T> implements IEnumerable<T>
 {
@@ -66,7 +66,7 @@ export class Enumerable<T> implements IEnumerable<T>
         while (en.moveNext())
         {
             result.push(en.current);
-        }    
+        }
 
         return result
     }
@@ -79,5 +79,178 @@ export class Enumerable<T> implements IEnumerable<T>
     public toList(): IList<T>
     {
         return new List<T>(this);
+    }
+
+    public static range(start: number, count: number): IEnumerable<number>
+    {
+        logger.trace(`Enumerable.range(start: ${start},count: ${count})`);
+        return new RangeEnumerable(start, count)
+    }
+}
+
+class RangeEnumerable implements IEnumerable<number>
+{
+    private readonly _start: number
+    private readonly _count: number
+
+    constructor(start: number, count: number)
+    {
+        logger.trace(`RangeEnumerable.constructor(start: ${start},count: ${count})`);
+        this._start = start;
+        this._count = count;
+    }
+
+    public asQueryable(): IQueryable<number>
+    {
+        logger.trace(`RangeEnumerable.asQueryable()`);
+        return new EnumerableQueryable<number>(this);
+    }
+
+    // iterates over each item in the Collection. Return false to break.
+    public forEach(callback: (value: number, index: number) => boolean | void): void
+    {
+        logger.trace(`RangeEnumerable.forEach`);
+
+        const en = this.getEnumerator();
+        let index = 0;
+
+        while (en.moveNext())
+        {
+            if (false === callback(en.current, index++))
+            {
+                break;
+            }
+        }
+    }
+
+    public getEnumerator(): IEnumerator<number>
+    {
+        logger.trace(`RangeEnumerable.getEnumerator`);
+        return new RangeEnumerator(this._start, this._count);
+    }
+
+    public item(index: number): Undefinable<number>
+    {
+        logger.trace(`RangeEnumerable.item(index: ${index})`);
+        const result: number[] = [];
+        const en = this.getEnumerator();
+        let i = 0;
+
+        while (en.moveNext())
+        {
+            if (index == i++)
+            {
+                return en.current;
+            }
+        }
+    }
+
+    public ofType<N extends number>(type: { new(...args: any[]): N }): IEnumerable<N>
+    {
+        throw new NotSupportedException();
+    }
+
+    public toArray(): number[]
+    {
+        logger.trace(`RangeEnumerable.toArray()`);
+        const result: number[] = [];
+        const en = this.getEnumerator();
+
+        while (en.moveNext())
+        {
+            result.push(en.current);
+        }
+
+        return result
+    }
+
+    public toDictionary<TKey, TValue>(keySelector: (a: number) => TKey, valueSelector: (a: number) => TValue): IDictionary<TKey, TValue>
+    {
+        logger.trace(`RangeEnumerable.toDictionary`);
+        return new Dictionary(this.asQueryable().select(i => ({ key: keySelector(i), value: valueSelector(i) })));
+    }
+
+    public toList(): IList<number>
+    {
+        logger.trace(`RangeEnumerable.toList()`);
+        return new List<number>(this);
+    }
+}
+
+class RangeEnumerator implements IEnumerator<number>
+{
+    private readonly _start: number
+    private readonly _count: number
+    private readonly _increment: number;
+
+    private _iterations: number;
+
+
+    constructor(start: number, count: number)
+    {
+        this._start = start;
+        this._count = count;
+
+        this._iterations = -1;
+        this._increment = this._getIncrement();
+    }
+
+    public get current(): number
+    {
+        if (this._iterations < 0)
+        {
+            throw new Exception("Call moveNext first");
+        }
+        return this._start + (this._iterations * this._increment);
+    }
+
+    public moveNext(): boolean
+    {
+        try
+        {
+            const item = this.peek();
+
+            if (item === undefined)
+            {
+                return false;
+            }
+
+            this._iterations++;
+            return true;
+        }
+        catch (ex)
+        {
+            return false;
+        }
+    }
+
+    public peek(): number
+    {
+        let index = this._iterations + 1;
+        let value = this._start + (index * this._increment)
+
+        if (index == this._count)
+        {
+            throw new Exception("End of enumerator");
+        }
+
+        return value;
+    }
+
+    public reset(): void
+    {
+        this._iterations = -1;
+    }
+
+    private _getIncrement(): number
+    {
+        const integer = this._start > 0 ? Math.floor(this._start) : Math.ceil(this._start);
+
+        if (this._start != integer)
+        {
+            throw new ArgumentException("Only integers are supported");
+        }
+
+        return 1;
     }
 }

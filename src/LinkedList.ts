@@ -6,7 +6,7 @@ import { IQueryable } from "./Interfaces/IQueryable";
 import { IEnumerator } from "./Interfaces/IEnumerator";
 import { IDictionary } from "./Interfaces/IDictionary";
 import { IList } from "./Interfaces/IList";
-import { List } from "./List";
+import { List } from "./BaseCollections";
 import { Dictionary } from "./Dictionary";
 import { EnumerableEnumerator } from "./Enumerators/EnumerableEnumerator";
 import { EnumerableQueryable } from "./Queryables/EnumerableQueryable";
