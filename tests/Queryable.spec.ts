@@ -1,10 +1,10 @@
 ﻿import { Numbers, setDefaultLogger, ConsoleLogger, LogLevel, getDefaultLogger } from "@michaelcoxon/utilities";
-
+/*
 setDefaultLogger(new ConsoleLogger(console, {
     loggingVerbosity: LogLevel.Trace,
     useTraceMethodForTraceLogLevel: false
 }));
-
+*/
 import { ArrayEnumerable, Collection } from "../src/BaseCollections";
 import { Enumerable } from "../src/Enumerables/Enumerable";
 import { expect, assert } from 'chai';
@@ -499,7 +499,7 @@ describe("Big sets", () =>
     {
         logger.trace(`init: ${new Date().getTime()}`);
 
-        const enumerable = Enumerable.range(1, 5);
+        const enumerable = Enumerable.range(1, 1000000);
         logger.trace(`enumerable: ${new Date().getTime()}`);
 
         const query = enumerable.asQueryable();
@@ -510,12 +510,29 @@ describe("Big sets", () =>
 
         const result = evenNumbers.toArray();
         logger.trace(`result: ${new Date().getTime()}`);
-
+        /*
         for (let i = 0; i < result.length; i++)
         {
             assert.isTrue(Numbers.isEven(result[i]));
         }
+        */
+        done();
+    })
+        .timeout(0);
 
+    it("should select all even numbers (built-in)", (done) =>
+    {
+        const array = Array.from(Array(1000001).keys());
+
+        array.shift();
+
+        const result = array.filter(i => Numbers.isEven(i));
+        /*
+        for (let i = 0; i < result.length; i++)
+        {
+            assert.isTrue(Numbers.isEven(result[i]));
+        }
+        */
         done();
     })
         .timeout(0);

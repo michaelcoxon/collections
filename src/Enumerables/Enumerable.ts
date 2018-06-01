@@ -183,34 +183,39 @@ class RangeEnumerator implements IEnumerator<number>
     private readonly _count: number
     private readonly _increment: number;
 
+    private _current: number;
     private _iterations: number;
 
 
     constructor(start: number, count: number)
     {
+        logger.trace(`RangeEnumerator.constructor(start: ${start}, start: ${count})`);
         this._start = start;
         this._count = count;
 
+        this._current = start;
         this._iterations = -1;
         this._increment = this._getIncrement();
     }
 
     public get current(): number
     {
+        logger.trace("RangeEnumerator.current");
         if (this._iterations < 0)
         {
             throw new Exception("Call moveNext first");
         }
-        return this._start + (this._iterations * this._increment);
+        return this._current;
     }
 
     public moveNext(): boolean
     {
+        logger.trace("RangeEnumerator.moveNext");
         try
         {
-            const item = this.peek();
+            this._current = this.peek();
 
-            if (item === undefined)
+            if (this._current === undefined)
             {
                 return false;
             }
@@ -226,6 +231,7 @@ class RangeEnumerator implements IEnumerator<number>
 
     public peek(): number
     {
+        logger.trace("RangeEnumerator.peek");
         let index = this._iterations + 1;
         let value = this._start + (index * this._increment)
 
@@ -239,11 +245,13 @@ class RangeEnumerator implements IEnumerator<number>
 
     public reset(): void
     {
+        logger.trace("RangeEnumerator.reset");
         this._iterations = -1;
     }
 
     private _getIncrement(): number
     {
+        logger.trace("RangeEnumerator._getIncrement");
         const integer = this._start > 0 ? Math.floor(this._start) : Math.ceil(this._start);
 
         if (this._start != integer)
