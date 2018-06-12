@@ -1,0 +1,13 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "outDir": "../../../lib.es6",
+    "declaration": false,
+    "target": "es6",
+    "importHelpers": true
+  },
+  "include": [
+    "../../../src/**/*"
+  ],
+  "extends": "../../../base-tsconfig"
+}

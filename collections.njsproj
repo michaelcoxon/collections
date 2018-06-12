@@ -17,13 +17,16 @@
     <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
     <ToolsVersionPromptShown>0.0</ToolsVersionPromptShown>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include=".npmignore" />
-    <Content Include="src\tsconfig.json" />
+    <Content Include="src\config\es2015\tsconfig.json" />
+    <Content Include="src\config\es5\tsconfig.json" />
+    <Content Include="src\config\es6\tsconfig.json" />
     <Content Include="tsconfig.json" />
     <Content Include="LICENSE" />
     <Content Include="package.json" />
@@ -33,6 +36,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="src\config\" />
+    <Folder Include="src\config\es2015\" />
+    <Folder Include="src\config\es5\" />
+    <Folder Include="src\config\es6\" />
     <Folder Include="tests\" />
     <Folder Include="src\" />
   </ItemGroup>

@@ -1,6 +1,6 @@
 ﻿// private helper functions
 import { Collection } from "./Collection";
-import { Utilities, NotSupportedException } from "@michaelcoxon/utilities";
+import { Utilities, NotSupportedException, ConstructorFor } from "@michaelcoxon/utilities";
 import { IComparer, DefaultComparer, ReverseComparer, MapComparer } from "./Comparer";
 
 export type Predicate<T> = (item: T) => boolean;
@@ -184,7 +184,7 @@ export class Queryable<T> extends Collection<T>
         return Math.min(...values);
     }
 
-    public ofType<N extends T>(ctor: Utilities.ConstructorFor<N>): Queryable<N>
+    public ofType<N extends T>(ctor: ConstructorFor<N>): Queryable<N>
     {
         return this
             .where((item) => item instanceof ctor)

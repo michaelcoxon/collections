@@ -1,0 +1,14 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "outDir": "../../../lib",
+    "declaration": true,
+    "declarationDir": "../../../dts",
+    "target": "es5",
+    "importHelpers": true
+  },
+  "include": [
+    "../../../src/**/*"
+  ],
+  "extends": "../../../base-tsconfig"
+}
