@@ -1,4 +1,4 @@
-﻿import { Collection } from '../lib/Collection';
+﻿import { Collection } from '../src/Collection';
 import { expect } from 'chai';
 import 'mocha';
 
