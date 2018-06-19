@@ -28,7 +28,6 @@
     <Content Include="src\config\es2015\tsconfig.json" />
     <Content Include="src\config\es5\tsconfig.json" />
     <Content Include="src\config\es6\tsconfig.json" />
-    <Content Include="src\Enumerables\WhereEnumerable.ts" />
     <Content Include="tsconfig.json" />
     <Content Include="LICENSE" />
     <Content Include="package.json" />
@@ -42,8 +41,6 @@
     <Folder Include="src\config\es2015\" />
     <Folder Include="src\config\es5\" />
     <Folder Include="src\config\es6\" />
-    <Folder Include="src\Enumerators\" />
-    <Folder Include="src\Enumerables\" />
     <Folder Include="src\Comparers\" />
     <Folder Include="src\Interfaces\" />
     <Folder Include="src\Queryables\" />
@@ -58,17 +55,12 @@
     <TypeScriptCompile Include="src\Comparers\CustomComparer.ts" />
     <TypeScriptCompile Include="src\Comparers\DefaultComparer.ts" />
     <TypeScriptCompile Include="src\Comparers\ReverseComparer.ts" />
-    <TypeScriptCompile Include="src\Enumerables\Enumerable.ts" />
-    <TypeScriptCompile Include="src\Enumerables\SelectEnumerable.ts" />
-    <TypeScriptCompile Include="src\Enumerables\TakeEnumerable.ts" />
-    <TypeScriptCompile Include="src\Enumerators\DictionaryEnumerator.ts" />
-    <TypeScriptCompile Include="src\Enumerators\EnumerableEnumerator.ts" />
-    <TypeScriptCompile Include="src\Enumerables\SkipEnumerable.ts" />
+    <TypeScriptCompile Include="src\Enumerables.ts" />
+    <TypeScriptCompile Include="src\Enumerators.ts" />
     <TypeScriptCompile Include="src\Interfaces\IComparer.ts" />
     <TypeScriptCompile Include="src\Interfaces\IDictionary.ts" />
     <TypeScriptCompile Include="src\Dictionary.ts" />
     <TypeScriptCompile Include="src\BaseCollections.ts" />
-    <TypeScriptCompile Include="src\Enumerators\ArrayEnumerator.ts" />
     <TypeScriptCompile Include="src\Interfaces\ICollection.ts" />
     <TypeScriptCompile Include="src\Interfaces\IEnumerable.ts" />
     <TypeScriptCompile Include="src\Interfaces\IEnumerator.ts" />
@@ -90,7 +82,7 @@
     <TypeScriptCompile Include="tests\Enumerable.spec.ts">
       <TestFramework>Mocha</TestFramework>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="tests\Enumerator.spec.ts">
+    <TypeScriptCompile Include="tests\ArrayEnumerator.spec.ts">
       <TestFramework>Mocha</TestFramework>
       <Publish>True</Publish>
     </TypeScriptCompile>

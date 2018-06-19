@@ -1,4 +1,5 @@
-﻿
+﻿import { Undefinable } from "@michaelcoxon/utilities";
+
 
 export interface IEnumerator<T>
 {
@@ -9,7 +10,7 @@ export interface IEnumerator<T>
     moveNext(): boolean
 
     /** returns the next element without moving the pointer forwards */
-    peek(): T
+    peek(): Undefinable<T>
 
     /** reset the pointer to the start */
     reset(): void

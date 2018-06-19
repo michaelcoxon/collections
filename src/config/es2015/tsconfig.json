@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "../../../lib.es2015",
     "declaration": false,
-    "target": "es2015"
+    "target": "es2015",
+    "importHelpers": true
   },
   "include": [
     "../../../src/**/*"

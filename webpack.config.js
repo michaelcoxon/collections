@@ -27,6 +27,7 @@ module.exports = () =>
     const isDevBuild = !(env && env === 'production');
 
     return [{
+        mode: isDevBuild ? 'development' : 'production',
         target: 'node',
         entry: { 'index': "./src/index.ts" },
         resolve: { extensions: ['.ts'] },
@@ -38,6 +39,7 @@ module.exports = () =>
             libraryTarget: 'umd'
         },
         externals: [
+            /^tslib.*$/,
             /^@michaelcoxon\/utilities.*$/
         ],
         module: {
@@ -45,27 +47,25 @@ module.exports = () =>
                 {
                     test: /\.ts$/,
                     include: /src/,
-                    use: 'awesome-typescript-loader'
+                    use: ['awesome-typescript-loader']
                 }
             ]
         },
         plugins: [
             new CheckerPlugin(),
+            // Plugins that apply in development builds only
+            new webpack.SourceMapDevToolPlugin({
+                filename: '[file].map', // Remove this line if you prefer inline source maps
+                moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
+            }),
 
             ...(isDevBuild
                 ?
-                [
-                    // Plugins that apply in development builds only
-                    new webpack.SourceMapDevToolPlugin({
-                        filename: '[file].map', // Remove this line if you prefer inline source maps
-                        moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
-                    })
-                ]
+                []
                 :
                 [
                     // Plugins that apply in production builds only
                     new DtsBundlePlugin(),
-                    //new webpack.optimize.UglifyJsPlugin(),
                 ])
         ]
     }];

@@ -8,8 +8,8 @@ import { IQueryable } from "./Interfaces/IQueryable";
 import { IEnumerator } from "./Interfaces/IEnumerator";
 import { IList } from "./Interfaces/IList";
 import { EnumerableQueryable } from "./Queryables/EnumerableQueryable";
-import { DictionaryEnumerator } from "./Enumerators/DictionaryEnumerator";
 import { List } from "./BaseCollections";
+import { DictionaryEnumerator } from "./Enumerators";
 
 export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue>, ICollection<KeyValuePair<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>
 {

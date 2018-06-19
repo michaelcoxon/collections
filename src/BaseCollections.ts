@@ -2,16 +2,16 @@
 import { IEnumerable } from "./Interfaces/IEnumerable";
 import { IQueryable } from "./Interfaces/IQueryable";
 import { IEnumerator } from "./Interfaces/IEnumerator";
-import { ArrayEnumerator } from "./Enumerators/ArrayEnumerator";
-import { Dictionary } from "./Dictionary";
 import { IList } from "./Interfaces/IList";
 import { IDictionary } from "./Interfaces/IDictionary";
-import { EnumerableQueryable } from "./Queryables/EnumerableQueryable";
 import { ICollection } from "./Interfaces/ICollection";
 import { IEnumerableOrArray } from "./Types";
 import { enumerableOrArrayToArray } from "./Utilities";
 import { IComparer } from "./Interfaces/IComparer";
+import { EnumerableQueryable } from "./Queryables/EnumerableQueryable";
+import { Dictionary } from "./Dictionary";
 import { DefaultComparer } from "./Comparers/DefaultComparer";
+import { ArrayEnumerator } from "./Enumerators";
 
 export class ArrayEnumerable<T> implements IEnumerable<T>
 {
@@ -46,7 +46,6 @@ export class ArrayEnumerable<T> implements IEnumerable<T>
 
     public item(index: number): Undefinable<T>
     {
-        console.log(`ArrayEnumerable.item(${index})`);
         try
         {
             return this._baseArray[index];

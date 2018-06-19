@@ -1,19 +1,16 @@
-﻿import { IQueryable } from "../Interfaces/IQueryable";
+﻿import { Lazy, Predicate, Utilities, Selector, ConstructorFor, Undefinable } from "@michaelcoxon/utilities";
+import { IQueryable } from "../Interfaces/IQueryable";
 import { IQueryableGroup } from "../Interfaces/IQueryableGroup";
 import { IEnumerator } from "../Interfaces/IEnumerator";
-import { Lazy, Predicate, Utilities, Selector, ConstructorFor, Undefinable } from "@michaelcoxon/utilities";
 import { IEnumerable } from "../Interfaces/IEnumerable";
 import { IComparer } from "../Interfaces/IComparer";
+import { IList } from "../Interfaces/IList";
+import { IDictionary } from "../Interfaces/IDictionary";
+import { ArrayEnumerable } from "../BaseCollections";
 import { ReverseComparer } from "../Comparers/ReverseComparer";
 import { DefaultComparer } from "../Comparers/DefaultComparer";
 import { MapComparer } from "../Comparers/MapComparer";
-import { IList } from "../Interfaces/IList";
-import { IDictionary } from "../Interfaces/IDictionary";
-import { SkipEnumerable } from "../Enumerables/SkipEnumerable";
-import { SelectEnumerable } from "../Enumerables/SelectEnumerable";
-import { WhereEnumerable } from "../Enumerables/WhereEnumerable";
-import { TakeEnumerable } from "../Enumerables/TakeEnumerable";
-import { ArrayEnumerable } from "../BaseCollections";
+import { WhereEnumerable, SkipEnumerable, SelectEnumerable, TakeEnumerable } from "../Enumerables";
 
 
 
@@ -267,7 +264,7 @@ export class EnumerableQueryable<T> implements IQueryable<T>
     // USAGE: obj.Select((o)=>o.key1); USAGE: obj.Select('key1');
     public select<TOut>(selector: Selector<T, TOut>): IQueryable<TOut>
     {
-        return new SelectEnumerable(this._enumerable, selector).asQueryable();
+        return new SelectEnumerable<T, TOut>(this._enumerable, selector).asQueryable();
     }
 
     public sum(selector: Selector<T, number>): number

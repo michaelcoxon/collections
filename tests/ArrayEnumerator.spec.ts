@@ -1,9 +1,9 @@
 ﻿import { expect, assert } from 'chai';
 import 'mocha';
 import { Collection } from "../src/BaseCollections";
-import { ArrayEnumerator } from "../src/Enumerators/ArrayEnumerator";
+import { ArrayEnumerator } from "../src/Enumerators";
 
-describe("Create an enumerator", () =>
+describe("ArrayEnumerator.constructor", () =>
 {
     it("should return an enumerator from a collection", () =>
     {
@@ -34,7 +34,7 @@ describe("Create an enumerator", () =>
         }
     });
 
-    it("should return an enumerator using the extension method", () =>
+    it("should return an enumerator using the method on an ArrayEnumerator", () =>
     {
         const array = [1, 2, 3, 4];
         const coll = new Collection(array);
@@ -50,7 +50,7 @@ describe("Create an enumerator", () =>
     });
 });
 
-describe("Move to the next item in an enumerator", () =>
+describe("ArrayEnumerator.moveNext", () =>
 {
     it("should move to the next item in the enumerator", () =>
     {
@@ -85,7 +85,7 @@ describe("Move to the next item in an enumerator", () =>
     });
 });
 
-describe("Peek at the next item in an enumerator", () =>
+describe("ArrayEnumerator.peek", () =>
 {
     it("should return the next item in the enumerator without advancing", () =>
     {
@@ -125,7 +125,7 @@ describe("Peek at the next item in an enumerator", () =>
     });
 });
 
-describe("Reset the enumerator", () =>
+describe("ArrayEnumerator.reset", () =>
 {
     it("should move to the start of the enumerator", () =>
     {

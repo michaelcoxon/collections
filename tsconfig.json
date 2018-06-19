@@ -1,7 +1,7 @@
 {
   "extends": "./base-tsconfig",
 
-  "compileOnSave": false,
+  "compileOnSave": true,
 
   "compilerOptions": {
     "target": "es5"

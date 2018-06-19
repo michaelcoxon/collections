@@ -3,7 +3,7 @@ import { expect, assert } from 'chai';
 import 'mocha';
 import { ArgumentException } from "@michaelcoxon/utilities";
 
-describe("Create a collection", () =>
+describe("Collection.constructor", () =>
 {
     it("should return a collection with the array items in the same order", () =>
     {
@@ -33,7 +33,7 @@ describe("Create a collection", () =>
 });
 
 
-describe("Copy a collection", () =>
+describe("Collection.copyTo", () =>
 {
     it("should return a collection the items appended to another collection", () =>
     {
@@ -91,7 +91,7 @@ describe("Copy a collection", () =>
 });
 
 
-describe("Iterate over a collection", () =>
+describe("Collection.forEach", () =>
 {
     it("should iterate over all items in a collection", () =>
     {

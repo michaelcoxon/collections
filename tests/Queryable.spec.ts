@@ -1,18 +1,19 @@
-﻿import { Numbers, setDefaultLogger, ConsoleLogger, LogLevel, getDefaultLogger } from "@michaelcoxon/utilities";
+﻿
+
+import { ArrayEnumerable, Collection } from "../src/BaseCollections";
+import { Enumerable } from "../src/Enumerables";
+import { expect, assert } from 'chai';
+import 'mocha';
+import { Numbers, setDefaultLogger, ConsoleLogger, LogLevel, getDefaultLogger } from "@michaelcoxon/utilities";
 /*
 setDefaultLogger(new ConsoleLogger(console, {
     loggingVerbosity: LogLevel.Trace,
     useTraceMethodForTraceLogLevel: false
 }));
 */
-import { ArrayEnumerable, Collection } from "../src/BaseCollections";
-import { Enumerable } from "../src/Enumerables/Enumerable";
-import { expect, assert } from 'chai';
-import 'mocha';
-
 const logger = getDefaultLogger();
 
-describe("Create a Queryable", () =>
+describe("ArrayEnumerable.asQueryable", () =>
 {
     it("should return a Queryable with the array items in the same order", () =>
     {
@@ -41,7 +42,7 @@ describe("Create a Queryable", () =>
     });
 });
 
-describe("All", () =>
+describe("Queryable.all", () =>
 {
     it("should return true if all items match the predicate", () =>
     {
@@ -60,7 +61,7 @@ describe("All", () =>
     });
 });
 
-describe("Any", () =>
+describe("Queryable.any", () =>
 {
     it("should return true if the queryable has items", () =>
     {
@@ -95,7 +96,7 @@ describe("Any", () =>
     });
 });
 
-describe("Average", () =>
+describe("Queryable.average", () =>
 {
     it("should return the average of the numbers", () =>
     {
@@ -108,7 +109,7 @@ describe("Average", () =>
     });
 });
 
-describe("Distinct", () =>
+describe("Queryable.distinct", () =>
 {
     it("should return only unique items in the collection", () =>
     {
@@ -129,7 +130,7 @@ describe("Distinct", () =>
     });
 });
 
-describe("First", () =>
+describe("Queryable.first", () =>
 {
     it("should return the first item in the Queryable", () =>
     {
@@ -161,7 +162,7 @@ describe("First", () =>
     });
 });
 
-describe("FirstOrDefault", () =>
+describe("Queryable.firstOrDefault", () =>
 {
     it("should return the first item in the Queryable", () =>
     {
@@ -188,7 +189,7 @@ describe("FirstOrDefault", () =>
     });
 });
 
-describe("Last", () =>
+describe("Queryable.last", () =>
 {
     it("should return the last item in the Queryable", () =>
     {
@@ -220,7 +221,7 @@ describe("Last", () =>
     });
 });
 
-describe("LastOrDefault", () =>
+describe("Queryable.lastOrDefault", () =>
 {
     it("should return the last item in the Queryable", () =>
     {
@@ -247,7 +248,7 @@ describe("LastOrDefault", () =>
     });
 });
 
-describe("Max", () =>
+describe("Queryable.max", () =>
 {
     it("should return the max of the numbers", () =>
     {
@@ -260,7 +261,7 @@ describe("Max", () =>
     });
 });
 
-describe("Min", () =>
+describe("Queryable.min", () =>
 {
     it("should return the min of the numbers", () =>
     {
@@ -273,7 +274,7 @@ describe("Min", () =>
     });
 });
 
-describe("OfType", () =>
+describe("Queryable.ofType", () =>
 {
     class BaseClass
     {
@@ -311,7 +312,7 @@ describe("OfType", () =>
     });
 });
 
-describe("OrderBy", () =>
+describe("Queryable.orderBy", () =>
 {
     it("should return the items in ascending order", () =>
     {
@@ -342,7 +343,7 @@ describe("OrderBy", () =>
     });
 });
 
-describe("Skip", () =>
+describe("Queryable.skip", () =>
 {
     it("should return the items after the skip length (2)", () =>
     {
@@ -387,7 +388,7 @@ describe("Skip", () =>
     });
 });
 
-describe("Select", () =>
+describe("Queryable.select", () =>
 {
     it("should return a map of the set 1", () =>
     {
@@ -418,7 +419,7 @@ describe("Select", () =>
     });
 });
 
-describe("Sum", () =>
+describe("Queryable.sum", () =>
 {
     it("should return the sum of the numbers", () =>
     {
@@ -431,7 +432,7 @@ describe("Sum", () =>
     });
 });
 
-describe("Take", () =>
+describe("Queryable.take", () =>
 {
     it("should return a subset of items of the specified length (2)", () =>
     {
@@ -476,7 +477,7 @@ describe("Take", () =>
     });
 });
 
-describe("Where", () =>
+describe("Queryable.where", () =>
 {
     it("should return the items that match the predicate", () =>
     {
@@ -493,7 +494,7 @@ describe("Where", () =>
 });
 
 
-describe("Big sets", () =>
+describe("Queryable Big sets", () =>
 {
     it("should select all even numbers", (done) =>
     {
@@ -510,29 +511,22 @@ describe("Big sets", () =>
 
         const result = evenNumbers.toArray();
         logger.trace(`result: ${new Date().getTime()}`);
-        /*
-        for (let i = 0; i < result.length; i++)
-        {
-            assert.isTrue(Numbers.isEven(result[i]));
-        }
-        */
+
         done();
     })
         .timeout(0);
 
     it("should select all even numbers (built-in)", (done) =>
     {
+        logger.trace(`init: ${new Date().getTime()}`);
         const array = Array.from(Array(1000001).keys());
 
         array.shift();
 
+        logger.trace(`begin: ${new Date().getTime()}`);
         const result = array.filter(i => Numbers.isEven(i));
-        /*
-        for (let i = 0; i < result.length; i++)
-        {
-            assert.isTrue(Numbers.isEven(result[i]));
-        }
-        */
+        logger.trace(`end: ${new Date().getTime()}`);
+
         done();
     })
         .timeout(0);
