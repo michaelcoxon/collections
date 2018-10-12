@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{89925f06-dee7-4218-ac9c-f28824a53276}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -24,7 +24,6 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include=".npmignore" />
-    <Content Include=".nojekyll" />
     <Content Include="src\Comparers\MapComparer.ts" />
     <Content Include="src\config\es2015\tsconfig.json" />
     <Content Include="src\config\es5\tsconfig.json" />

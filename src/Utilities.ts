@@ -1,7 +1,7 @@
-﻿import { NotSupportedException, Selector } from "@michaelcoxon/utilities";
-import { ArrayEnumerable } from "./BaseCollections";
+﻿import { IEnumerableOrArray } from "./Types";
+import { InvalidTypeException, NotSupportedException, Selector } from "@michaelcoxon/utilities";
 import { IEnumerable } from "./Interfaces/IEnumerable";
-import { IEnumerableOrArray } from "./Types";
+import { ArrayEnumerable } from "./BaseCollections";
 
 
 export function enumerableOrArrayToArray<T>(enumerableOrArray: IEnumerableOrArray<T>): T[]
@@ -41,7 +41,7 @@ export function createEnumerable<T>(enumerableOrArray: IEnumerableOrArray<T>): I
     if (Array.isArray(enumerableOrArray))
     {
         // copy the array into this
-        return new ArrayEnumerable(enumerableOrArray);
+        return new ArrayEnumerable([...enumerableOrArray]);
     }
     else
     {

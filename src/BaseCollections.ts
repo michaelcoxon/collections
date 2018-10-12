@@ -1,23 +1,25 @@
-﻿import { ArgumentException, ConstructorFor, Undefinable, Utilities } from "@michaelcoxon/utilities";
-import { DefaultComparer } from "./Comparers/DefaultComparer";
-import { Dictionary } from "./Dictionary";
-import { ArrayEnumerator } from "./Enumerators";
-import { ICollection } from "./Interfaces/ICollection";
-import { IComparer } from "./Interfaces/IComparer";
-import { IDictionary } from "./Interfaces/IDictionary";
+﻿import { Undefinable, Utilities, ArgumentException } from "@michaelcoxon/utilities";
 import { IEnumerable } from "./Interfaces/IEnumerable";
+import { IQueryable } from "./Interfaces/IQueryable";
 import { IEnumerator } from "./Interfaces/IEnumerator";
 import { IList } from "./Interfaces/IList";
-import { IQueryable } from "./Interfaces/IQueryable";
-import { EnumerableQueryable } from "./Queryables/EnumerableQueryable";
+import { IDictionary } from "./Interfaces/IDictionary";
+import { ICollection } from "./Interfaces/ICollection";
 import { IEnumerableOrArray } from "./Types";
 import { enumerableOrArrayToArray } from "./Utilities";
+import { IComparer } from "./Interfaces/IComparer";
+import { EnumerableQueryable } from "./Queryables/EnumerableQueryable";
+import { Dictionary } from "./Dictionary";
+import { DefaultComparer } from "./Comparers/DefaultComparer";
+import { ArrayEnumerator } from "./Enumerators";
 
-export class ArrayEnumerable<T> extends Array<T> implements IEnumerable<T>
+export class ArrayEnumerable<T> implements IEnumerable<T>
 {
-    constructor(array: T[] = [])
+    protected _baseArray: T[];
+
+    constructor(array: T[])
     {
-        super(...array);
+        this._baseArray = array;
     }
 
     public asQueryable(): IQueryable<T>
@@ -25,16 +27,28 @@ export class ArrayEnumerable<T> extends Array<T> implements IEnumerable<T>
         return new EnumerableQueryable<T>(this);
     }
 
+    // iterates over each item in the Collection. Return false to break.
+    public forEach(callback: (value: T, index: number) => boolean | void): void
+    {
+        for (let i = 0; i < this._baseArray.length; i++)
+        {
+            if (false === callback(this._baseArray[i], i))
+            {
+                break;
+            }
+        }
+    }
+
     public getEnumerator(): IEnumerator<T>
     {
-        return new ArrayEnumerator<T>(this);
+        return new ArrayEnumerator<T>(this._baseArray);
     }
 
     public item(index: number): Undefinable<T>
     {
         try
         {
-            return this[index];
+            return this._baseArray[index];
         }
         catch
         {
@@ -42,25 +56,21 @@ export class ArrayEnumerable<T> extends Array<T> implements IEnumerable<T>
         }
     }
 
-    /**
-     * Returns an IEnumerable of the elements in this array that are of the specified type
-     * @param type the type to filter by
-     */
-    public ofType<N extends T>(type: ConstructorFor<N>): IQueryable<N>
+    public ofType<N extends T>(type: { new(...args: any[]): N }): IEnumerable<N>
     {
         return this
             .asQueryable()
             .where((item) => item instanceof type).select((item) => item as N);
     }
-    /** Makes a copy of this and returns an array. Items are still reference. */
+
     public toArray(): T[]
     {
-        return [...this];
+        return [...this._baseArray];
     }
 
     public toDictionary<TKey, TValue>(keySelector: (a: T) => TKey, valueSelector: (a: T) => TValue): IDictionary<TKey, TValue>
     {
-        return new Dictionary(this.map(i => ({ key: keySelector(i), value: valueSelector(i) })));
+        return new Dictionary(this.toArray().map(i => ({ key: keySelector(i), value: valueSelector(i) })));
     }
 
     public toList(): IList<T>
@@ -86,7 +96,7 @@ export class Collection<T> extends ArrayEnumerable<T> implements ICollection<T>,
 
     public get count(): number
     {
-        return this.length;
+        return this._baseArray.length;
     }
 
     public get isReadOnly(): boolean
@@ -96,17 +106,17 @@ export class Collection<T> extends ArrayEnumerable<T> implements ICollection<T>,
 
     public add(obj: T): void
     {
-        this.push(obj);
+        this._baseArray.push(obj);
     }
 
     public clear(): void
     {
-        this.length = 0;
+        this._baseArray.length = 0;
     }
 
     public contains(obj: T): boolean
     {
-        return this.indexOf(obj) != -1;
+        return this._baseArray.indexOf(obj) != -1;
     }
 
     public copyTo(array: T[], arrayIndex: number): void
@@ -115,16 +125,16 @@ export class Collection<T> extends ArrayEnumerable<T> implements ICollection<T>,
         {
             throw new ArgumentException("array", "Array is not big enough to store the collection");
         }
-        array.splice(arrayIndex, this.count, ...this);
+        array.splice(arrayIndex, this.count, ...this._baseArray);
     }
 
     public remove(item: T): boolean
     {
-        let index = this.indexOf(item);
+        let index = this._baseArray.indexOf(item);
 
         if (index != undefined)
         {
-            this.splice(index, 1);
+            this._baseArray.splice(index, 1);
             return true;
         }
         else
@@ -141,14 +151,14 @@ export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, 
     public addRange(enumerableOrArray: IEnumerableOrArray<T>): void
     {
         let array = enumerableOrArrayToArray(enumerableOrArray);
-        this.push(...array);
+        this._baseArray = this._baseArray.concat(array);
     }
 
-    public findItem(obj: T, isEquivilent: boolean = false): T | undefined
+    public find(obj: T, isEquivilent: boolean = false): T | undefined
     {
         if (isEquivilent)
         {
-            for (let item of this)
+            for (let item of this._baseArray)
             {
                 var found = false;
 
@@ -176,9 +186,47 @@ export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, 
         }
     }
 
+    public indexOf(obj: T, isEquivilent: boolean = false): number | undefined
+    {
+        if (isEquivilent)
+        {
+            let index: number | undefined = undefined;
+
+            this.forEach((item, i) =>
+            {
+                let found = false;
+
+                if (isEquivilent)
+                {
+                    found = Utilities.equals(item, obj);
+                }
+                else
+                {
+                    found = item == obj;
+                }
+                if (found)
+                {
+                    index = i;
+                    return false;
+                }
+            });
+
+            return index;
+        }
+        else
+        {
+            let index = this._baseArray.indexOf(obj);
+            if (index == -1)
+            {
+                return undefined;
+            }
+            return index;
+        }
+    }
+
     public insert(obj: T, index: number): void
     {
-        this.splice(index, 0, obj);
+        this._baseArray.splice(index, 0, obj);
     }
 
     public prepend(obj: T): void
@@ -191,16 +239,16 @@ export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, 
     public prependRange(enumerableOrArray: IEnumerableOrArray<T>): void
     {
         let array = enumerableOrArrayToArray(enumerableOrArray);
-        this.splice(0, 0, ...array);
+        this._baseArray.splice(0, 0, ...array);
     }
 
     public removeAt(index: number): void
     {
-        this.splice(index, 1);
+        this._baseArray.splice(index, 1);
     }
 
-    public sortBy(comparer: IComparer<T> = new DefaultComparer<T>()): void
+    public sort(comparer: IComparer<T> = new DefaultComparer<T>()): void
     {
-        this.sort((a, b) => comparer.compare(a, b));
+        this._baseArray.sort((a, b) => comparer.compare(a, b));
     }
 }

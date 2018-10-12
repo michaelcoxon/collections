@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../../../lib",
     "declaration": true,
-    "declarationDir": "../../../lib",
+    "declarationDir": "../../../dts",
     "target": "es5",
     "importHelpers": true
   },
