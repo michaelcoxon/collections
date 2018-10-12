@@ -1,6 +1,6 @@
 ﻿import { Collection } from '../src/Collection';
 import { Queryable } from '../src/Queryable';
-import { ArgumentException } from "@michaelcoxon/utilities/lib/Exceptions";
+import { ArgumentException } from '@michaelcoxon/utilities/lib/Exceptions';
 import { expect, assert } from 'chai';
 import 'mocha';
 

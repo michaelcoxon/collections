@@ -1,4 +1,4 @@
-﻿import { Utilities, NotSupportedException, ArgumentUndefinedException } from "@michaelcoxon/utilities";
+﻿import { Utilities, NotSupportedException, ArgumentUndefinedException } from '@michaelcoxon/utilities';
 
 export interface IComparer<T>
 {

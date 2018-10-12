@@ -1,6 +1,6 @@
 ﻿import { Utilities, InvalidTypeException, ArgumentException } from '@michaelcoxon/utilities';
 import { Collection, CollectionOrArray } from './Collection';
-import { IComparer, DefaultComparer } from "./Comparer";
+import { IComparer, DefaultComparer } from './Comparer';
 
 
 export class List<T> extends Collection<T>

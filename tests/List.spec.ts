@@ -2,7 +2,7 @@
 import { List } from '../src/List';
 import { expect, assert } from 'chai';
 import 'mocha';
-import { CustomComparer } from "../src/Comparer";
+import { CustomComparer } from '../src/Comparer';
 
 
 

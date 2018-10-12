@@ -1,7 +1,7 @@
-﻿import { Queryable } from "./Queryable";
-import { List } from "./List";
-import { Enumerator } from "./Enumerator";
-import { Collection } from "./Collection";
+﻿import { Queryable } from './Queryable';
+import { List } from './List';
+import { Enumerator } from './Enumerator';
+import { Collection } from './Collection';
 
 declare module "./Collection" {
     interface Collection<T>
