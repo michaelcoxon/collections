@@ -145,7 +145,7 @@ export class LinkedList<T> implements ICollection<T>, IEnumerable<T>
         }
     }
 
-    ofType<N extends T>(ctor: new (...args: any[]) => N): IEnumerable<N>
+    ofType<N extends T>(ctor: new (...args: any[]) => N): IQueryable<N>
     {
         return this
             .asQueryable()

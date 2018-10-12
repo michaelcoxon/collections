@@ -60,7 +60,7 @@ export class Enumerable<T> implements IEnumerable<T>
         }
     }
 
-    public ofType<N extends T>(type: { new(...args: any[]): N }): IEnumerable<N>
+    public ofType<N extends T>(type: { new(...args: any[]): N }): IQueryable<N>
     {
         return this
             .asQueryable()
@@ -157,7 +157,7 @@ export class RangeEnumerable implements IEnumerable<number>
         }
     }
 
-    public ofType<N extends number>(type: { new(...args: any[]): N }): IEnumerable<N>
+    public ofType<N extends number>(type: { new(...args: any[]): N }): IQueryable<N>
     {
         throw new NotSupportedException();
     }
@@ -243,7 +243,7 @@ export class SelectEnumerable<T, TReturn> implements IEnumerable<TReturn>
         }
     }
 
-    public ofType<N extends TReturn>(type: { new(...args: any[]): N }): IEnumerable<N>
+    public ofType<N extends TReturn>(type: { new(...args: any[]): N }): IQueryable<N>
     {
         return this
             .asQueryable()

@@ -1,9 +1,10 @@
-﻿/// <binding ProjectOpened='Run - Development, Run - Production' />
+﻿/// <binding ProjectOpened='Run - Production' />
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const bundleOutputDir = './dist';
-
+const libraryName = 'collections';
 function DtsBundlePlugin() { }
 DtsBundlePlugin.prototype.apply = function (compiler)
 {
@@ -12,8 +13,8 @@ DtsBundlePlugin.prototype.apply = function (compiler)
         var dts = require('dts-bundle');
 
         dts.bundle({
-            name: 'collections',
-            main: 'dts/index.d.ts',
+            name: libraryName,
+            main: 'lib/index.d.ts',
             out: '../dist/index.d.ts',
             outputAsModuleFolder: true // to use npm in-package typings
         });
@@ -28,40 +29,57 @@ module.exports = () =>
 
     return [{
         mode: isDevBuild ? 'development' : 'production',
-        target: 'node',
         entry: { 'index': "./src/index.ts" },
         resolve: { extensions: ['.ts'] },
         output: {
             path: path.join(__dirname, bundleOutputDir),
-            filename: `[name]${isDevBuild ? ".debug" : ""}.js`,
+            filename: `[name].js`,
             publicPath: 'dist/',
-            library: 'collections',
-            libraryTarget: 'umd'
+            library: libraryName,
+            libraryTarget: 'umd',
+            globalObject: 'this'
         },
         externals: [
             /^tslib.*$/,
-            /^@michaelcoxon\/utilities.*$/
+            /^@michaelcoxon\/.*$/
         ],
         module: {
             rules: [
                 {
                     test: /\.ts$/,
                     include: /src/,
-                    use: ['awesome-typescript-loader']
+                    use: 'awesome-typescript-loader?configFileName=./src/config/es5/tsconfig.json'
                 }
+            ]
+        },
+        optimization: {
+            minimizer: [
+                new UglifyJsPlugin({
+                    parallel: true,
+                    sourceMap: true,
+                    uglifyOptions: {
+                        ecma: 5,
+                        output: {
+                            beautify: false,
+                            comments: /^!/
+                        },
+                        /*mangle: {
+                            properties: {
+                                regex: /^_/
+                            }
+                        }*/
+                    }
+                })
             ]
         },
         plugins: [
             new CheckerPlugin(),
-            // Plugins that apply in development builds only
-            new webpack.SourceMapDevToolPlugin({
-                filename: '[file].map', // Remove this line if you prefer inline source maps
-                moduleFilenameTemplate: path.relative(bundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
-            }),
 
             ...(isDevBuild
                 ?
-                []
+                [
+                    // Plugins that apply in development builds only
+                ]
                 :
                 [
                     // Plugins that apply in production builds only

@@ -183,7 +183,7 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue>, ICol
         return undefined;
     }
 
-    public ofType<N extends KeyValuePair<TKey, TValue>>(ctor: new (...args: any[]) => N): IEnumerable<N>
+    public ofType<N extends KeyValuePair<TKey, TValue>>(ctor: new (...args: any[]) => N): IQueryable<N>
     {
         return this
             .asQueryable()

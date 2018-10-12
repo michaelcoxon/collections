@@ -1,12 +1,12 @@
-import { ISet } from "./Interfaces/ISet";
-import { IEnumerable } from "./Interfaces/IEnumerable";
-import { ICollection } from "./Interfaces/ICollection";
-import { Collection } from "./BaseCollections";
-import { IList } from "./Interfaces/IList";
-import { IDictionary } from "./Interfaces/IDictionary";
-import { IEnumerator } from "./Interfaces/IEnumerator";
-import { IQueryable } from "./Interfaces/IQueryable";
 import { ArgumentException, Undefinable } from "@michaelcoxon/utilities";
+import { Collection } from "./BaseCollections";
+import { ICollection } from "./Interfaces/ICollection";
+import { IDictionary } from "./Interfaces/IDictionary";
+import { IEnumerable } from "./Interfaces/IEnumerable";
+import { IEnumerator } from "./Interfaces/IEnumerator";
+import { IList } from "./Interfaces/IList";
+import { IQueryable } from "./Interfaces/IQueryable";
+import { ISet } from "./Interfaces/ISet";
 
 
 // all of this needs to be optimised
@@ -162,7 +162,7 @@ export class Set<T> implements ISet<T>, ICollection<T>, IEnumerable<T>
         return this._collection.item(index);
     }
 
-    ofType<N extends T>(ctor: new (...args: any[]) => N): IEnumerable<N>
+    ofType<N extends T>(ctor: new (...args: any[]) => N): IQueryable<N>
     {
         return this._collection.ofType(ctor);
     }

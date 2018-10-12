@@ -66,6 +66,7 @@ obj/
 bin/
 _NCrunch_collections/
 
+docs/.nojekyll
 dts/
 lib/
 lib.es6/

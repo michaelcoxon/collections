@@ -149,7 +149,7 @@ describe("List.find", () =>
     {
         const array = [1, 2, 3, 4];
         const list = new List(array);
-        const result = list.find(4);
+        const result = list.findItem(4);
 
         expect(4).eq(result);
     });
@@ -158,7 +158,7 @@ describe("List.find", () =>
     {
         const array = [1, 2, 3, 4];
         const list = new List(array);
-        const result = list.find(5);
+        const result = list.findItem(5);
 
         expect(undefined).eq(result);
     });
@@ -409,7 +409,7 @@ describe("List.sort", () =>
         const list = new List(array);
         const expected = [4, 3, 2, 1];
 
-        list.sort(new CustomComparer<number>((a, b) => b - a));
+        list.sortBy(new CustomComparer<number>((a, b) => b - a));
 
         for (let i = 0; i < list.count; i++)
         {
