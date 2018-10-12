@@ -1,4 +1,4 @@
-﻿import { Lazy, Predicate, Utilities, Selector, ConstructorFor, Undefinable } from "@michaelcoxon/utilities";
+﻿import { Lazy, Predicate, Utilities, Selector, ConstructorFor, Undefinable, isUndefinedOrNull } from "@michaelcoxon/utilities";
 import { IQueryable } from "../Interfaces/IQueryable";
 import { IQueryableGroup } from "../Interfaces/IQueryableGroup";
 import { IEnumerator } from "../Interfaces/IEnumerator";
@@ -255,6 +255,71 @@ export class EnumerableQueryable<T> implements IQueryable<T>
     {
         return this.internalOrderBy(selector, new ReverseComparer(comparer || new DefaultComparer<R>()));
     }
+
+    public single(): T;
+    public single(predicate: Predicate<T>): T;
+    public single(predicate?: Predicate<T>): T
+    {
+        let enumerable = this._enumerable;
+
+        if (predicate !== undefined)
+        {
+            enumerable = new WhereEnumerable(enumerable, predicate);
+        }
+
+        const en = enumerable.getEnumerator();
+
+        let returnValue: Undefinable<T>;
+
+        while (en.moveNext())
+        {
+            if (!isUndefinedOrNull(returnValue))
+            {
+                throw new Error("More than one match in the collection!");
+            }
+            returnValue = en.current;
+        }
+
+        if (isUndefinedOrNull(returnValue))
+        {
+            throw new Error("The collection is empty!");
+        }
+
+        return returnValue;
+    }
+
+    public singleOrDefault(): T | null;
+    public singleOrDefault(predicate: Predicate<T>): T | null;
+    public singleOrDefault(predicate?: Predicate<T>): T | null
+    {
+        let enumerable = this._enumerable;
+
+        if (predicate !== undefined)
+        {
+            enumerable = new WhereEnumerable(enumerable, predicate);
+        }
+
+        const en = enumerable.getEnumerator();
+
+        let returnValue: Undefinable<T>;
+
+        while (en.moveNext())
+        {
+            if (!isUndefinedOrNull(returnValue))
+            {
+                return null;
+            }
+            returnValue = en.current;
+        }
+
+        if (isUndefinedOrNull(returnValue))
+        {
+            return null;
+        }
+
+        return returnValue;
+    }
+
 
     public skip(count: number): IQueryable<T>
     {

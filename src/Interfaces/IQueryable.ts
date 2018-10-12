@@ -43,6 +43,10 @@ export interface IQueryable<T> extends IEnumerable<T>
 
     orderByDescending<R>(selector: Selector<T, R>, comparer?: IComparer<R>): IQueryable<T>;
 
+    singleOrDefault(): T | null;
+
+    singleOrDefault(predicate: Predicate<T>): T | null;
+
     skip(count: number): IQueryable<T>;
 
     select<TOut>(selector: Selector<T, TOut>): IQueryable<TOut>;

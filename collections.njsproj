@@ -23,6 +23,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include=".nojekyll" />
     <Content Include=".npmignore" />
     <Content Include="src\Comparers\MapComparer.ts" />
     <Content Include="src\config\es2015\tsconfig.json" />
