@@ -100,7 +100,6 @@ export class ArrayEnumerable<T> implements IEnumerable<T>
     }
 }
 
-
 export class Collection<T> extends ArrayEnumerable<T> implements ICollection<T>, IEnumerable<T>
 {
     constructor(enumerableOrArray?: IEnumerableOrArray<T>)

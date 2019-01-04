@@ -59,7 +59,7 @@ export class EnumerableQueryable<T> implements IQueryable<T>
         }
     }
 
-    append(item: T): IEnumerable<T>
+    public append(item: T): IEnumerable<T>
     {
         return this._enumerable.append(item).asQueryable();
     }

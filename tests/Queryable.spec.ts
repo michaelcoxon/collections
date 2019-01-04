@@ -1,10 +1,10 @@
 ﻿
 
-import { ArrayEnumerable, Collection } from "../src/BaseCollections";
-import { Enumerable } from "../src/Enumerables";
-import { expect, assert } from 'chai';
+import { getDefaultLogger, Numbers } from "@michaelcoxon/utilities";
+import { assert, expect } from 'chai';
 import 'mocha';
-import { Numbers, setDefaultLogger, ConsoleLogger, LogLevel, getDefaultLogger } from "@michaelcoxon/utilities";
+import { ArrayEnumerable } from "../src/BaseCollections";
+import { Enumerable } from "../src/Enumerables";
 /*
 setDefaultLogger(new ConsoleLogger(console, {
     loggingVerbosity: LogLevel.Trace,

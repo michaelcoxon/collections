@@ -1,6 +1,6 @@
 ﻿import { IEnumerator } from "./Interfaces/IEnumerator";
 import { KeyValuePair } from "./Types";
-import { Undefinable, OutOfBoundsException, getDefaultLogger, ILogger, ArgumentException, Exception, Selector, Predicate, isUndefinedOrNull, NullReferenceException } from "@michaelcoxon/utilities";
+import { Undefinable, OutOfBoundsException, ILogger, ArgumentException, Exception, Selector, Predicate, isUndefinedOrNull, NullReferenceException } from "@michaelcoxon/utilities";
 import { IDictionary } from "./Interfaces/IDictionary";
 
 export class ArrayEnumerator<T> implements IEnumerator<T>
@@ -101,8 +101,6 @@ export class DictionaryEnumerator<TKey, TValue> implements IEnumerator<KeyValueP
 
 export class RangeEnumerator implements IEnumerator<number>
 {
-    private readonly _logger: ILogger;
-
     private readonly _start: number
     private readonly _count: number
     private readonly _increment: number;
@@ -111,7 +109,7 @@ export class RangeEnumerator implements IEnumerator<number>
     private _iterations: number;
 
 
-    constructor(start: number, count: number, logger: ILogger = getDefaultLogger())
+    constructor(start: number, count: number)
     {
         const integer = start > 0 ? Math.floor(start) : Math.ceil(start);
         if (start != integer)
@@ -124,14 +122,10 @@ export class RangeEnumerator implements IEnumerator<number>
 
         this._iterations = -1;
         this._increment = 1;
-
-        this._logger = logger.scope("RangeEnumerator");
-        this._logger.trace(`constructor(start: ${start}, start: ${count})`);
     }
 
     public get current(): number
     {
-        this._logger.trace("current");
         if (this._iterations < 0)
         {
             throw new Exception("Call moveNext first");
@@ -145,7 +139,6 @@ export class RangeEnumerator implements IEnumerator<number>
 
     public moveNext(): boolean
     {
-        this._logger.trace("moveNext");
         this._current = this.peek();
 
         if (this._current === undefined)
@@ -159,7 +152,6 @@ export class RangeEnumerator implements IEnumerator<number>
 
     public peek(): Undefinable<number>
     {
-        this._logger.trace("peek");
         let index = this._iterations + 1;
         let value = this._start + (index * this._increment)
 
@@ -171,31 +163,25 @@ export class RangeEnumerator implements IEnumerator<number>
 
     public reset(): void
     {
-        this._logger.trace("reset");
         this._iterations = -1;
     }
 }
 
 export class SelectEnumerator<T, TReturn> implements IEnumerator<TReturn>
 {
-    private readonly _logger: ILogger;
-
     private readonly _enumerator: IEnumerator<T>;
     private readonly _selector: Selector<T, TReturn>;
 
     private _currentItem?: TReturn;
 
-    constructor(enumerator: IEnumerator<T>, selector: Selector<T, TReturn>, logger: ILogger = getDefaultLogger())
+    constructor(enumerator: IEnumerator<T>, selector: Selector<T, TReturn>)
     {
-        logger.trace("SelectEnumerator.constructor");
         this._enumerator = enumerator;
         this._selector = selector;
-        this._logger = logger.scope("SelectEnumerator");
     }
 
     public get current(): TReturn
     {
-        this._logger.trace("SelectEnumerator.current");
         if (this._currentItem === undefined)
         {
             throw new Exception("Current is undefined");
@@ -205,7 +191,6 @@ export class SelectEnumerator<T, TReturn> implements IEnumerator<TReturn>
 
     public moveNext(): boolean
     {
-        this._logger.trace("SelectEnumerator.moveNext");
         this._currentItem = this.peek();
 
         if (this._currentItem === undefined)
@@ -218,13 +203,10 @@ export class SelectEnumerator<T, TReturn> implements IEnumerator<TReturn>
 
     public peek(): Undefinable<TReturn>
     {
-        this._logger.trace("SelectEnumerator.peek");
-
         let item = this._enumerator.peek();
 
         if (item === undefined)
         {
-            this._logger.trace("SelectEnumerator.peek: item undefined");
             return;
         }
 
@@ -233,32 +215,27 @@ export class SelectEnumerator<T, TReturn> implements IEnumerator<TReturn>
 
     public reset(): void
     {
-        this._logger.trace("SelectEnumerator.reset");
         this._enumerator.reset();
     }
 }
 
 export class SkipEnumerator<T> implements IEnumerator<T> {
 
-    private readonly _logger: ILogger;
     private readonly _enumerator: IEnumerator<T>;
     private readonly _itemsToSkip: number;
 
     private _currentItem?: T;
     private _hasSkipped: boolean;
 
-    constructor(enumerator: IEnumerator<T>, itemsToSkip: number, logger: ILogger = getDefaultLogger())
+    constructor(enumerator: IEnumerator<T>, itemsToSkip: number)
     {
-        logger.trace("SkipEnumerator.constructor");
         this._enumerator = enumerator;
         this._itemsToSkip = itemsToSkip;
         this._hasSkipped = false;
-        this._logger = logger.scope("SkipEnumerator");
     }
 
     public get current(): T
     {
-        this._logger.trace("SkipEnumerator.current");
         if (this._currentItem === undefined)
         {
             throw new Exception("Current is undefined");
@@ -268,7 +245,6 @@ export class SkipEnumerator<T> implements IEnumerator<T> {
 
     public moveNext(): boolean
     {
-        this._logger.trace("SkipEnumerator.moveNext");
         this._currentItem = this.peek();
 
         if (this._currentItem === undefined)
@@ -281,14 +257,12 @@ export class SkipEnumerator<T> implements IEnumerator<T> {
 
     public peek(): Undefinable<T>
     {
-        this._logger.trace("SkipEnumerator.peek");
         this._ensureSkippedItems();
         return this._enumerator.peek();
     }
 
     public reset(): void
     {
-        this._logger.trace("SkipEnumerator.reset");
         this._enumerator.reset();
     }
 
@@ -308,24 +282,21 @@ export class SkipEnumerator<T> implements IEnumerator<T> {
 
 export class TakeEnumerator<T> implements IEnumerator<T> {
 
-    private readonly _logger: ILogger;
     private readonly _enumerator: IEnumerator<T>;
     private readonly _itemsToTake: number;
 
     private _currentItem?: T;
     private _itemsTaken: number;
 
-    constructor(enumerator: IEnumerator<T>, itemsToTake: number, logger: ILogger = getDefaultLogger())
+    constructor(enumerator: IEnumerator<T>, itemsToTake: number)
     {
         this._enumerator = enumerator;
         this._itemsToTake = itemsToTake;
         this._itemsTaken = 0;
-        this._logger = logger.scope("TakeEnumerator");
     }
 
     public get current(): T
     {
-        this._logger.trace("current");
         if (this._currentItem === undefined)
         {
             throw new Exception("Current is undefined");
@@ -335,7 +306,6 @@ export class TakeEnumerator<T> implements IEnumerator<T> {
 
     public moveNext(): boolean
     {
-        this._logger.trace("moveNext");
         this._currentItem = this.peek();
 
         if (this._currentItem === undefined)
@@ -349,7 +319,6 @@ export class TakeEnumerator<T> implements IEnumerator<T> {
 
     public peek(): Undefinable<T>
     {
-        this._logger.trace("peek");
         if (this._itemsTaken == this._itemsToTake)
         {
             return;
@@ -359,30 +328,25 @@ export class TakeEnumerator<T> implements IEnumerator<T> {
 
     public reset(): void
     {
-        this._logger.trace("reset");
         this._enumerator.reset();
     }
 }
 
 export class WhereEnumerator<T> implements IEnumerator<T> {
 
-    private readonly _logger: ILogger;
     private readonly _enumerator: IEnumerator<T>;
     private readonly _predicate: Predicate<T>;
 
     private _currentItem?: T;
 
-    constructor(enumerator: IEnumerator<T>, predicate: Predicate<T>, logger: ILogger = getDefaultLogger())
+    constructor(enumerator: IEnumerator<T>, predicate: Predicate<T>)
     {
-        logger.trace("WhereEnumerator.constructor");
         this._enumerator = enumerator;
         this._predicate = predicate;
-        this._logger = logger.scope("WhereEnumerator");
     }
 
     public get current(): T
     {
-        this._logger.trace("WhereEnumerator.current");
         if (this._currentItem === undefined)
         {
             throw new Exception("Current is undefined");
@@ -392,7 +356,6 @@ export class WhereEnumerator<T> implements IEnumerator<T> {
 
     public moveNext(): boolean
     {
-        this._logger.trace("WhereEnumerator.moveNext");
         this._currentItem = this.peek();
 
         if (this._currentItem === undefined)
@@ -405,27 +368,22 @@ export class WhereEnumerator<T> implements IEnumerator<T> {
 
     public peek(): Undefinable<T>
     {
-        this._logger.trace("WhereEnumerator.peek");
         while (true)
         {
             let item = this._enumerator.peek();
 
             if (item === undefined)
             {
-                this._logger.trace("WhereEnumerator.peek: item undefined");
                 return;
             }
 
             if (this._predicate(item))
             {
-                this._logger.trace("WhereEnumerator.peek: item found");
                 return item;
             }
 
-            this._logger.trace("WhereEnumerator.peek: item not found, next");
             if (!this._enumerator.moveNext())
             {
-                this._logger.trace("WhereEnumerator.peek: End of enumerator");
                 break;
             }
         }
@@ -433,7 +391,6 @@ export class WhereEnumerator<T> implements IEnumerator<T> {
 
     public reset(): void
     {
-        this._logger.trace("WhereEnumerator.reset");
         this._enumerator.reset();
     }
 }

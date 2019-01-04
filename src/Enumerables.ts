@@ -1,4 +1,4 @@
-﻿import { Undefinable, NotSupportedException, Exception, ArgumentException, getDefaultLogger, ILogger, Predicate, Selector, ConstructorFor } from "@michaelcoxon/utilities";
+﻿import { Undefinable, NotSupportedException, Exception, ArgumentException, ILogger, Predicate, Selector, ConstructorFor } from "@michaelcoxon/utilities";
 import { SkipEnumerator, TakeEnumerator, WhereEnumerator, SelectEnumerator, RangeEnumerator, AppendEnumerator, ArrayEnumerator } from "./Enumerators";
 import { IQueryable } from "./Interfaces/IQueryable";
 import { IEnumerable } from "./Interfaces/IEnumerable";
@@ -11,13 +11,11 @@ import { IDictionary } from "./Interfaces/IDictionary";
 
 export class Enumerable<T> implements IEnumerable<T>
 {
-    protected readonly _logger: ILogger;
     protected _baseEnumerable: IEnumerable<T>;
 
-    constructor(enumerable: IEnumerable<T>, logger: ILogger = getDefaultLogger().scope("Enumerable"))
+    constructor(enumerable: IEnumerable<T>)
     {
         this._baseEnumerable = enumerable;
-        this._logger = logger;
     }
 
     append(item: T): IEnumerable<T>
@@ -110,27 +108,21 @@ export class Enumerable<T> implements IEnumerable<T>
         return new List<T>(this);
     }
 
-    public static range(start: number, count: number, logger: ILogger = getDefaultLogger()): IEnumerable<number>
+    public static range(start: number, count: number): IEnumerable<number>
     {
-        logger = logger.scope("Enumerable");
-        logger.trace(`range(start: ${start},count: ${count})`);
-        return new RangeEnumerable(start, count, logger)
+        return new RangeEnumerable(start, count)
     }
 }
 
 export class RangeEnumerable implements IEnumerable<number>
 {
-    private readonly _logger: ILogger;
-
     private readonly _start: number
     private readonly _count: number
 
-    constructor(start: number, count: number, logger: ILogger = getDefaultLogger())
+    constructor(start: number, count: number)
     {
         this._start = start;
         this._count = count;
-        this._logger = logger.scope("RangeEnumerable");
-        this._logger.trace(`constructor(start: ${start},count: ${count})`);
     }
     append(item: number): IEnumerable<number>
     {
@@ -139,7 +131,6 @@ export class RangeEnumerable implements IEnumerable<number>
 
     public asQueryable(): IQueryable<number>
     {
-        this._logger.trace(`asQueryable()`);
         return new EnumerableQueryable<number>(this);
     }
 
@@ -156,8 +147,6 @@ export class RangeEnumerable implements IEnumerable<number>
     // iterates over each item in the Collection. Return false to break.
     public forEach(callback: (value: number, index: number) => boolean | void): void
     {
-        this._logger.trace(`forEach`);
-
         const en = this.getEnumerator();
         let index = 0;
 
@@ -172,13 +161,11 @@ export class RangeEnumerable implements IEnumerable<number>
 
     public getEnumerator(): IEnumerator<number>
     {
-        this._logger.trace(`getEnumerator`);
-        return new RangeEnumerator(this._start, this._count, this._logger);
+        return new RangeEnumerator(this._start, this._count);
     }
 
     public item(index: number): Undefinable<number>
     {
-        this._logger.trace(`item(index: ${index})`);
         const en = this.getEnumerator();
         let i = 0;
 
@@ -203,7 +190,6 @@ export class RangeEnumerable implements IEnumerable<number>
 
     public toArray(): number[]
     {
-        this._logger.trace(`toArray()`);
         const result: number[] = [];
         const en = this.getEnumerator();
 
@@ -217,29 +203,24 @@ export class RangeEnumerable implements IEnumerable<number>
 
     public toDictionary<TKey, TValue>(keySelector: (a: number) => TKey, valueSelector: (a: number) => TValue): IDictionary<TKey, TValue>
     {
-        this._logger.trace(`toDictionary`);
         return new Dictionary(this.asQueryable().select(i => ({ key: keySelector(i), value: valueSelector(i) })));
     }
 
     public toList(): IList<number>
     {
-        this._logger.trace(`toList()`);
         return new List<number>(this);
     }
 }
 
 export class SelectEnumerable<T, TReturn> implements IEnumerable<TReturn>
 {
-    private readonly _logger: ILogger;
-
     private readonly _enumerable: IEnumerable<T>;
     private readonly _selector: Selector<T, TReturn>;
 
-    constructor(enumerable: IEnumerable<T>, selector: Selector<T, TReturn>, logger: ILogger = getDefaultLogger())
+    constructor(enumerable: IEnumerable<T>, selector: Selector<T, TReturn>)
     {
         this._enumerable = enumerable;
         this._selector = selector;
-        this._logger = logger.scope("SelectEnumerable");
     }
     append(item: TReturn): IEnumerable<TReturn>
     {
@@ -289,7 +270,7 @@ export class SelectEnumerable<T, TReturn> implements IEnumerable<TReturn>
 
     public getEnumerator(): IEnumerator<TReturn>
     {
-        return new SelectEnumerator<T, TReturn>(this._enumerable.getEnumerator(), this._selector, this._logger);
+        return new SelectEnumerator<T, TReturn>(this._enumerable.getEnumerator(), this._selector);
     }
 
     public item(index: number): Undefinable<TReturn>
@@ -346,15 +327,15 @@ export class SkipEnumerable<T> extends Enumerable<T>
 {
     private _itemsToSkip: number;
 
-    constructor(enumerable: IEnumerable<T>, itemsToSkip: number, logger: ILogger = getDefaultLogger())
+    constructor(enumerable: IEnumerable<T>, itemsToSkip: number)
     {
-        super(enumerable, logger.scope("SkipEnumerable"));
+        super(enumerable);
         this._itemsToSkip = itemsToSkip;
     }
 
     public getEnumerator(): IEnumerator<T>
     {
-        return new SkipEnumerator<T>(super.getEnumerator(), this._itemsToSkip, this._logger);
+        return new SkipEnumerator<T>(super.getEnumerator(), this._itemsToSkip);
     }
 }
 
@@ -362,15 +343,15 @@ export class TakeEnumerable<T> extends Enumerable<T>
 {
     private _itemsToTake: number;
 
-    constructor(enumerable: IEnumerable<T>, itemsToTake: number, logger: ILogger = getDefaultLogger())
+    constructor(enumerable: IEnumerable<T>, itemsToTake: number)
     {
-        super(enumerable, logger.scope("TakeEnumerable"));
+        super(enumerable);
         this._itemsToTake = itemsToTake;
     }
 
     public getEnumerator(): IEnumerator<T>
     {
-        return new TakeEnumerator<T>(super.getEnumerator(), this._itemsToTake, this._logger);
+        return new TakeEnumerator<T>(super.getEnumerator(), this._itemsToTake);
     }
 }
 
@@ -378,15 +359,15 @@ export class WhereEnumerable<T> extends Enumerable<T>
 {
     private readonly _predicate: Predicate<T>;
 
-    constructor(enumerable: IEnumerable<T>, predicate: Predicate<T>, logger: ILogger = getDefaultLogger())
+    constructor(enumerable: IEnumerable<T>, predicate: Predicate<T>)
     {
-        super(enumerable, logger.scope("WhereEnumerable"));
+        super(enumerable);
         this._predicate = predicate;
     }
 
     public getEnumerator(): IEnumerator<T>
     {
-        return new WhereEnumerator<T>(super.getEnumerator(), this._predicate, this._logger);
+        return new WhereEnumerator<T>(super.getEnumerator(), this._predicate);
     }
 }
 
