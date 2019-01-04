@@ -4,7 +4,10 @@ const path = require('path');
 const webpack = require('webpack');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const bundleOutputDir = './dist';
+const libDir = 'lib';
+const srcDir = 'src';
 const libraryName = 'collections';
+
 function DtsBundlePlugin() { }
 DtsBundlePlugin.prototype.apply = function (compiler)
 {
@@ -15,7 +18,7 @@ DtsBundlePlugin.prototype.apply = function (compiler)
         dts.bundle({
             name: libraryName,
             main: 'lib/index.d.ts',
-            out: '../dist/index.d.ts',
+            out: `.${bundleOutputDir}/index.d.ts`,
             outputAsModuleFolder: true // to use npm in-package typings
         });
     });
@@ -29,7 +32,7 @@ module.exports = () =>
 
     return [{
         mode: isDevBuild ? 'development' : 'production',
-        entry: { 'index': "./src/index.ts" },
+        entry: { 'index': `./${srcDir}/index.ts` },
         resolve: { extensions: ['.ts'] },
         output: {
             path: path.join(__dirname, bundleOutputDir),

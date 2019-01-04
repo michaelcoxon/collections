@@ -6,10 +6,12 @@ import { IQueryable } from "./Interfaces/IQueryable";
 import { IEnumerator } from "./Interfaces/IEnumerator";
 import { IDictionary } from "./Interfaces/IDictionary";
 import { IList } from "./Interfaces/IList";
-import { List } from "./BaseCollections";
+import { List, ArrayEnumerable } from "./BaseCollections";
 import { Dictionary } from "./Dictionary";
 import { EnumerableQueryable } from "./Queryables/EnumerableQueryable";
 import { Undefinable, Exception } from "@michaelcoxon/utilities";
+import { EnumeratorEnumerable } from './Enumerables';
+import { AppendEnumerator } from './Enumerators';
 
 interface LinkedListItem<T>
 {
@@ -34,6 +36,21 @@ export class LinkedList<T> implements ICollection<T>, IEnumerable<T>
                 this.add(item);
             }
         }
+    }
+
+    append(item: T): IEnumerable<T>
+    {
+        return this.concat(new ArrayEnumerable([item]));
+    }
+
+    concat(next: IEnumerable<T>): IEnumerable<T>
+    {
+        return new EnumeratorEnumerable(new AppendEnumerator(this.getEnumerator(), next.getEnumerator()));
+    }
+
+    prepend(item: T): IEnumerable<T>
+    {
+        return new ArrayEnumerable([item]).concat(this);
     }
 
     public get count(): number

@@ -1,16 +1,16 @@
-﻿import { Lazy, Predicate, Utilities, Selector, ConstructorFor, Undefinable, isUndefinedOrNull } from "@michaelcoxon/utilities";
-import { IQueryable } from "../Interfaces/IQueryable";
-import { IQueryableGroup } from "../Interfaces/IQueryableGroup";
-import { IEnumerator } from "../Interfaces/IEnumerator";
-import { IEnumerable } from "../Interfaces/IEnumerable";
-import { IComparer } from "../Interfaces/IComparer";
-import { IList } from "../Interfaces/IList";
-import { IDictionary } from "../Interfaces/IDictionary";
+﻿import { ConstructorFor, isUndefinedOrNull, Predicate, Selector, Undefinable, Utilities, NotImplementedException } from "@michaelcoxon/utilities";
 import { ArrayEnumerable } from "../BaseCollections";
-import { ReverseComparer } from "../Comparers/ReverseComparer";
 import { DefaultComparer } from "../Comparers/DefaultComparer";
 import { MapComparer } from "../Comparers/MapComparer";
-import { WhereEnumerable, SkipEnumerable, SelectEnumerable, TakeEnumerable } from "../Enumerables";
+import { ReverseComparer } from "../Comparers/ReverseComparer";
+import { SelectEnumerable, SkipEnumerable, TakeEnumerable, WhereEnumerable } from "../Enumerables";
+import { IComparer } from "../Interfaces/IComparer";
+import { IDictionary } from "../Interfaces/IDictionary";
+import { IEnumerable } from "../Interfaces/IEnumerable";
+import { IEnumerator } from "../Interfaces/IEnumerator";
+import { IList } from "../Interfaces/IList";
+import { IQueryable } from "../Interfaces/IQueryable";
+import { IQueryableGroup } from "../Interfaces/IQueryableGroup";
 
 
 
@@ -59,10 +59,25 @@ export class EnumerableQueryable<T> implements IQueryable<T>
         }
     }
 
+    append(item: T): IEnumerable<T>
+    {
+        return this._enumerable.append(item).asQueryable();
+    }
+
     public average(selector: Selector<T, number>): number
     {
         let sum = this.sum(selector);
         return sum / this.count();
+    }
+
+    public concat(next: IEnumerable<T>): IEnumerable<T>
+    {
+        return this._enumerable.concat(next).asQueryable();
+    }
+
+    public contains(item: T): boolean
+    {
+        return this._enumerable.contains(item);
     }
 
     public count(): number
@@ -256,6 +271,11 @@ export class EnumerableQueryable<T> implements IQueryable<T>
         return this.internalOrderBy(selector, new ReverseComparer(comparer || new DefaultComparer<R>()));
     }
 
+    public prepend(item: T): IQueryable<T>
+    {
+        return this._enumerable.prepend(item).asQueryable()
+    }
+
     public single(): T;
     public single(predicate: Predicate<T>): T;
     public single(predicate?: Predicate<T>): T
@@ -332,6 +352,15 @@ export class EnumerableQueryable<T> implements IQueryable<T>
         return new SelectEnumerable<T, TOut>(this._enumerable, selector).asQueryable();
     }
 
+    public split(predicate: Predicate<T>): { pTrue: IQueryable<T>, pFalse: IQueryable<T> }
+    {
+        return {
+            pTrue: this.where(i => predicate(i)),
+            pFalse: this.where(i => !predicate(i))
+        };
+    }
+
+
     public sum(selector: Selector<T, number>): number
     {
         return this.select((item) => selector(item) as number)
@@ -399,10 +428,9 @@ export class QueryableGroup<T, TKey> extends EnumerableQueryable<T> implements I
     private readonly _key: TKey;
     private readonly _keySelector: (item: T) => TKey;
 
-    constructor(parentQueryable: IQueryable<T>, key: TKey, keySelector: Selector<T, TKey>)
+    constructor(parentQueryable: IQueryable<T>, key: TKey, keySelector: Selector<T, TKey>, keyComparer: IComparer<TKey> = new DefaultComparer<TKey>())
     {
-        let comparer = new DefaultComparer<TKey>();
-        super(parentQueryable.where((item) => comparer.equals(keySelector(item), key)));
+        super(parentQueryable.where((item) => keyComparer.equals(keySelector(item), key)));
 
         this._parentQueryable = parentQueryable;
         this._key = key;

@@ -8,8 +8,9 @@ import { IQueryable } from "./Interfaces/IQueryable";
 import { IEnumerator } from "./Interfaces/IEnumerator";
 import { IList } from "./Interfaces/IList";
 import { EnumerableQueryable } from "./Queryables/EnumerableQueryable";
-import { List } from "./BaseCollections";
+import { List, ArrayEnumerable } from "./BaseCollections";
 import { DictionaryEnumerator } from "./Enumerators";
+import { randomBytes } from 'crypto';
 
 export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue>, ICollection<KeyValuePair<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>
 {
@@ -32,9 +33,43 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue>, ICol
         }
     }
 
+    public append(item: KeyValuePair<TKey, TValue>): Dictionary<TKey, TValue>
+    {
+        const d = new Dictionary<TKey, TValue>();
+
+        const en = this.getEnumerator();
+
+        while (en.moveNext())
+        {
+            d.add(en.current);
+        }
+        d.add(item);
+
+        return d;
+    }
+
     public get count(): number
     {
         return Object.keys(this._hashtable).length;
+    }
+
+    public concat(next: IEnumerable<KeyValuePair<TKey, TValue>>): Dictionary<TKey, TValue>
+    {
+        const d = new Dictionary<TKey, TValue>();
+
+        const en1 = this.getEnumerator();
+        while (en1.moveNext())
+        {
+            d.add(en1.current);
+        }
+
+        const en2 = next.getEnumerator();
+        while (en2.moveNext())
+        {
+            d.add(en2.current);
+        }
+
+        return d;
     }
 
     public get keys(): TKey[]
@@ -205,11 +240,26 @@ export class Dictionary<TKey, TValue> implements IDictionary<TKey, TValue>, ICol
 
     public toDictionary<TNewKey, TNewValue>(keySelector: (a: KeyValuePair<TKey, TValue>) => TNewKey, valueSelector: (a: KeyValuePair<TKey, TValue>) => TNewValue): IDictionary<TNewKey, TNewValue>
     {
-        return new Dictionary(this.toArray().map(i => ({ key: keySelector(i), value: valueSelector(i) })));
+        return new Dictionary(this.asQueryable().select(i => ({ key: keySelector(i), value: valueSelector(i) })));
     }
 
     public toList(): IList<KeyValuePair<TKey, TValue>>
     {
         return new List(this.toArray());
+    }
+
+    public prepend(item: KeyValuePair<TKey, TValue>): Dictionary<TKey, TValue>
+    {
+        const d = new Dictionary<TKey, TValue>();
+        d.add(item);
+
+        const en = this.getEnumerator();
+
+        while (en.moveNext())
+        {
+            d.add(en.current);
+        }
+
+        return d;
     }
 }

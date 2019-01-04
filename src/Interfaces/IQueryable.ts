@@ -43,13 +43,19 @@ export interface IQueryable<T> extends IEnumerable<T>
 
     orderByDescending<R>(selector: Selector<T, R>, comparer?: IComparer<R>): IQueryable<T>;
 
+    select<TOut>(selector: Selector<T, TOut>): IQueryable<TOut>;
+
     singleOrDefault(): T | null;
 
     singleOrDefault(predicate: Predicate<T>): T | null;
 
     skip(count: number): IQueryable<T>;
 
-    select<TOut>(selector: Selector<T, TOut>): IQueryable<TOut>;
+    /**
+     * Splits a queryable into two queryables. One set is for true predicates, the other set is for false predicates.
+     * @param predicate
+     */
+    split(predicate: Predicate<T>): { pTrue: IQueryable<T>, pFalse: IQueryable<T> };
 
     sum(selector: Selector<T, number>): number;
 

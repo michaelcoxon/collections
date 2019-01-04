@@ -1,12 +1,12 @@
-﻿import { Undefinable, NotSupportedException, Exception, ArgumentException, getDefaultLogger, ILogger, Predicate, Selector } from "@michaelcoxon/utilities";
-import { SkipEnumerator, TakeEnumerator, WhereEnumerator, SelectEnumerator, RangeEnumerator } from "./Enumerators";
+﻿import { Undefinable, NotSupportedException, Exception, ArgumentException, getDefaultLogger, ILogger, Predicate, Selector, ConstructorFor } from "@michaelcoxon/utilities";
+import { SkipEnumerator, TakeEnumerator, WhereEnumerator, SelectEnumerator, RangeEnumerator, AppendEnumerator, ArrayEnumerator } from "./Enumerators";
 import { IQueryable } from "./Interfaces/IQueryable";
 import { IEnumerable } from "./Interfaces/IEnumerable";
 import { EnumerableQueryable } from "./Queryables/EnumerableQueryable";
 import { IEnumerator } from "./Interfaces/IEnumerator";
 import { Dictionary } from "./Dictionary";
 import { IList } from "./Interfaces/IList";
-import { List } from "./BaseCollections";
+import { List, ArrayEnumerable } from "./BaseCollections";
 import { IDictionary } from "./Interfaces/IDictionary";
 
 export class Enumerable<T> implements IEnumerable<T>
@@ -20,9 +20,24 @@ export class Enumerable<T> implements IEnumerable<T>
         this._logger = logger;
     }
 
+    append(item: T): IEnumerable<T>
+    {
+        return this.concat(new ArrayEnumerable([item]));
+    }
+
     public asQueryable(): IQueryable<T>
     {
         return new EnumerableQueryable<T>(this);
+    }
+
+    concat(next: IEnumerable<T>): IEnumerable<T>
+    {
+        return new EnumeratorEnumerable(new AppendEnumerator(this.getEnumerator(), next.getEnumerator()));
+    }
+
+    contains(item: T): boolean
+    {
+        return this._baseEnumerable.contains(item);
     }
 
     // iterates over each item in the Collection. Return false to break.
@@ -65,6 +80,11 @@ export class Enumerable<T> implements IEnumerable<T>
         return this
             .asQueryable()
             .where((item) => item instanceof type).select((item) => item as N);
+    }
+
+    public prepend(item: T): IEnumerable<T>
+    {
+        return new EnumeratorEnumerable(new AppendEnumerator(new ArrayEnumerator([item]), this.getEnumerator()));
     }
 
     public toArray(): T[]
@@ -112,11 +132,25 @@ export class RangeEnumerable implements IEnumerable<number>
         this._logger = logger.scope("RangeEnumerable");
         this._logger.trace(`constructor(start: ${start},count: ${count})`);
     }
+    append(item: number): IEnumerable<number>
+    {
+        return this.concat(new ArrayEnumerable([item]));
+    }
 
     public asQueryable(): IQueryable<number>
     {
         this._logger.trace(`asQueryable()`);
         return new EnumerableQueryable<number>(this);
+    }
+
+    concat(next: IEnumerable<number>): IEnumerable<number>
+    {
+        return new EnumeratorEnumerable(new AppendEnumerator(this.getEnumerator(), next.getEnumerator()));
+    }
+
+    contains(item: number): boolean
+    {
+        return new Enumerable(this).contains(item);
     }
 
     // iterates over each item in the Collection. Return false to break.
@@ -159,7 +193,12 @@ export class RangeEnumerable implements IEnumerable<number>
 
     public ofType<N extends number>(type: { new(...args: any[]): N }): IEnumerable<N>
     {
-        throw new NotSupportedException();
+        return this.asQueryable().ofType(type)
+    }
+
+    prepend(item: number): IEnumerable<number>
+    {
+        return new EnumeratorEnumerable(new AppendEnumerator(new ArrayEnumerator([item]), this.getEnumerator()));
     }
 
     public toArray(): number[]
@@ -202,10 +241,35 @@ export class SelectEnumerable<T, TReturn> implements IEnumerable<TReturn>
         this._selector = selector;
         this._logger = logger.scope("SelectEnumerable");
     }
+    append(item: TReturn): IEnumerable<TReturn>
+    {
+        return this.concat(new ArrayEnumerable([item]));
+    }
 
     public asQueryable(): IQueryable<TReturn>
     {
         return new EnumerableQueryable<TReturn>(this);
+    }
+
+    concat(next: IEnumerable<TReturn>): IEnumerable<TReturn>
+    {
+        return new EnumeratorEnumerable(new AppendEnumerator(this.getEnumerator(), next.getEnumerator()));
+    }
+
+    contains(item: TReturn): boolean
+    {
+        let isContained = false;
+
+        this.forEach(v =>
+        {
+            if (v === item)
+            {
+                isContained = true;
+                return false;
+            }
+        });
+
+        return isContained;
     }
 
     // iterates over each item in the Collection. Return false to break.
@@ -230,7 +294,6 @@ export class SelectEnumerable<T, TReturn> implements IEnumerable<TReturn>
 
     public item(index: number): Undefinable<TReturn>
     {
-        const result: TReturn[] = [];
         const en = this.getEnumerator();
         let i = 0;
 
@@ -248,6 +311,11 @@ export class SelectEnumerable<T, TReturn> implements IEnumerable<TReturn>
         return this
             .asQueryable()
             .where((item) => item instanceof type).select((item) => item as N);
+    }
+
+    public prepend(item: TReturn): IEnumerable<TReturn>
+    {
+        return new ArrayEnumerable([item]).concat(this);
     }
 
     public toArray(): TReturn[]
@@ -319,5 +387,122 @@ export class WhereEnumerable<T> extends Enumerable<T>
     public getEnumerator(): IEnumerator<T>
     {
         return new WhereEnumerator<T>(super.getEnumerator(), this._predicate, this._logger);
+    }
+}
+
+export class EnumeratorEnumerable<T> implements IEnumerable<T>
+{
+    private readonly _enumerator: IEnumerator<T>;
+
+    constructor(enumerator: IEnumerator<T>)
+    {
+        this._enumerator = enumerator;
+    }
+
+    append(item: T): IEnumerable<T>
+    {
+        return this.concat(new ArrayEnumerable([item]));
+    }
+
+    asQueryable(): IQueryable<T>
+    {
+        return new EnumerableQueryable(this);
+    }
+
+    concat(next: IEnumerable<T>): IEnumerable<T>
+    {
+        return new EnumeratorEnumerable(new AppendEnumerator(this.getEnumerator(), next.getEnumerator()));
+    }
+
+    contains(item: T): boolean
+    {
+        let isContained = false;
+
+        this.forEach(v =>
+        {
+            if (v === item)
+            {
+                isContained = true;
+                return false;
+            }
+        });
+
+        return isContained;
+    }
+
+    forEach(callback: (value: T, index: number) => boolean | void): void
+    {
+        const en = this.getEnumerator();
+        let count = 0;
+        while (en.moveNext())
+        {
+            const value = callback(en.current, count);
+            if (value === false)
+            {
+                break;
+            }
+            count++;
+        }
+    }
+
+    getEnumerator(): IEnumerator<T>
+    {
+        return this._enumerator;
+    }
+
+    item(index: number): Undefinable<T>
+    {
+        let obj: Undefinable<T>;
+
+        this.forEach((o, i) =>
+        {
+            if (i === index || i > index)
+            {
+                obj = o;
+                return false;
+            }
+        });
+
+        return obj;
+    }
+
+    public ofType<N extends T>(ctor: ConstructorFor<N>): IEnumerable<N>
+    {
+        return this.asQueryable().ofType(ctor);
+    }
+
+    public prepend(item: T): IEnumerable<T>
+    {
+        return new EnumeratorEnumerable(new AppendEnumerator(new ArrayEnumerator([item]), this.getEnumerator()));
+    }
+
+    public toArray(): T[]
+    {
+        const array: T[] = [];
+        this.forEach(i =>
+        {
+            array.push(i);
+        });
+        return array;
+    }
+
+    public toDictionary<TKey, TValue>(keySelector: (a: T) => TKey, valueSelector: (a: T) => TValue): IDictionary<TKey, TValue>
+    {
+        const dictionary = new Dictionary<TKey, TValue>();
+        this.forEach(i =>
+        {
+            dictionary.addKeyValue(keySelector(i), valueSelector(i));
+        });
+        return dictionary;
+    }
+
+    public toList(): IList<T>
+    {
+        const list = new List<T>();
+        this.forEach(i =>
+        {
+            list.add(i);
+        });
+        return list;
     }
 }

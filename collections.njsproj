@@ -66,6 +66,7 @@
     <TypeScriptCompile Include="src\Interfaces\IEnumerable.ts" />
     <TypeScriptCompile Include="src\Interfaces\IEnumerator.ts" />
     <TypeScriptCompile Include="src\index.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IEqualityComparer.ts" />
     <TypeScriptCompile Include="src\Interfaces\IQueryableGroup.ts" />
     <TypeScriptCompile Include="src\Interfaces\IReadOnlyCollection.ts" />
     <TypeScriptCompile Include="src\Interfaces\ISet.ts" />

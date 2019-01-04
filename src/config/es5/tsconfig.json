@@ -4,11 +4,11 @@
     "outDir": "../../../lib",
     "declaration": true,
     "declarationDir": "../../../lib",
-    "target": "es5",
-    "importHelpers": true
+    "target": "es5"
   },
   "include": [
     "../../../src/**/*"
   ],
+  "exclude": [ "../../../src/**/index.ts" ],
   "extends": "../../../base-tsconfig"
 }

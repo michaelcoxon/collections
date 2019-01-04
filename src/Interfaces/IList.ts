@@ -9,11 +9,13 @@ export interface IList<T> extends ICollection<T>, IEnumerable<T>
 
     addRange(enumerable: IEnumerable<T>): void;
 
-    indexOf(obj: T): number | undefined
+    indexOf(item: T): number | undefined
 
-    insert(obj: T, index: number): void
+    insert(item: T, index: number): void
 
-    prepend(obj: T): void
+    prepend(item: T): void
+
+    prepend(item: T): IEnumerable<T>
 
     prependRange(array: T[]): void;
 

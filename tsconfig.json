@@ -1,23 +1,14 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "noImplicitAny": false,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "noEmitOnError": true,
-    "removeComments": false,
-    "sourceMap": true,
-    "skipDefaultLibCheck": true,
-    "strict": true,
-    "lib": [ "es6", "es2015" ],
-    "target": "es5",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "pretty": true
-  },
-  
+  "extends": "./base-tsconfig",
+
   "compileOnSave": true,
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "lib",
+    "lib.es2015",
+    "lib.es6",
+    "src",
+    "dist",
+    "dts"
   ]
 }

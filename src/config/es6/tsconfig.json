@@ -3,11 +3,12 @@
   "compilerOptions": {
     "outDir": "../../../lib.es6",
     "declaration": false,
-    "target": "es6",
-    "importHelpers": true
+    "target": "es6"
   },
   "include": [
     "../../../src/**/*"
   ],
+  "exclude": [ "../../../src/**/index.ts" ],
+
   "extends": "../../../base-tsconfig"
 }

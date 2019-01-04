@@ -1,12 +1,14 @@
 import { ISet } from "./Interfaces/ISet";
 import { IEnumerable } from "./Interfaces/IEnumerable";
 import { ICollection } from "./Interfaces/ICollection";
-import { Collection } from "./BaseCollections";
+import { Collection, ArrayEnumerable } from "./BaseCollections";
 import { IList } from "./Interfaces/IList";
 import { IDictionary } from "./Interfaces/IDictionary";
 import { IEnumerator } from "./Interfaces/IEnumerator";
 import { IQueryable } from "./Interfaces/IQueryable";
 import { ArgumentException, Undefinable } from "@michaelcoxon/utilities";
+import { EnumeratorEnumerable } from './Enumerables';
+import { AppendEnumerator } from './Enumerators';
 
 
 // all of this needs to be optimised
@@ -28,6 +30,21 @@ export class Set<T> implements ISet<T>, ICollection<T>, IEnumerable<T>
     public get isReadOnly(): boolean
     {
         return this._collection.isReadOnly;
+    }
+
+    append(item: T): IEnumerable<T>
+    {
+        return this.concat(new ArrayEnumerable([item]));
+    }
+
+    concat(next: IEnumerable<T>): IEnumerable<T>
+    {
+        return new EnumeratorEnumerable(new AppendEnumerator(this.getEnumerator(), next.getEnumerator()));
+    }
+
+    prepend(item: T): IEnumerable<T>
+    {
+        return new ArrayEnumerable([item]).concat(this);
     }
 
     exceptWith(enumerable: IEnumerable<T>): void

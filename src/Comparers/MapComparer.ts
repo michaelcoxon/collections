@@ -1,6 +1,7 @@
 ﻿import { IComparer } from "../Interfaces/IComparer";
+import { IEqualityComparer } from '../Interfaces/IEqualityComparer';
 
-export class MapComparer<T, M> implements IComparer<T>
+export class MapComparer<T, M> implements IComparer<T>, IEqualityComparer<T>
 {
     private readonly _comparer: IComparer<M>;
     private readonly _selector: (a: T) => M;
@@ -26,4 +27,25 @@ export class MapComparer<T, M> implements IComparer<T>
 
         return this._comparer.equals(x_value, y_value);
     }
+
+    public greaterThan(x: T, y: T): boolean
+    {
+        return this.compare(x, y) > 0;
+    }
+
+    public greaterThanOrEqual(x: T, y: T): boolean
+    {
+        return this.compare(x, y) >= 0;
+    }
+
+    public lessThan(x: T, y: T): boolean
+    {
+        return this.compare(x, y) < 0;
+    }
+
+    public lessThanOrEqual(x: T, y: T): boolean
+    {
+        return this.compare(x, y) <= 0;
+    }
+
 }

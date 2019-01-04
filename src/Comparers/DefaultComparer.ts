@@ -1,7 +1,8 @@
 ﻿import { IComparer } from "../Interfaces/IComparer";
 import { Utilities } from "@michaelcoxon/utilities";
+import { IEqualityComparer } from '../Interfaces/IEqualityComparer';
 
-export class DefaultComparer<T> implements IComparer<T>
+export class DefaultComparer<T> implements IComparer<T>, IEqualityComparer<T>
 {
     public compare(x: T, y: T): number
     {
@@ -34,9 +35,29 @@ export class DefaultComparer<T> implements IComparer<T>
             return _objectComparer.equals(x, y);
         }
     }
+
+    public greaterThan(x: T, y: T): boolean
+    {
+        return this.compare(x, y) > 0;
+    }
+
+    public greaterThanOrEqual(x: T, y: T): boolean
+    {
+        return this.compare(x, y) >= 0;
+    }
+
+    public lessThan(x: T, y: T): boolean
+    {
+        return this.compare(x, y) < 0;
+    }
+
+    public lessThanOrEqual(x: T, y: T): boolean
+    {
+        return this.compare(x, y) <= 0;
+    }
 }
 
-export class DefaultStringComparer implements IComparer<string>
+export class DefaultStringComparer implements IComparer<string>, IEqualityComparer<string>
 {
     public compare(x: string, y: string): number
     {
@@ -57,9 +78,29 @@ export class DefaultStringComparer implements IComparer<string>
     {
         return x === y;
     }
+
+    public greaterThan(x: string, y: string): boolean
+    {
+        return this.compare(x, y) > 0;
+    }
+
+    public greaterThanOrEqual(x: string, y: string): boolean
+    {
+        return this.compare(x, y) >= 0;
+    }
+
+    public lessThan(x: string, y: string): boolean
+    {
+        return this.compare(x, y) < 0;
+    }
+
+    public lessThanOrEqual(x: string, y: string): boolean
+    {
+        return this.compare(x, y) <= 0;
+    }
 }
 
-export class DefaultNumberComparer implements IComparer<number>
+export class DefaultNumberComparer implements IComparer<number>, IEqualityComparer<number>
 {
     public compare(x: number, y: number): number
     {
@@ -70,11 +111,31 @@ export class DefaultNumberComparer implements IComparer<number>
     {
         return x === y;
     }
+
+    public greaterThan(x: number, y: number): boolean
+    {
+        return this.compare(x, y) > 0;
+    }
+
+    public greaterThanOrEqual(x: number, y: number): boolean
+    {
+        return this.compare(x, y) >= 0;
+    }
+
+    public lessThan(x: number, y: number): boolean
+    {
+        return this.compare(x, y) < 0;
+    }
+
+    public lessThanOrEqual(x: number, y: number): boolean
+    {
+        return this.compare(x, y) <= 0;
+    }
 }
 
-export class DefaultObjectComparer implements IComparer<any>
+export class DefaultObjectComparer<T = any> implements IComparer<T>, IEqualityComparer<T>
 {
-    public compare(x: any, y: any): number
+    public compare(x: T, y: T): number
     {
         if (x.toString() !== {}.toString() && y.toString() !== {}.toString())
         {
@@ -86,9 +147,29 @@ export class DefaultObjectComparer implements IComparer<any>
         }
     }
 
-    public equals(x: number, y: number): boolean
+    public equals(x: T, y: T): boolean
     {
         return Utilities.equals(x, y, true);
+    }
+
+    public greaterThan(x: T, y: T): boolean
+    {
+        return this.compare(x, y) > 0;
+    }
+
+    public greaterThanOrEqual(x: T, y: T): boolean
+    {
+        return this.compare(x, y) >= 0;
+    }
+
+    public lessThan(x: T, y: T): boolean
+    {
+        return this.compare(x, y) < 0;
+    }
+
+    public lessThanOrEqual(x: T, y: T): boolean
+    {
+        return this.compare(x, y) <= 0;
     }
 }
 

@@ -22,9 +22,24 @@ export class ArrayEnumerable<T> implements IEnumerable<T>
         this._baseArray = array;
     }
 
+    public append(item: T): IEnumerable<T>
+    {
+        return new ArrayEnumerable([...this._baseArray, item]);
+    }
+
     public asQueryable(): IQueryable<T>
     {
         return new EnumerableQueryable<T>(this);
+    }
+
+    concat(next: IEnumerable<T>): IEnumerable<T>
+    {
+        return new ArrayEnumerable([...this._baseArray, ...next.toArray()]);
+    }
+
+    contains(item: T): boolean
+    {
+        return this._baseArray.indexOf(item) != -1;
     }
 
     // iterates over each item in the Collection. Return false to break.
@@ -60,7 +75,13 @@ export class ArrayEnumerable<T> implements IEnumerable<T>
     {
         return this
             .asQueryable()
-            .where((item) => item instanceof type).select((item) => item as N);
+            .where((item) => item instanceof type)
+            .select((item) => item as N);
+    }
+
+    public prepend(item: T): IEnumerable<T>
+    {
+        return new ArrayEnumerable([item, ...this._baseArray]);
     }
 
     public toArray(): T[]
@@ -230,8 +251,11 @@ export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, 
     }
 
     public prepend(obj: T): void
+    public prepend(obj: T): IEnumerable<T>
+    public prepend(obj: T): IEnumerable<T> | void
     {
         this.insert(obj, 0);
+        return this;
     }
 
     public prependRange(array: T[]): void;
