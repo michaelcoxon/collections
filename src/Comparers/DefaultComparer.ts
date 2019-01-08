@@ -104,7 +104,11 @@ export class DefaultNumberComparer implements IComparer<number>, IEqualityCompar
 {
     public compare(x: number, y: number): number
     {
-        return x - y;
+        const result = x - y;
+
+        if (result < 0) return -1;
+        if (result > 0) return 1;
+        return result;
     }
 
     public equals(x: number, y: number): boolean

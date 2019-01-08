@@ -163,10 +163,12 @@ export class EnumerableQueryable<T> implements IQueryable<T>
         return null;
     }
 
-    public groupBy<TKey>(selector: Selector<T, TKey>): IQueryable<IQueryableGroup<T, TKey>>
+    public groupBy<TKey>(selector: Selector<T, TKey>): IQueryable<IQueryableGroup<T, TKey>>;
+    public groupBy<TKey>(selector: Selector<T, TKey>, comparer: IComparer<TKey>): IQueryable<IQueryableGroup<T, TKey>>;
+    public groupBy<TKey>(selector: Selector<T, TKey>, comparer: IComparer<TKey> = new DefaultComparer<TKey>()): IQueryable<IQueryableGroup<T, TKey>>
     {
-        let keySet = this.select(selector).distinct((k) => k);
-        return keySet.select((key) => new QueryableGroup(this, key, selector));
+        let keySet = this.select(selector).distinct((k) => k).orderBy(k => k);
+        return keySet.select((key) => new QueryableGroup(this, key, selector, comparer));
     }
 
     public last(): T;
@@ -253,19 +255,11 @@ export class EnumerableQueryable<T> implements IQueryable<T>
         return this.where((item) => item instanceof ctor).select((item) => item as N);
     }
 
-    // Orders the set by specified keys where the first orderby 
-    // param is first preference. the key can be a method name 
-    // without parenthesis.
-    // USAGE: obj.OrderBy(function (item) { return item.key1 });
     public orderBy<R>(selector: (a: T) => R, comparer?: IComparer<R>): IQueryable<T>
     {
         return this.internalOrderBy(selector, comparer || new DefaultComparer<R>());
     }
 
-    // Orders the set by specified keys where the first orderby 
-    // param is first preference. the key can be a method name 
-    // without parenthesis.
-    // USAGE: obj.OrderByDescending(function (item) { return item.key1 });
     public orderByDescending<R>(selector: (a: T) => R, comparer?: IComparer<R>): IQueryable<T>
     {
         return this.internalOrderBy(selector, new ReverseComparer(comparer || new DefaultComparer<R>()));
@@ -274,6 +268,16 @@ export class EnumerableQueryable<T> implements IQueryable<T>
     public prepend(item: T): IQueryable<T>
     {
         return this._enumerable.prepend(item).asQueryable()
+    }
+
+    public select<TOut>(selector: Selector<T, TOut>): IQueryable<TOut>
+    {
+        return new SelectEnumerable<T, TOut>(this._enumerable, selector).asQueryable();
+    }
+
+    public selectMany<TOut, TQ extends IQueryable<T>>(selector: Selector<TQ, TOut>): IQueryable<TOut>
+    {
+        throw new NotImplementedException();
     }
 
     public single(): T;
@@ -340,16 +344,9 @@ export class EnumerableQueryable<T> implements IQueryable<T>
         return returnValue;
     }
 
-
     public skip(count: number): IQueryable<T>
     {
         return new SkipEnumerable(this._enumerable, count).asQueryable();
-    }
-
-    // USAGE: obj.Select((o)=>o.key1); USAGE: obj.Select('key1');
-    public select<TOut>(selector: Selector<T, TOut>): IQueryable<TOut>
-    {
-        return new SelectEnumerable<T, TOut>(this._enumerable, selector).asQueryable();
     }
 
     public split(predicate: Predicate<T>): { pTrue: IQueryable<T>, pFalse: IQueryable<T> }
@@ -359,7 +356,6 @@ export class EnumerableQueryable<T> implements IQueryable<T>
             pFalse: this.where(i => !predicate(i))
         };
     }
-
 
     public sum(selector: Selector<T, number>): number
     {
@@ -373,8 +369,6 @@ export class EnumerableQueryable<T> implements IQueryable<T>
         return new TakeEnumerable(this._enumerable, count).asQueryable();
     }
 
-    // Returns the objects that evaluate true on the provided comparer function. 
-    // USAGE: obj.Where(function() { return true; });
     public where(predicate: Predicate<T>): IQueryable<T>
     {
         return new WhereEnumerable(this._enumerable, predicate).asQueryable();
@@ -424,17 +418,13 @@ export class EnumerableQueryable<T> implements IQueryable<T>
 
 export class QueryableGroup<T, TKey> extends EnumerableQueryable<T> implements IQueryableGroup<T, TKey>
 {
-    private readonly _parentQueryable: IQueryable<T>;
     private readonly _key: TKey;
-    private readonly _keySelector: (item: T) => TKey;
 
-    constructor(parentQueryable: IQueryable<T>, key: TKey, keySelector: Selector<T, TKey>, keyComparer: IComparer<TKey> = new DefaultComparer<TKey>())
+    constructor(parentQueryable: IQueryable<T>, key: TKey, keySelector: Selector<T, TKey>, keyComparer: IComparer<TKey>)
     {
-        super(parentQueryable.where((item) => keyComparer.equals(keySelector(item), key)));
+        super(parentQueryable.where(item => keyComparer.equals(keySelector(item), key)));
 
-        this._parentQueryable = parentQueryable;
         this._key = key;
-        this._keySelector = keySelector;
     }
 
     public get key(): TKey 

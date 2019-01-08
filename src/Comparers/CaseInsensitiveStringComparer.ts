@@ -5,25 +5,32 @@ export class CaseInsensitiveStringComparer implements IComparer<string>, IEquali
 {
     public compare(x: string, y: string): number
     {
-        let ciX = x.toUpperCase();
-        let ciY = y.toUpperCase();
-
-        if (ciX < ciY)
+        if (String.prototype.localeCompare)
         {
-            return -1;
+            return x.localeCompare(y, undefined, { sensitivity: 'accent' });
         }
-
-        if (ciX > ciY)
+        else
         {
-            return 1;
-        }
+            let ciX = x.toUpperCase();
+            let ciY = y.toUpperCase();
 
-        return 0;
+            if (ciX < ciY)
+            {
+                return -1;
+            }
+
+            if (ciX > ciY)
+            {
+                return 1;
+            }
+
+            return 0;
+        }
     }
 
     public equals(x: string, y: string): boolean
     {
-        return x === y;
+        return this.compare(x, y) === 0;
     }
 
     public greaterThan(x: string, y: string): boolean

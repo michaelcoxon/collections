@@ -84,7 +84,7 @@ describe("Queryable.any", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(true).to.eq(result.any((i) => i == 2));
+        expect(true).to.eq(result.any((i) => i === 2));
     });
 
     it("should return false if none of the items match the predicate", () =>
@@ -92,7 +92,7 @@ describe("Queryable.any", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(false).to.eq(result.any((i) => i == -1));
+        expect(false).to.eq(result.any((i) => i === -1));
     });
 });
 
@@ -106,6 +106,19 @@ describe("Queryable.average", () =>
         const result = query.average((i) => i);
 
         expect(2.5).to.eq(result);
+    });
+});
+
+describe("Queryable.count", () =>
+{
+    it("should return the number of items in the queryable", () =>
+    {
+        const array = [1, 2, 3, 4];
+        const query = new ArrayEnumerable(array).asQueryable();
+
+        const result = query.count();
+
+        expect(4).to.eq(result);
     });
 });
 
@@ -145,7 +158,7 @@ describe("Queryable.first", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(2).to.eq(result.first(i => i % 2 == 0));
+        expect(2).to.eq(result.first(i => i % 2 === 0));
     });
 
     it("should throw an exception if the Queryable is empty", () =>
@@ -177,7 +190,7 @@ describe("Queryable.firstOrDefault", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(2).to.eq(result.firstOrDefault(i => i % 2 == 0));
+        expect(2).to.eq(result.firstOrDefault(i => i % 2 === 0));
     });
 
     it("should return null if the Queryable is empty", () =>
@@ -188,6 +201,26 @@ describe("Queryable.firstOrDefault", () =>
         expect(null).to.eq(result.firstOrDefault());
     });
 });
+
+describe("Queryable.groupBy", () =>
+{
+    it("should return the items grouped by the selector", () =>
+    {
+        const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        const query = new ArrayEnumerable(array).asQueryable();
+
+        const result = query.groupBy(i => i % 2);
+       
+        expect(2).to.eq(result.count());
+               
+        result.select(g => g.key).forEach(i => assert.oneOf(i, [0, 1]));
+
+        assert.sameOrderedMembers(result.where(g => g.key === 0).single().toArray(), [2, 4, 6, 8, 10]);
+        assert.sameOrderedMembers(result.where(g => g.key === 1).single().toArray(), [1, 3, 5, 7, 9]);
+        
+    });
+});
+
 
 describe("Queryable.last", () =>
 {
@@ -204,7 +237,7 @@ describe("Queryable.last", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(3).to.eq(result.last(i => i % 2 != 0));
+        expect(3).to.eq(result.last(i => i % 2 !== 0));
     });
 
     it("should throw an exception if the Queryable is empty", () =>
@@ -236,7 +269,7 @@ describe("Queryable.lastOrDefault", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(4).to.eq(result.lastOrDefault(i => i % 2 == 0));
+        expect(4).to.eq(result.lastOrDefault(i => i % 2 === 0));
     });
 
     it("should return null if the Queryable is empty", () =>

@@ -1,6 +1,7 @@
 ﻿import { IComparer } from "../Interfaces/IComparer";
 import { IEqualityComparer } from '../Interfaces/IEqualityComparer';
 
+/** reverses the comparer provided */
 export class ReverseComparer<T> implements IComparer<T>, IEqualityComparer<T>
 {
     private readonly _comparer: IComparer<T>;
@@ -22,21 +23,21 @@ export class ReverseComparer<T> implements IComparer<T>, IEqualityComparer<T>
 
     public greaterThan(x: T, y: T): boolean
     {
-        return this.compare(x, y) > 0;
+        return this._comparer.greaterThan(y, x);
     }
 
     public greaterThanOrEqual(x: T, y: T): boolean
     {
-        return this.compare(x, y) >= 0;
+        return this._comparer.greaterThanOrEqual(y, x);
     }
 
     public lessThan(x: T, y: T): boolean
     {
-        return this.compare(x, y) < 0;
+        return this._comparer.lessThan(y, x);
     }
 
     public lessThanOrEqual(x: T, y: T): boolean
     {
-        return this.compare(x, y) <= 0;
+        return this._comparer.lessThanOrEqual(y, x);
     }
 }
