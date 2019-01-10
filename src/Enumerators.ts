@@ -225,13 +225,13 @@ export class SkipEnumerator<T> implements IEnumerator<T> {
     private readonly _itemsToSkip: number;
 
     private _currentItem?: T;
-    private _hasSkipped: boolean;
+    private _count: number;
 
     constructor(enumerator: IEnumerator<T>, itemsToSkip: number)
     {
         this._enumerator = enumerator;
         this._itemsToSkip = itemsToSkip;
-        this._hasSkipped = false;
+        this._count = 0;
     }
 
     public get current(): T
@@ -257,26 +257,22 @@ export class SkipEnumerator<T> implements IEnumerator<T> {
 
     public peek(): Undefinable<T>
     {
-        this._ensureSkippedItems();
+        while (this._count < this._itemsToSkip)
+        {
+            if (!this._enumerator.moveNext())
+            {
+                return undefined;
+            }
+            this._count++;
+        }
         return this._enumerator.peek();
+
     }
 
     public reset(): void
     {
+        this._count = 0;
         this._enumerator.reset();
-    }
-
-    private _ensureSkippedItems()
-    {
-        if (!this._hasSkipped)
-        {
-            this._hasSkipped = true;
-
-            for (let i = 0; i < this._itemsToSkip && this._enumerator.moveNext(); i++)
-            {
-                // do nothing
-            }
-        }
     }
 }
 
@@ -458,5 +454,58 @@ export class AppendEnumerator<T> implements IEnumerator<T>
     {
         this._enumerator.reset();
         this._appendedItemsEnumerator.reset();
+    }
+}
+
+export class AggregateEnumerator<T, TReturn> implements IEnumerator<TReturn>
+{
+    private readonly _enumerator: IEnumerator<T>;
+    private readonly _aggregateFunction: (acumulate: TReturn, current: T) => TReturn;
+
+    private _accumulate?: TReturn;
+
+    constructor(enumerator: IEnumerator<T>, aggregateFunction: (acumulate: TReturn, current: T) => TReturn) 
+    {
+        this._enumerator = enumerator;
+        this._aggregateFunction = aggregateFunction;
+    }
+
+    public get current(): TReturn
+    {
+        if (isUndefinedOrNull(this._accumulate))
+        {
+            throw new NullReferenceException();
+        }
+        return this._accumulate;
+    }
+
+    moveNext(): boolean
+    {
+        this._accumulate = this.peek();
+
+        if (this._accumulate === undefined)
+        {
+            return false;
+        }
+
+        return this._enumerator.moveNext();
+    }
+
+    peek(): Undefinable<TReturn>
+    {
+        let item = this._enumerator.peek();
+
+        if (item === undefined)
+        {
+            return;
+        }
+
+        return this._aggregateFunction(this._accumulate!, item);
+    }
+
+    reset(): void
+    {
+        this._enumerator.reset();
+        this._accumulate = undefined;
     }
 }

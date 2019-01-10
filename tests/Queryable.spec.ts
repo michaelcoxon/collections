@@ -3,8 +3,7 @@
 import { getDefaultLogger, Numbers } from "@michaelcoxon/utilities";
 import { assert, expect } from 'chai';
 import 'mocha';
-import { ArrayEnumerable } from "../src/BaseCollections";
-import { Enumerable } from "../src/Enumerables";
+import { Enumerable, ArrayEnumerable} from "../src/Enumerables";
 /*
 setDefaultLogger(new ConsoleLogger(console, {
     loggingVerbosity: LogLevel.Trace,
@@ -24,7 +23,7 @@ describe("ArrayEnumerable.asQueryable", () =>
 
         for (let i = 0; i < result.count(); i++)
         {
-            expect(array[i]).eq(result.item(i), `index ${i} is not the same`);
+            expect(result.item(i)).eq(array[i], `index ${i} is not the same`);
         }
     });
 
@@ -37,7 +36,7 @@ describe("ArrayEnumerable.asQueryable", () =>
 
         for (let i = 0; i < result.count(); i++)
         {
-            expect(array[i]).eq(result.item(i), `index ${i} is not the same`);
+            expect(result.item(i)).eq(array[i], `index ${i} is not the same`);
         }
     });
 });
@@ -49,7 +48,7 @@ describe("Queryable.all", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(true).to.eq(result.all((i) => i > 0));
+        expect(result.all((i) => i > 0)).to.eq(true);
     });
 
     it("should return false if one item doesnt match the predicate", () =>
@@ -57,7 +56,7 @@ describe("Queryable.all", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(false).to.eq(result.all((i) => i > 1));
+        expect(result.all((i) => i > 1)).to.eq(false);
     });
 });
 
@@ -68,7 +67,7 @@ describe("Queryable.any", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(true).to.eq(result.any());
+        expect(result.any()).to.eq(true);
     });
 
     it("should return false if the queryable is empty", () =>
@@ -76,7 +75,7 @@ describe("Queryable.any", () =>
         const array = [];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(false).to.eq(result.any());
+        expect(result.any()).to.eq(false);
     });
 
     it("should return true if any of the items match the predicate", () =>
@@ -84,7 +83,7 @@ describe("Queryable.any", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(true).to.eq(result.any((i) => i === 2));
+        expect(result.any((i) => i === 2)).to.eq(true);
     });
 
     it("should return false if none of the items match the predicate", () =>
@@ -92,7 +91,7 @@ describe("Queryable.any", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(false).to.eq(result.any((i) => i === -1));
+        expect(result.any((i) => i === -1)).to.eq(false);
     });
 });
 
@@ -105,7 +104,7 @@ describe("Queryable.average", () =>
 
         const result = query.average((i) => i);
 
-        expect(2.5).to.eq(result);
+        expect(result).to.eq(2.5);
     });
 });
 
@@ -118,7 +117,7 @@ describe("Queryable.count", () =>
 
         const result = query.count();
 
-        expect(4).to.eq(result);
+        expect(result).to.eq(4);
     });
 });
 
@@ -150,7 +149,7 @@ describe("Queryable.first", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(1).to.eq(result.first());
+        expect(result.first()).to.eq(1);
     });
 
     it("should return the first item in the Queryable after applying the filter", () =>
@@ -158,7 +157,7 @@ describe("Queryable.first", () =>
         const array = [1, 2, 3, 4];
         const result = new ArrayEnumerable(array).asQueryable();
 
-        expect(2).to.eq(result.first(i => i % 2 === 0));
+        expect(result.first(i => i % 2 === 0)).to.eq(2);
     });
 
     it("should throw an exception if the Queryable is empty", () =>
@@ -220,7 +219,6 @@ describe("Queryable.groupBy", () =>
         
     });
 });
-
 
 describe("Queryable.last", () =>
 {
@@ -388,7 +386,7 @@ describe("Queryable.skip", () =>
 
         for (let i = 0; i < result.count(); i++)
         {
-            expect(expected[i]).eq(result.item(i), `index ${i} is not the same`);
+            expect(result.item(i)).eq(expected[i], `index ${i} is not the same`);
         }
     });
 
@@ -402,7 +400,7 @@ describe("Queryable.skip", () =>
 
         for (let i = 0; i < result.count(); i++)
         {
-            expect(expected[i]).eq(result.item(i), `index ${i} is not the same`);
+            expect(result.item(i)).eq(expected[i], `index ${i} is not the same`);
         }
     });
 
@@ -416,7 +414,7 @@ describe("Queryable.skip", () =>
 
         for (let i = 0; i < result.count(); i++)
         {
-            expect(expected[i]).eq(result.item(i), `index ${i} is not the same`);
+            expect(result.item(i)).eq(expected[i], `index ${i} is not the same`);
         }
     });
 });
@@ -433,7 +431,7 @@ describe("Queryable.select", () =>
 
         for (let i = 0; i < result.count(); i++)
         {
-            expect(expected[i]).eq(result.item(i), `index ${i} is not the same`);
+            expect(result.item(i)).eq(expected[i], `index ${i} is not the same`);
         }
     });
 
@@ -525,7 +523,6 @@ describe("Queryable.where", () =>
         expect(result.item(1)).to.eq(4);
     });
 });
-
 
 describe("Queryable Big sets", () =>
 {

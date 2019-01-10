@@ -15,8 +15,6 @@ export * from './Comparers/CustomComparer';
 export * from './Comparers/DefaultComparer';
 export * from './Comparers/MapComparer';
 export * from './Comparers/ReverseComparer';
-export * from './BaseCollections';
-export * from './Dictionary';
 export * from './Enumerables';
 export * from './Enumerators';
 export * from './LinkedList';

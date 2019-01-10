@@ -1,7 +1,7 @@
 ﻿import { CustomComparer } from "../src/Comparers/CustomComparer";
 import { expect, assert } from 'chai';
 import 'mocha';
-import { List, Collection } from "../src/BaseCollections";
+import { List, Collection } from "../src/Enumerables";
 
 
 

@@ -1,13 +1,12 @@
 import { ISet } from "./Interfaces/ISet";
 import { IEnumerable } from "./Interfaces/IEnumerable";
 import { ICollection } from "./Interfaces/ICollection";
-import { Collection, ArrayEnumerable } from "./BaseCollections";
 import { IList } from "./Interfaces/IList";
 import { IDictionary } from "./Interfaces/IDictionary";
 import { IEnumerator } from "./Interfaces/IEnumerator";
 import { IQueryable } from "./Interfaces/IQueryable";
 import { ArgumentException, Undefinable } from "@michaelcoxon/utilities";
-import { EnumeratorEnumerable } from './Enumerables';
+import { EnumeratorEnumerable , Collection, ArrayEnumerable} from './Enumerables';
 import { AppendEnumerator } from './Enumerators';
 
 

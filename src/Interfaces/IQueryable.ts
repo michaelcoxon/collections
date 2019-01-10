@@ -119,16 +119,41 @@ export interface IQueryable<T> extends IEnumerable<T>
      */
     select<TOut>(selector: Selector<T, TOut>): IQueryable<TOut>;
 
-    //selectMany<TOut, TQ extends IQueryable<T>>(selector: Selector<TQ, TOut>): IQueryable<TOut>;
+    selectMany<TOut>(selector: Selector<T, IEnumerable<TOut>>): IQueryable<TOut>;
+    selectMany<TOut>(selector: Selector<T, TOut[]>): IQueryable<TOut>;
 
+    /**
+     * Returns a single element only if there is one element in the queryable
+     * @throws InvalidOperationException if there is not exactly one item in the queryable
+     */
     single(): T;
 
+    /**
+     * Returns a single element only if there is one element in the queryable that matches the predicate
+     * @param predicate
+     * @throws InvalidOperationException if there is not exactly one item in the queryable that matches the predicate
+     */
     single(predicate: Predicate<T>): T;
 
+    /**
+     * Returns a single element only if there is one element in the queryable. If there are no items in the
+     * queryable, then null is returned
+     * @throws InvalidOperationException if there is not exactly one or zero items in the queryable
+     */
     singleOrDefault(): T | null;
 
+    /**
+     * Returns a single element only if there is one element in the queryable that matches the predicate. 
+     * If there are no items in the queryable, then null is returned
+     * @throws InvalidOperationException if there is not exactly one or zero item in the queryable that matches the predicate
+     */
     singleOrDefault(predicate: Predicate<T>): T | null;
 
+    /**
+     * Skips the number of items specified. If the count is larger than the size
+     * of the queryable, no items will be returned.
+     * @param count the number of items to skip
+     */
     skip(count: number): IQueryable<T>;
 
     /**
@@ -137,9 +162,22 @@ export interface IQueryable<T> extends IEnumerable<T>
      */
     split(predicate: Predicate<T>): { pTrue: IQueryable<T>, pFalse: IQueryable<T> };
 
+    /**
+     * Sums the items in the queryable using the selector
+     * @param selector selector to return the number to be summed
+     */
     sum(selector: Selector<T, number>): number;
 
+    /**
+     * Takes the number of specified items from the queryable. If the count is
+     * larger than the size of the queryable, all items will be returned
+     * @param count the number of items to take.
+     */
     take(count: number): IQueryable<T>;
 
+    /**
+     * Filters the queryable by the predicate
+     * @param predicate the filter for each item.
+     */
     where(predicate: Predicate<T>): IQueryable<T>;
 }

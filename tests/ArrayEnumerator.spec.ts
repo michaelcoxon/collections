@@ -1,6 +1,6 @@
 ﻿import { expect, assert } from 'chai';
 import 'mocha';
-import { Collection } from "../src/BaseCollections";
+import { Collection } from "../src/Enumerables";
 import { ArrayEnumerator } from "../src/Enumerators";
 
 describe("ArrayEnumerator.constructor", () =>

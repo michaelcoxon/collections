@@ -60,8 +60,6 @@
     <TypeScriptCompile Include="src\Enumerators.ts" />
     <TypeScriptCompile Include="src\Interfaces\IComparer.ts" />
     <TypeScriptCompile Include="src\Interfaces\IDictionary.ts" />
-    <TypeScriptCompile Include="src\Dictionary.ts" />
-    <TypeScriptCompile Include="src\BaseCollections.ts" />
     <TypeScriptCompile Include="src\Interfaces\ICollection.ts" />
     <TypeScriptCompile Include="src\Interfaces\IEnumerable.ts" />
     <TypeScriptCompile Include="src\Interfaces\IEnumerator.ts" />

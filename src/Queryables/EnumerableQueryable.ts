@@ -1,9 +1,8 @@
 ﻿import { ConstructorFor, isUndefinedOrNull, Predicate, Selector, Undefinable, Utilities, NotImplementedException } from "@michaelcoxon/utilities";
-import { ArrayEnumerable } from "../BaseCollections";
 import { DefaultComparer } from "../Comparers/DefaultComparer";
 import { MapComparer } from "../Comparers/MapComparer";
 import { ReverseComparer } from "../Comparers/ReverseComparer";
-import { SelectEnumerable, SkipEnumerable, TakeEnumerable, WhereEnumerable } from "../Enumerables";
+import { SelectEnumerable, SkipEnumerable, TakeEnumerable, WhereEnumerable, Enumerable, EnumeratorEnumerable,ArrayEnumerable } from "../Enumerables";
 import { IComparer } from "../Interfaces/IComparer";
 import { IDictionary } from "../Interfaces/IDictionary";
 import { IEnumerable } from "../Interfaces/IEnumerable";
@@ -11,9 +10,6 @@ import { IEnumerator } from "../Interfaces/IEnumerator";
 import { IList } from "../Interfaces/IList";
 import { IQueryable } from "../Interfaces/IQueryable";
 import { IQueryableGroup } from "../Interfaces/IQueryableGroup";
-
-
-
 
 
 export class EnumerableQueryable<T> implements IQueryable<T>
@@ -275,9 +271,14 @@ export class EnumerableQueryable<T> implements IQueryable<T>
         return new SelectEnumerable<T, TOut>(this._enumerable, selector).asQueryable();
     }
 
-    public selectMany<TOut, TQ extends IQueryable<T>>(selector: Selector<TQ, TOut>): IQueryable<TOut>
+    public selectMany<TOut>(selector: Selector<T, IEnumerable<TOut>>): IQueryable<TOut>;
+    public selectMany<TOut>(selector: Selector<T, TOut[]>): IQueryable<TOut>;
+    public selectMany<TOut>(selector: Selector<T, IEnumerable<TOut> | TOut[]>): IQueryable<TOut>
     {
-        throw new NotImplementedException();
+        let enumerable = Enumerable.empty<TOut>();
+        this.select(i => new EnumeratorEnumerable(Enumerable.asEnumerable(selector(i)).getEnumerator()))
+
+        return enumerable.asQueryable();
     }
 
     public single(): T;
@@ -359,7 +360,7 @@ export class EnumerableQueryable<T> implements IQueryable<T>
 
     public sum(selector: Selector<T, number>): number
     {
-        return this.select((item) => selector(item) as number)
+        return this.select((item) => selector(item))
             .toArray()
             .reduce((a, c) => a + c, 0);
     }

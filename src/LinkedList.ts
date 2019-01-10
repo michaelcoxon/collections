@@ -1,16 +1,13 @@
 ﻿import { ICollection } from "./Interfaces/ICollection";
 import { IEnumerable } from "./Interfaces/IEnumerable";
 import { IEnumerableOrArray } from "./Types";
-import { enumerableOrArrayToArray } from "./Utilities";
 import { IQueryable } from "./Interfaces/IQueryable";
 import { IEnumerator } from "./Interfaces/IEnumerator";
 import { IDictionary } from "./Interfaces/IDictionary";
 import { IList } from "./Interfaces/IList";
-import { List, ArrayEnumerable } from "./BaseCollections";
-import { Dictionary } from "./Dictionary";
 import { EnumerableQueryable } from "./Queryables/EnumerableQueryable";
 import { Undefinable, Exception } from "@michaelcoxon/utilities";
-import { EnumeratorEnumerable } from './Enumerables';
+import { EnumeratorEnumerable, List, ArrayEnumerable, Dictionary, Enumerable } from './Enumerables';
 import { AppendEnumerator } from './Enumerators';
 
 interface LinkedListItem<T>
@@ -31,7 +28,7 @@ export class LinkedList<T> implements ICollection<T>, IEnumerable<T>
 
         if (enumerableOrArray)
         {
-            for (var item of enumerableOrArrayToArray(enumerableOrArray))
+            for (var item of Enumerable.asArray(enumerableOrArray))
             {
                 this.add(item);
             }
