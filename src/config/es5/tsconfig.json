@@ -7,7 +7,7 @@
     "target": "es5"
   },
   "include": [
-    "../../../src/**/*", "../../../tests/UnitTest2.spec.ts", "../../../tests/DefaultNumberComparer.spec.ts"
+    "../../../src/**/*"
   ],
   "exclude": [ "../../../src/**/index.ts" ],
   "extends": "../../../base-tsconfig"
