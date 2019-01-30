@@ -1,12 +1,11 @@
-﻿import { Collection } from '../src/Collection';
-import { List } from '../src/List';
+﻿import { CustomComparer } from "../src/Comparers/CustomComparer";
 import { expect, assert } from 'chai';
 import 'mocha';
-import { CustomComparer } from '../src/Comparer';
+import { List, Collection } from "../src/Enumerables";
 
 
 
-describe("Create a List", () =>
+describe("List.constructor", () =>
 {
     it("should return a List with the array items in the same order", () =>
     {
@@ -35,7 +34,7 @@ describe("Create a List", () =>
     });
 });
 
-describe("Add an item to a List", () =>
+describe("List.add", () =>
 {
     it("should return a List with the new item at the end", () =>
     {
@@ -61,7 +60,7 @@ describe("Add an item to a List", () =>
     });
 });
 
-describe("Add items to a List", () =>
+describe("List.addRange", () =>
 {
     it("should return a List with the new array items at the end", () =>
     {
@@ -110,7 +109,7 @@ describe("Add items to a List", () =>
     });
 });
 
-describe("Clear a List", () =>
+describe("List.clear", () =>
 {
     it("should return a List with the items cleared", () =>
     {
@@ -125,7 +124,7 @@ describe("Clear a List", () =>
     });
 });
 
-describe("Determin if a List contains an item", () =>
+describe("List.contains", () =>
 {
     it("should return true if the List contains 4", () =>
     {
@@ -144,7 +143,7 @@ describe("Determin if a List contains an item", () =>
     });
 });
 
-describe("Find an item in the list", () =>
+describe("List.find", () =>
 {
     it("should return the item if it is in the List", () =>
     {
@@ -165,13 +164,13 @@ describe("Find an item in the list", () =>
     });
 });
 
-describe("Find an item's index in the list", () =>
+describe("List.indexOf", () =>
 {
     it("should return the index of the item if it is in the List", () =>
     {
         const array = [1, 2, 3, 4];
         const list = new List(array);
-        const result = list.findIndex(4);
+        const result = list.indexOf(4);
 
         expect(3).eq(result);
     });
@@ -180,13 +179,13 @@ describe("Find an item's index in the list", () =>
     {
         const array = [1, 2, 3, 4];
         const list = new List(array);
-        const result = list.findIndex(5);
+        const result = list.indexOf(5);
 
         expect(undefined).eq(result);
     });
 });
 
-describe("Insert an item into the list", () =>
+describe("List.insert", () =>
 {
     it("should insert the item into position 0 of the List", () =>
     {
@@ -195,7 +194,7 @@ describe("Insert an item into the list", () =>
         const expected = [-1, 1, 2, 3, 4];
         const new_item = -1;
 
-        list.insertAt(new_item, 0);
+        list.insert(new_item, 0);
 
         expect(array.length + 1).eq(list.count);
 
@@ -212,7 +211,7 @@ describe("Insert an item into the list", () =>
         const expected = [1, 2, -1, 3, 4];
         const new_item = -1;
 
-        list.insertAt(new_item, 2);
+        list.insert(new_item, 2);
 
         expect(array.length + 1).eq(list.count);
 
@@ -230,7 +229,7 @@ describe("Insert an item into the list", () =>
         const expected = [1, 2, 3, -1, 4];
         const new_item = -1;
 
-        list.insertAt(new_item, 3);
+        list.insert(new_item, 3);
 
         expect(array.length + 1).eq(list.count);
 
@@ -242,7 +241,7 @@ describe("Insert an item into the list", () =>
     });
 });
 
-describe("Prepend an item into the list", () =>
+describe("List.prepend", () =>
 {
     it("should insert the item into the start of the List", () =>
     {
@@ -262,7 +261,7 @@ describe("Prepend an item into the list", () =>
     });
 });
 
-describe("Prepend items into the list", () =>
+describe("List.prependRange", () =>
 {
     it("should insert the array items into the start of the List", () =>
     {
@@ -299,7 +298,7 @@ describe("Prepend items into the list", () =>
     });
 });
 
-describe("Remove an item from the list", () =>
+describe("List.remove", () =>
 {
     it("should remove the item from the List", () =>
     {
@@ -335,7 +334,7 @@ describe("Remove an item from the list", () =>
     });
 });
 
-describe("Remove an item into the list at the specified index", () =>
+describe("List.removeAt", () =>
 {
     it("should Remove the item from position 0 of the List", () =>
     {
@@ -388,7 +387,7 @@ describe("Remove an item into the list at the specified index", () =>
     });
 });
 
-describe("Sort the List", () =>
+describe("List.sort", () =>
 {
     it("should sort the List ascending", () =>
     {

@@ -4,9 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{89925f06-dee7-4218-ac9c-f28824a53276}</ProjectGuid>
-    <ProjectHome />
     <ProjectView>ProjectFiles</ProjectView>
-    <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
@@ -18,12 +16,16 @@
     <ToolsVersionPromptShown>0.0</ToolsVersionPromptShown>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
+    <JavaScriptTestRoot>tests\</JavaScriptTestRoot>
+    <JavaScriptTestFramework>Mocha</JavaScriptTestFramework>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include=".nojekyll" />
     <Content Include=".npmignore" />
+    <Content Include="src\Comparers\MapComparer.ts" />
     <Content Include="src\config\es2015\tsconfig.json" />
     <Content Include="src\config\es5\tsconfig.json" />
     <Content Include="src\config\es6\tsconfig.json" />
@@ -40,6 +42,9 @@
     <Folder Include="src\config\es2015\" />
     <Folder Include="src\config\es5\" />
     <Folder Include="src\config\es6\" />
+    <Folder Include="src\Comparers\" />
+    <Folder Include="src\Interfaces\" />
+    <Folder Include="src\Queryables\" />
     <Folder Include="tests\" />
     <Folder Include="src\" />
   </ItemGroup>
@@ -47,31 +52,57 @@
     <Compile Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="src\Collection.ts" />
-    <TypeScriptCompile Include="src\Comparer.ts" />
-    <TypeScriptCompile Include="src\Enumerator.ts" />
-    <TypeScriptCompile Include="src\Extensions.ts" />
+    <TypeScriptCompile Include="src\Comparers\CaseInsensitiveStringComparer.ts" />
+    <TypeScriptCompile Include="src\Comparers\CustomComparer.ts" />
+    <TypeScriptCompile Include="src\Comparers\DefaultComparer.ts" />
+    <TypeScriptCompile Include="src\Comparers\ReverseComparer.ts" />
+    <TypeScriptCompile Include="src\Enumerables.ts" />
+    <TypeScriptCompile Include="src\Enumerators.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IComparer.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IDictionary.ts" />
+    <TypeScriptCompile Include="src\Interfaces\ICollection.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IEnumerable.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IEnumerator.ts" />
     <TypeScriptCompile Include="src\index.ts" />
-    <TypeScriptCompile Include="src\List.ts" />
-    <TypeScriptCompile Include="src\Queryable.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IEqualityComparer.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IQueryableGroup.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IReadOnlyCollection.ts" />
+    <TypeScriptCompile Include="src\Interfaces\ISet.ts" />
+    <TypeScriptCompile Include="src\LinkedList.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IList.ts" />
+    <TypeScriptCompile Include="src\Interfaces\IQueryable.ts" />
+    <TypeScriptCompile Include="src\Queryables\EnumerableQueryable.ts" />
+    <TypeScriptCompile Include="src\Set.ts" />
+    <TypeScriptCompile Include="src\Types.ts" />
+    <TypeScriptCompile Include="src\Utilities.ts" />
     <TypeScriptCompile Include="tests\Collection.spec.ts">
+      <SubType>Code</SubType>
       <TestFramework>Mocha</TestFramework>
-      <Publish>True</Publish>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="tests\Enumerator.spec.ts">
+    <TypeScriptCompile Include="tests\CaseInsensitiveStringComparer.spec.ts" />
+    <TypeScriptCompile Include="tests\DefaultStringComparer.spec.ts" />
+    <TypeScriptCompile Include="tests\Enumerable.spec.ts">
+      <SubType>Code</SubType>
       <TestFramework>Mocha</TestFramework>
-      <Publish>True</Publish>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="tests\ArrayEnumerator.spec.ts">
+      <SubType>Code</SubType>
+      <TestFramework>Mocha</TestFramework>
     </TypeScriptCompile>
     <TypeScriptCompile Include="tests\List.spec.ts">
+      <SubType>Code</SubType>
       <TestFramework>Mocha</TestFramework>
-      <Publish>True</Publish>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="tests\DefaultNumberComparer.spec.ts">
+      <SubType>Code</SubType>
+      <TestFramework>Mocha</TestFramework>
     </TypeScriptCompile>
     <TypeScriptCompile Include="tests\Queryable.spec.ts">
+      <SubType>Code</SubType>
       <TestFramework>Mocha</TestFramework>
-      <Publish>True</Publish>
     </TypeScriptCompile>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!--Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" /-->
   <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />

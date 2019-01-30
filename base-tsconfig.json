@@ -4,20 +4,21 @@
     "noImplicitAny": false,
     "module": "commonjs",
     "moduleResolution": "node",
-    "noEmitOnError": false,
+    "noEmitOnError": true,
+    "noEmitHelpers": true,
+    "importHelpers": true,
     "removeComments": false,
     "sourceMap": true,
     "skipDefaultLibCheck": true,
     "strict": true,
-    "lib": [ "dom", "es6", "es2015" ],
+    "lib": [ "es6", "es2015" ],
     "target": "es5",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "pretty": true,
-    "importHelpers": true    
+    "pretty": true
   },
-  
-  "compileOnSave": false,
+
+  "compileOnSave": true,
   "exclude": [
     "node_modules"
   ]

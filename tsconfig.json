@@ -1,19 +1,14 @@
 {
   "extends": "./base-tsconfig",
 
-  "compileOnSave": false,
-
-  "compilerOptions": {
-    "target": "es5"
-  },
-
+  "compileOnSave": true,
   "exclude": [
     "node_modules",
     "lib",
-    "lib.es6",
     "lib.es2015",
-    "dts",
+    "lib.es6",
     "src",
-    "dist"
+    "dist",
+    "dts"
   ]
 }

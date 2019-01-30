@@ -3,12 +3,12 @@
   "compilerOptions": {
     "outDir": "../../../lib",
     "declaration": true,
-    "declarationDir": "../../../dts",
-    "target": "es5",
-    "importHelpers": true
+    "declarationDir": "../../../lib",
+    "target": "es5"
   },
   "include": [
-    "../../../src/**/*"
+    "../../../src/**/*", "../../../tests/UnitTest2.spec.ts", "../../../tests/DefaultNumberComparer.spec.ts"
   ],
+  "exclude": [ "../../../src/**/index.ts" ],
   "extends": "../../../base-tsconfig"
 }
