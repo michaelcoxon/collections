@@ -3,7 +3,7 @@
 import { getDefaultLogger, Numbers } from "@michaelcoxon/utilities";
 import { assert, expect } from 'chai';
 import 'mocha';
-import { Enumerable, ArrayEnumerable} from "../src/Enumerables";
+import { Enumerable, ArrayEnumerable } from "../src/Enumerables";
 /*
 setDefaultLogger(new ConsoleLogger(console, {
     loggingVerbosity: LogLevel.Trace,
@@ -200,6 +200,25 @@ describe("Queryable.firstOrDefault", () =>
         expect(null).to.eq(result.firstOrDefault());
     });
 });
+/*
+describe("Queryable.join", () =>
+{
+    it("should return the items joined by the selector", () =>
+    {
+        const outer = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        const inner = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+        const qOuter = new ArrayEnumerable(outer).asQueryable();
+        const qInner = new ArrayEnumerable(inner).asQueryable();
+
+        const result = qOuter.join(qInner, o => o, i => i, (o, i) => ({ o, i }));
+
+        expect(result.count()).to.eq(10);
+
+        result.forEach(i => assert.equal(i.i,i.o));
+    });
+});
+*/
 
 describe("Queryable.groupBy", () =>
 {
@@ -209,14 +228,14 @@ describe("Queryable.groupBy", () =>
         const query = new ArrayEnumerable(array).asQueryable();
 
         const result = query.groupBy(i => i % 2);
-       
+
         expect(2).to.eq(result.count());
-               
+
         result.select(g => g.key).forEach(i => assert.oneOf(i, [0, 1]));
 
         assert.sameOrderedMembers(result.where(g => g.key === 0).single().toArray(), [2, 4, 6, 8, 10]);
         assert.sameOrderedMembers(result.where(g => g.key === 1).single().toArray(), [1, 3, 5, 7, 9]);
-        
+
     });
 });
 

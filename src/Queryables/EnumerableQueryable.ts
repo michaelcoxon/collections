@@ -2,7 +2,7 @@
 import { DefaultComparer } from "../Comparers/DefaultComparer";
 import { MapComparer } from "../Comparers/MapComparer";
 import { ReverseComparer } from "../Comparers/ReverseComparer";
-import { SelectEnumerable, SkipEnumerable, TakeEnumerable, WhereEnumerable, Enumerable, EnumeratorEnumerable,ArrayEnumerable } from "../Enumerables";
+import { SelectEnumerable, SkipEnumerable, TakeEnumerable, WhereEnumerable, Enumerable, EnumeratorEnumerable, ArrayEnumerable } from "../Enumerables";
 import { IComparer } from "../Interfaces/IComparer";
 import { IDictionary } from "../Interfaces/IDictionary";
 import { IEnumerable } from "../Interfaces/IEnumerable";
@@ -166,7 +166,21 @@ export class EnumerableQueryable<T> implements IQueryable<T>
         let keySet = this.select(selector).distinct((k) => k).orderBy(k => k);
         return keySet.select((key) => new QueryableGroup(this, key, selector, comparer));
     }
-
+    /*
+    public join<TInner, TKey, TResult>(
+        inner: IQueryable<TInner>,
+        outerKeySelector: (o: T) => TKey,
+        innerKeySelector: (i: TInner) => TKey,
+        resultSelector: (o: T, i: TInner) => TResult): IQueryable<TResult>
+    {
+        return this
+            .selectMany(o => inner
+                .where(i => innerKeySelector(i) === outerKeySelector(o))
+                .select(i => resultSelector(o, i))
+            )
+            ;
+    }
+    */
     public last(): T;
     public last(predicate: Predicate<T>): T;
     public last(predicate?: Predicate<T>): T 

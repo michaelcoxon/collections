@@ -1,0 +1,788 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@michaelcoxon/collections</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@michaelcoxon/collections</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> @michaelcoxon/collections</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#collections" id="collections" style="color: inherit; text-decoration: none;">
+					<h1>collections</h1>
+				</a>
+				<p><img src="https://img.shields.io/github/license/michaelcoxon/collections.svg" alt="">
+				<a href="https://www.npmjs.com/package/@michaelcoxon/collections"><img src="https://img.shields.io/npm/dt/@michaelcoxon/collections.svg" alt="npm"></a></p>
+				<p>Collections for JS and TypeScript</p>
+				<p>Check out the tests for a more comprehesive doco.</p>
+				<a href="#note-for-typescript" id="note-for-typescript" style="color: inherit; text-decoration: none;">
+					<h3>Note for TypeScript</h3>
+				</a>
+				<p>If you are using TypeScript, the classes herein are generics. This means
+				you <em>should</em> construct them with a type parameter to use them.</p>
+				<p>For example:</p>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+<span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection&lt;number&gt;(myArray);</code></pre>
+				<p>If the type can be determined by the compiler (as in the example above) it
+					is not neccessary to explicitly define the type - doing it will just make
+				the code more readable.</p>
+				<p>All examples given in the documentation are JavaScript examples so that no-one
+				gets confused.</p>
+				<p>Just use this as you need to - sometimes it wont be neccessary - the examples
+				below will still work fine.</p>
+				<a href="#collection" id="collection" style="color: inherit; text-decoration: none;">
+					<h1>Collection</h1>
+				</a>
+				<p>This is the base class for <code>List</code> and <code>Queryable</code>. </p>
+				<p>A collection is immutable meaning you cannot modify it once it is created.
+				It only provides ways of iterating items and copying items to a new collection</p>
+				<a href="#constructors" id="constructors" style="color: inherit; text-decoration: none;">
+					<h2>Constructors</h2>
+				</a>
+				<p>You can create a new Collection from either a current
+				Collection, an array or nothing.</p>
+				<a href="#default-constructor" id="default-constructor" style="color: inherit; text-decoration: none;">
+					<h3>Default constructor</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection();</code></pre>
+				<a href="#array-constructor" id="array-constructor" style="color: inherit; text-decoration: none;">
+					<h3>Array constructor</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+<span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection(myArray);</code></pre>
+				<a href="#collection-constructor" id="collection-constructor" style="color: inherit; text-decoration: none;">
+					<h3>Collection constructor</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+<span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection(myArray);
+<span class="hljs-keyword">let</span> myCollection2 = <span class="hljs-keyword">new</span> Collection(myCollection);</code></pre>
+				<a href="#properties" id="properties" style="color: inherit; text-decoration: none;">
+					<h2>Properties</h2>
+				</a>
+				<a href="#count-number" id="count-number" style="color: inherit; text-decoration: none;">
+					<h3>count: number</h3>
+				</a>
+				<blockquote>
+					<p>Returns to number of items in the Collection.</p>
+				</blockquote>
+				<p>This will return a number greater than or equal to 0.</p>
+				<p><code>myCollection.count;</code></p>
+				<a href="#methods" id="methods" style="color: inherit; text-decoration: none;">
+					<h2>Methods</h2>
+				</a>
+				<a href="#copytointo-collection-void" id="copytointo-collection-void" style="color: inherit; text-decoration: none;">
+					<h3>copyTo(into: Collection): void</h3>
+				</a>
+				<blockquote>
+					<p>Copies the items from the current collection into another one.</p>
+				</blockquote>
+				<p>This appends the items from one collection into another.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
+<span class="hljs-keyword">let</span> myCollection2 = <span class="hljs-keyword">new</span> Collection([<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>]);
+
+<span class="hljs-comment">// copy the items from myCollection into myCollection2</span>
+myCollection.copyTo(myCollection2);
+
+<span class="hljs-comment">// the contents of myCollection2 will now be: [-1, 0, 1, 2, 3, 4]</span></code></pre>
+				<a href="#foreachcallback-value-any-index-number-gt-boolean--void-void" id="foreachcallback-value-any-index-number-gt-boolean--void-void" style="color: inherit; text-decoration: none;">
+					<h3>forEach(callback: (value: any, index: number) =&gt; boolean | void): void</h3>
+				</a>
+				<blockquote>
+					<p>Iterates over each item in the collection, performing the callback on
+					each item.</p>
+				</blockquote>
+				<p>Return <code>false</code> from your callback to break iteration. You do not have to
+					return anything if you do not want to break. You can return <code>true</code> to
+				continue iteration if required.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
+<span class="hljs-keyword">let</span> count = <span class="hljs-number">0</span>;
+
+<span class="hljs-comment">// iterate over each item, if the item is '3' then break.</span>
+myCollection.forEach(<span class="hljs-function">(<span class="hljs-params">value, index</span>) =&gt;</span>
+{
+    <span class="hljs-keyword">if</span> (value === <span class="hljs-number">3</span>)
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+    count++;
+});
+
+<span class="hljs-comment">// count will be equal to 2</span></code></pre>
+				<a href="#itemindex-number-any" id="itemindex-number-any" style="color: inherit; text-decoration: none;">
+					<h3>item(index: number): any</h3>
+				</a>
+				<blockquote>
+					<p>Returns the item at the index or throws an exception if the index is
+					out of bounds of the Collection.</p>
+				</blockquote>
+				<p><code>myCollection.item(6);</code></p>
+				<a href="#toarray-" id="toarray-" style="color: inherit; text-decoration: none;">
+					<h3>toArray(): []</h3>
+				</a>
+				<blockquote>
+					<p>Returns the contents of the collection as an array.</p>
+				</blockquote>
+				<p><code>myCollection.toArray();</code></p>
+				<a href="#extension-methods" id="extension-methods" style="color: inherit; text-decoration: none;">
+					<h2>Extension methods</h2>
+				</a>
+				<p>These methods will only work if you have included the module that they are in.
+					The module is the first part and the method is the second part in the docs
+				below using the pattern <code>{module}::{method}</code></p>
+				<a href="#enumeratorgetenumerator-enumerator" id="enumeratorgetenumerator-enumerator" style="color: inherit; text-decoration: none;">
+					<h3>Enumerator::getEnumerator(): Enumerator</h3>
+				</a>
+				<blockquote>
+					<p>Returns an Enumerator for a collection.</p>
+				</blockquote>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
+<span class="hljs-keyword">let</span> myCollectionEnumerator = myCollection.getEnumerator();</code></pre>
+				<a href="#enumerator" id="enumerator" style="color: inherit; text-decoration: none;">
+					<h1>Enumerator</h1>
+				</a>
+				<p>The enumerator class allows iteration of a collection or array.</p>
+				<p>An enumerator allows you to move incrementally through a collection or array
+				giving you the ability to <code>peek</code> at the next element or move to it.</p>
+				<a href="#constructors-1" id="constructors-1" style="color: inherit; text-decoration: none;">
+					<h2>Constructors</h2>
+				</a>
+				<p>You can create a new Enumerator from either a current
+				Collection or an array. </p>
+				<a href="#array-constructor-1" id="array-constructor-1" style="color: inherit; text-decoration: none;">
+					<h3>Array constructor</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+<span class="hljs-keyword">let</span> myEnumerator = <span class="hljs-keyword">new</span> Enumerator(myArray);</code></pre>
+				<a href="#collection-constructor-1" id="collection-constructor-1" style="color: inherit; text-decoration: none;">
+					<h3>Collection constructor</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+<span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection(myArray);
+<span class="hljs-keyword">let</span> myEnumerator = <span class="hljs-keyword">new</span> Enumerator(myCollection);</code></pre>
+				<a href="#properties-1" id="properties-1" style="color: inherit; text-decoration: none;">
+					<h2>Properties</h2>
+				</a>
+				<a href="#current-any" id="current-any" style="color: inherit; text-decoration: none;">
+					<h3>current: any</h3>
+				</a>
+				<blockquote>
+					<p>Returns the current item in the enumeration.</p>
+				</blockquote>
+				<p>This will throw an error if <code>moveNext()</code> is not called <strong>before</strong> it.</p>
+				<p>This will throw an error if the pointer is invalid (out of bounds).</p>
+				<p><code>myEnumerator.current;</code></p>
+				<a href="#methods-1" id="methods-1" style="color: inherit; text-decoration: none;">
+					<h2>Methods</h2>
+				</a>
+				<a href="#movenext-boolean" id="movenext-boolean" style="color: inherit; text-decoration: none;">
+					<h3>moveNext(): boolean</h3>
+				</a>
+				<blockquote>
+					<p>Increments the internal pointer of the Enumerator, essentially
+					moving to the next element in the Enumerator. </p>
+					<p>Returns a boolean value of whether there is another item in the
+					enumerator after this item.</p>
+				</blockquote>
+				<p>Returns <code>false</code> if there are no more elements in the enumerator.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
+<span class="hljs-keyword">let</span> myEnumerator = <span class="hljs-keyword">new</span> Enumerator(myCollection);
+
+<span class="hljs-comment">// iterate over each item, will break when there </span>
+<span class="hljs-comment">// are no more items left.</span>
+<span class="hljs-keyword">while</span> (myEnumerator.moveNext())
+{
+  <span class="hljs-comment">// do something here...</span>
+}</code></pre>
+				<a href="#peek-any" id="peek-any" style="color: inherit; text-decoration: none;">
+					<h3>peek(): any</h3>
+				</a>
+				<blockquote>
+					<p>Returns the next item in the enumerator without incrementing the internal
+					pointer.</p>
+				</blockquote>
+				<p>Will throw an exception if there is no item to &quot;peek&quot; at.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
+<span class="hljs-keyword">let</span> myEnumerator = <span class="hljs-keyword">new</span> Enumerator(myCollection);
+
+<span class="hljs-comment">// check out the first item, it will return 1</span>
+<span class="hljs-keyword">let</span> thisIsTheFirstElement = myEnumerator.peek();
+
+<span class="hljs-comment">// we can still iterate over the collection</span>
+<span class="hljs-keyword">while</span> (myEnumerator.moveNext())
+{
+  <span class="hljs-comment">// do something here...</span>
+}</code></pre>
+				<a href="#reset-void" id="reset-void" style="color: inherit; text-decoration: none;">
+					<h3>reset(): void</h3>
+				</a>
+				<blockquote>
+					<p>Moves the pointer back to the start of the enumerator as thought it were
+					freshly created</p>
+				</blockquote>
+				<p>You must call <code>moveNext()</code> after calling this as it resets the entire
+				iteration.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
+<span class="hljs-keyword">let</span> myEnumerator = <span class="hljs-keyword">new</span> Enumerator(myCollection);
+
+<span class="hljs-comment">// iterate over the collection</span>
+<span class="hljs-keyword">while</span> (myEnumerator.moveNext())
+{
+  <span class="hljs-comment">// do something here...</span>
+}
+
+<span class="hljs-comment">// reset the iteration</span>
+myEnumerator.reset();
+
+<span class="hljs-comment">// iterate over the collection again</span>
+<span class="hljs-keyword">while</span> (myEnumerator.moveNext())
+{
+  <span class="hljs-comment">// do something else here...</span>
+}</code></pre>
+				<a href="#list" id="list" style="color: inherit; text-decoration: none;">
+					<h1>List</h1>
+				</a>
+				<p>A list is a level above a collection. It allows you to add, remove, insert and
+				prepend items. Think of it as a mutable collection.</p>
+				<p>It inherits from Collection.</p>
+				<a href="#constructors-2" id="constructors-2" style="color: inherit; text-decoration: none;">
+					<h2>Constructors</h2>
+				</a>
+				<p>You can create a new List from either a current
+				Collection, an array or nothing.</p>
+				<a href="#default-constructor-1" id="default-constructor-1" style="color: inherit; text-decoration: none;">
+					<h3>Default constructor</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List();</code></pre>
+				<a href="#array-constructor-2" id="array-constructor-2" style="color: inherit; text-decoration: none;">
+					<h3>Array constructor</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+<span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List(myArray);</code></pre>
+				<a href="#collection-constructor-2" id="collection-constructor-2" style="color: inherit; text-decoration: none;">
+					<h3>Collection constructor</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+<span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection(myArray);
+<span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List(myCollection);</code></pre>
+				<a href="#properties-2" id="properties-2" style="color: inherit; text-decoration: none;">
+					<h2>Properties</h2>
+				</a>
+				<p>Inherits all properties from Collection.</p>
+				<a href="#methods-2" id="methods-2" style="color: inherit; text-decoration: none;">
+					<h2>Methods</h2>
+				</a>
+				<p>Inherits all methods from Collection.</p>
+				<a href="#addobj-any-void" id="addobj-any-void" style="color: inherit; text-decoration: none;">
+					<h3>add(obj: any): void</h3>
+				</a>
+				<blockquote>
+					<p>Adds an item to the List.</p>
+				</blockquote>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List();
+
+myList.add(<span class="hljs-number">1</span>);</code></pre>
+				<a href="#addrangearray--void" id="addrangearray--void" style="color: inherit; text-decoration: none;">
+					<h3>addRange(array: []): void</h3>
+				</a>
+				<blockquote>
+					<p>Adds a array of items to the end of the List.</p>
+				</blockquote>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List();
+
+myList.addRange([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);</code></pre>
+				<a href="#addrangecollection-collection-void" id="addrangecollection-collection-void" style="color: inherit; text-decoration: none;">
+					<h3>addRange(collection: Collection): void</h3>
+				</a>
+				<blockquote>
+					<p>Adds a collection of items to the end of the List.</p>
+				</blockquote>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List();
+<span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+
+myList.addRange(myCollection);</code></pre>
+				<a href="#clear-void" id="clear-void" style="color: inherit; text-decoration: none;">
+					<h3>clear(): void</h3>
+				</a>
+				<blockquote>
+					<p>Removes all items from the List.</p>
+				</blockquote>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+
+myList.clear();</code></pre>
+				<a href="#containsobj-any-isequivilent-boolean-boolean" id="containsobj-any-isequivilent-boolean-boolean" style="color: inherit; text-decoration: none;">
+					<h3>contains(obj: any, isEquivilent?: boolean): boolean</h3>
+				</a>
+				<blockquote>
+					<p>Returns true if the List contains the item. Setting <code>isEquivilent</code> will
+					compare each item as a JSON serilized object.</p>
+				</blockquote>
+				<p><code>isEquivilent</code> will essentially compare each item as a string. So even if they
+				are not the exact same item, by reference, they can be &#39;equal&#39;.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+
+myList.contains(<span class="hljs-number">2</span>); <span class="hljs-comment">// returns true</span>
+myList.contains(<span class="hljs-number">5</span>); <span class="hljs-comment">// returns false</span></code></pre>
+				<a href="#findobj-any-isequivilent-boolean--false-any--undefined" id="findobj-any-isequivilent-boolean--false-any--undefined" style="color: inherit; text-decoration: none;">
+					<h3>find(obj: any, isEquivilent: boolean = false): any | undefined</h3>
+				</a>
+				<blockquote>
+					<p>Returns the item if it is in the List or <code>undefined</code> if it is not. Setting <code>isEquivilent</code> will
+					compare each item as a JSON serilized object.</p>
+				</blockquote>
+				<p><code>isEquivilent</code> will essentially compare each item as a string. So even if they
+				are not the exact same item, by reference, they can be &#39;equal&#39;.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+
+myList.find(<span class="hljs-number">2</span>); <span class="hljs-comment">// returns 2</span>
+myList.find(<span class="hljs-number">5</span>); <span class="hljs-comment">// returns undefined</span></code></pre>
+				<a href="#findindexobj-any-isequivilent-boolean--false-number--undefined" id="findindexobj-any-isequivilent-boolean--false-number--undefined" style="color: inherit; text-decoration: none;">
+					<h3>findIndex(obj: any, isEquivilent: boolean = false): number | undefined</h3>
+				</a>
+				<blockquote>
+					<p>Returns the index of an item if it is in the List or <code>undefined</code> if it is not.
+					Setting <code>isEquivilent</code> will compare each item as a JSON serilized object.</p>
+				</blockquote>
+				<p><code>isEquivilent</code> will essentially compare each item as a string. So even if they
+				are not the exact same item, by reference, they can be &#39;equal&#39;.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+
+myList.findIndex(<span class="hljs-number">2</span>); <span class="hljs-comment">// returns 1</span>
+myList.findIndex(<span class="hljs-number">5</span>); <span class="hljs-comment">// returns undefined</span></code></pre>
+				<a href="#insertatobj-any-index-number-void" id="insertatobj-any-index-number-void" style="color: inherit; text-decoration: none;">
+					<h3>insertAt(obj: any, index: number): void</h3>
+				</a>
+				<blockquote>
+					<p>Inserts an item at the <code>index</code> and moves the subsequent items up 1 index.</p>
+				</blockquote>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+
+myList.insertAt(<span class="hljs-number">4</span>, <span class="hljs-number">2</span>); <span class="hljs-comment">// will now be [1, 2, 4, 3]</span></code></pre>
+				<a href="#prependobj-any-void" id="prependobj-any-void" style="color: inherit; text-decoration: none;">
+					<h3>prepend(obj: any): void</h3>
+				</a>
+				<blockquote>
+					<p>Inserts an item at the start and moves the subsequent items up 1 index.</p>
+				</blockquote>
+				<p>Shorthand for <code>myList.insertAt(obj, 0)</code>.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+
+myList.prepend(<span class="hljs-number">4</span>); <span class="hljs-comment">// will now be [4, 1, 2, 3]</span></code></pre>
+				<a href="#prependrangearray--void" id="prependrangearray--void" style="color: inherit; text-decoration: none;">
+					<h3>prependRange(array: []): void</h3>
+				</a>
+				<blockquote>
+					<p>Inserts an array of items at the start and moves the subsequent items up 1 index.</p>
+				</blockquote>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+
+myList.prependRange([<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]); <span class="hljs-comment">// will now be [4, 5, 6, 1, 2, 3]</span></code></pre>
+				<a href="#prependrangecollection-collection-void" id="prependrangecollection-collection-void" style="color: inherit; text-decoration: none;">
+					<h3>prependRange(collection: Collection): void</h3>
+				</a>
+				<blockquote>
+					<p>Inserts a collection of items at the start and moves the subsequent items up 1 index.</p>
+				</blockquote>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection([<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]);
+
+myList.prependRange(myCollection); <span class="hljs-comment">// will now be [4, 5, 6, 1, 2, 3]</span></code></pre>
+				<a href="#removeobj-any-void" id="removeobj-any-void" style="color: inherit; text-decoration: none;">
+					<h3>remove(obj: any): void</h3>
+				</a>
+				<blockquote>
+					<p>Removes an item from the List.</p>
+				</blockquote>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+
+myList.remove(<span class="hljs-number">1</span>); <span class="hljs-comment">// will now be [2, 3]</span></code></pre>
+				<a href="#removeatindex-number-void" id="removeatindex-number-void" style="color: inherit; text-decoration: none;">
+					<h3>removeAt(index: number): void</h3>
+				</a>
+				<blockquote>
+					<p>Removes an item at the <code>index</code> from the List.</p>
+				</blockquote>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+
+myList.removeAt(<span class="hljs-number">2</span>); <span class="hljs-comment">// will now be [1, 2]</span></code></pre>
+				<a href="#sortcomparer-icomparer-void" id="sortcomparer-icomparer-void" style="color: inherit; text-decoration: none;">
+					<h3>sort(comparer?: IComparer): void</h3>
+				</a>
+				<blockquote>
+					<p>Sorts the List using the provided <code>comparer</code>.</p>
+				</blockquote>
+				<a href="#queryable" id="queryable" style="color: inherit; text-decoration: none;">
+					<h1>Queryable</h1>
+				</a>
+				<p>The Queryable class is mostly fluent by design and allows chaining of
+				<em>query-like</em> methods to filter or aggregate an array or collection.</p>
+				<ul>
+					<li>It has been modelled off of the .NET Fluent LINQ extension methods.</li>
+					<li>It inherits from Collection.</li>
+					<li>As with collections, queryables are immutable - <strong>Every method returns
+					a new Queryable if it returns a Queryable</strong></li>
+				</ul>
+				<a href="#predicate-type" id="predicate-type" style="color: inherit; text-decoration: none;">
+					<h2>Predicate type</h2>
+				</a>
+				<p>A Predicate is a delegate method that takes an item of the queryable as
+				the argument, and returns a boolean value.</p>
+				<p>This is used on the <code>all</code>, <code>any</code> and <code>where</code> methods of Queryable.</p>
+				<p><code>Predicate = (item: any) =&gt; boolean</code></p>
+				<a href="#constructors-3" id="constructors-3" style="color: inherit; text-decoration: none;">
+					<h2>Constructors</h2>
+				</a>
+				<p>You can create a new Queryable from either a current
+				Collection, an array or nothing.</p>
+				<a href="#default-constructor-2" id="default-constructor-2" style="color: inherit; text-decoration: none;">
+					<h3>Default constructor</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myList = <span class="hljs-keyword">new</span> List();</code></pre>
+				<a href="#array-constructor-3" id="array-constructor-3" style="color: inherit; text-decoration: none;">
+					<h3>Array constructor</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+<span class="hljs-keyword">let</span> myQueryable = <span class="hljs-keyword">new</span> Queryable(myArray);</code></pre>
+				<a href="#collection-constructor-3" id="collection-constructor-3" style="color: inherit; text-decoration: none;">
+					<h3>Collection constructor</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+<span class="hljs-keyword">let</span> myCollection = <span class="hljs-keyword">new</span> Collection(myArray);
+<span class="hljs-keyword">let</span> myQueryable = <span class="hljs-keyword">new</span> Queryable(myCollection);</code></pre>
+				<a href="#properties-3" id="properties-3" style="color: inherit; text-decoration: none;">
+					<h2>Properties</h2>
+				</a>
+				<p>Inherits all properties from Collection.</p>
+				<a href="#methods-3" id="methods-3" style="color: inherit; text-decoration: none;">
+					<h2>Methods</h2>
+				</a>
+				<p>Inherits all methods from Collection.</p>
+				<a href="#allpredicate-predicate-boolean" id="allpredicate-predicate-boolean" style="color: inherit; text-decoration: none;">
+					<h3>all(predicate: Predicate): boolean</h3>
+				</a>
+				<blockquote>
+					<p>Returns <code>true</code> if all the items match the <code>predicate</code>.</p>
+				</blockquote>
+				<a href="#any-boolean" id="any-boolean" style="color: inherit; text-decoration: none;">
+					<h3>any(): boolean</h3>
+				</a>
+				<blockquote>
+					<p>Returns <code>true</code> if the Queryable contains elements</p>
+				</blockquote>
+				<pre><code class="language-js"><span class="hljs-keyword">if</span>(myQueryable.any())
+{
+  <span class="hljs-comment">// do something because the queryable has elements</span>
+}</code></pre>
+				<a href="#anypredicate-predicate-boolean" id="anypredicate-predicate-boolean" style="color: inherit; text-decoration: none;">
+					<h3>any(predicate: Predicate): boolean</h3>
+				</a>
+				<blockquote>
+					<p>Returns <code>true</code> if any of the elements satisfy the <code>predicate</code>.</p>
+				</blockquote>
+				<pre><code class="language-js"><span class="hljs-keyword">let</span> myQueryable = <span class="hljs-keyword">new</span> Queryable([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
+<span class="hljs-keyword">if</span>(myQueryable.any(<span class="hljs-function">(<span class="hljs-params">i</span>) =&gt;</span> i == <span class="hljs-number">2</span>))
+{
+  <span class="hljs-comment">// the queryable contains a '2'</span>
+}</code></pre>
+				<a href="#averagepropertyname-string-number" id="averagepropertyname-string-number" style="color: inherit; text-decoration: none;">
+					<h3>average(propertyName: string): number</h3>
+				</a>
+				<a href="#averageselector-a-any-gt-number" id="averageselector-a-any-gt-number" style="color: inherit; text-decoration: none;">
+					<h3>average(selector: (a: any) =&gt; number)</h3>
+				</a>
+				<a href="#clone-queryable" id="clone-queryable" style="color: inherit; text-decoration: none;">
+					<h3>clone(): Queryable</h3>
+				</a>
+				<a href="#distinctpropertyname-string-queryable" id="distinctpropertyname-string-queryable" style="color: inherit; text-decoration: none;">
+					<h3>distinct(propertyName: string): Queryable</h3>
+				</a>
+				<a href="#distinctselector-a-any-gt-any-queryable" id="distinctselector-a-any-gt-any-queryable" style="color: inherit; text-decoration: none;">
+					<h3>distinct(selector: (a: any) =&gt; any): Queryable</h3>
+				</a>
+				<a href="#first-any" id="first-any" style="color: inherit; text-decoration: none;">
+					<h3>first(): any</h3>
+				</a>
+				<a href="#firstordefault-any--null" id="firstordefault-any--null" style="color: inherit; text-decoration: none;">
+					<h3>firstOrDefault(): any | null</h3>
+				</a>
+				<a href="#groupbypropertyname-string-queryable" id="groupbypropertyname-string-queryable" style="color: inherit; text-decoration: none;">
+					<h3>groupBy(propertyName: string): Queryable</h3>
+				</a>
+				<a href="#groupbykeyselector-a-any-gt-any-queryable" id="groupbykeyselector-a-any-gt-any-queryable" style="color: inherit; text-decoration: none;">
+					<h3>groupBy(keySelector: (a: any) =&gt; any): Queryable</h3>
+				</a>
+				<a href="#maxpropertyname-string-number" id="maxpropertyname-string-number" style="color: inherit; text-decoration: none;">
+					<h3>max(propertyName: string): number</h3>
+				</a>
+				<a href="#maxselector-a-any-gt-number-number" id="maxselector-a-any-gt-number-number" style="color: inherit; text-decoration: none;">
+					<h3>max(selector: (a: any) =&gt; number): number</h3>
+				</a>
+				<a href="#minpropertyname-string-number" id="minpropertyname-string-number" style="color: inherit; text-decoration: none;">
+					<h3>min(propertyName: string): number</h3>
+				</a>
+				<a href="#minselector-a-any-gt-number-number" id="minselector-a-any-gt-number-number" style="color: inherit; text-decoration: none;">
+					<h3>min(selector: (a: any) =&gt; number): number</h3>
+				</a>
+				<a href="#oftypector-constructor-queryable" id="oftypector-constructor-queryable" style="color: inherit; text-decoration: none;">
+					<h3>ofType(ctor: Constructor): Queryable</h3>
+				</a>
+				<a href="#orderbypropertyname-k-comparer-icomparer-queryable" id="orderbypropertyname-k-comparer-icomparer-queryable" style="color: inherit; text-decoration: none;">
+					<h3>orderBy(propertyName: K, comparer?: IComparer): Queryable</h3>
+				</a>
+				<a href="#orderbyselector-a-t-gt-r-comparer-icomparer-queryable" id="orderbyselector-a-t-gt-r-comparer-icomparer-queryable" style="color: inherit; text-decoration: none;">
+					<h3>orderBy(selector: (a: T) =&gt; R, comparer?: IComparer): Queryable</h3>
+				</a>
+				<a href="#orderbydescendingpropertyname-k-comparer-icomparer-queryable" id="orderbydescendingpropertyname-k-comparer-icomparer-queryable" style="color: inherit; text-decoration: none;">
+					<h3>orderByDescending(propertyName: K, comparer?: IComparer): Queryable</h3>
+				</a>
+				<a href="#orderbydescendingselector-a-any-gt-any-comparer-icomparer-queryable" id="orderbydescendingselector-a-any-gt-any-comparer-icomparer-queryable" style="color: inherit; text-decoration: none;">
+					<h3>orderByDescending(selector: (a: any) =&gt; any, comparer?: IComparer): Queryable</h3>
+				</a>
+				<a href="#skipcount-number-queryable" id="skipcount-number-queryable" style="color: inherit; text-decoration: none;">
+					<h3>skip(count: number): Queryable</h3>
+				</a>
+				<a href="#selectpropertyname-string-queryable" id="selectpropertyname-string-queryable" style="color: inherit; text-decoration: none;">
+					<h3>select(propertyName: string): Queryable</h3>
+				</a>
+				<a href="#selectselector-a-any-gt-any-queryable" id="selectselector-a-any-gt-any-queryable" style="color: inherit; text-decoration: none;">
+					<h3>select(selector: (a: any) =&gt; any): Queryable</h3>
+				</a>
+				<a href="#sumpropertyname-string-number" id="sumpropertyname-string-number" style="color: inherit; text-decoration: none;">
+					<h3>sum(propertyName: string): number</h3>
+				</a>
+				<blockquote>
+					<p>Returns the sum of numbers designated by the <code>propertyName</code>.</p>
+				</blockquote>
+				<p>Useful for getting totals of a dataset.</p>
+				<a href="#sumselector-a-any-gt-number-number" id="sumselector-a-any-gt-number-number" style="color: inherit; text-decoration: none;">
+					<h3>sum(selector: (a: any) =&gt; number): number</h3>
+				</a>
+				<blockquote>
+					<p>Returns the sum of numbers returned by the <code>selector</code>.</p>
+				</blockquote>
+				<p>Useful for getting totals of a dataset.</p>
+				<a href="#takecount-number-queryable" id="takecount-number-queryable" style="color: inherit; text-decoration: none;">
+					<h3>take(count: number): Queryable</h3>
+				</a>
+				<blockquote>
+					<p>Returns a Queryable that subset of the items from 0 to <code>count</code></p>
+				</blockquote>
+				<a href="#wherepredicate-predicate-queryable" id="wherepredicate-predicate-queryable" style="color: inherit; text-decoration: none;">
+					<h3>where(predicate: Predicate): Queryable</h3>
+				</a>
+				<blockquote>
+					<p>Returns a Queryable of the items that match the predicate</p>
+				</blockquote>
+				<p>Used to filter a dataset.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_comparers_caseinsensitivestringcomparer_.html">"<wbr>Comparers/<wbr>Case<wbr>Insensitive<wbr>String<wbr>Comparer"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_comparers_customcomparer_.html">"<wbr>Comparers/<wbr>Custom<wbr>Comparer"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_comparers_defaultcomparer_.html">"<wbr>Comparers/<wbr>Default<wbr>Comparer"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_comparers_mapcomparer_.html">"<wbr>Comparers/<wbr>Map<wbr>Comparer"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_comparers_reversecomparer_.html">"<wbr>Comparers/<wbr>Reverse<wbr>Comparer"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_enumerables_.html">"<wbr>Enumerables"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_enumerators_.html">"<wbr>Enumerators"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_icollection_.html">"<wbr>Interfaces/ICollection"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_icomparer_.html">"<wbr>Interfaces/IComparer"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_idictionary_.html">"<wbr>Interfaces/IDictionary"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_ienumerable_.html">"<wbr>Interfaces/IEnumerable"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_ienumerator_.html">"<wbr>Interfaces/IEnumerator"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_iequalitycomparer_.html">"<wbr>Interfaces/IEquality<wbr>Comparer"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_ilist_.html">"<wbr>Interfaces/IList"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_iqueryable_.html">"<wbr>Interfaces/IQueryable"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_iqueryablegroup_.html">"<wbr>Interfaces/IQueryable<wbr>Group"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_ireadonlycollection_.html">"<wbr>Interfaces/IRead<wbr>Only<wbr>Collection"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_iset_.html">"<wbr>Interfaces/ISet"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_linkedlist_.html">"<wbr>Linked<wbr>List"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_queryables_enumerablequeryable_.html">"<wbr>Queryables/<wbr>Enumerable<wbr>Queryable"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_set_.html">"<wbr>Set"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_types_.html">"<wbr>Types"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utilities_.html">"<wbr>Utilities"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_.html">"index"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

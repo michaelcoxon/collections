@@ -1,6 +1,6 @@
-﻿import { IEnumerator } from "./Interfaces/IEnumerator";
+﻿import { IEnumerator, IAsyncEnumerator } from "./Interfaces/IEnumerator";
 import { KeyValuePair } from "./Types";
-import { Undefinable, OutOfBoundsException, ILogger, ArgumentException, Exception, Selector, Predicate, isUndefinedOrNull, NullReferenceException } from "@michaelcoxon/utilities";
+import { Undefinable, OutOfBoundsException, ILogger, ArgumentException, Exception, Selector, Predicate, isUndefinedOrNull, NullReferenceException, Promisable } from "@michaelcoxon/utilities";
 import { IDictionary } from "./Interfaces/IDictionary";
 
 export class ArrayEnumerator<T> implements IEnumerator<T>
@@ -507,5 +507,49 @@ export class AggregateEnumerator<T, TReturn> implements IEnumerator<TReturn>
     {
         this._enumerator.reset();
         this._accumulate = undefined;
+    }
+}
+
+export class AsyncEnumerator<T> implements IAsyncEnumerator<T>
+{
+    // the internal array
+    private readonly _baseArray: Promisable<T>[];
+
+    // current pointer location
+    private _pointer: number = -1;
+    private _current?: T;
+
+    constructor(array: Promisable<T>[])
+    {
+        this._baseArray = array;
+    }
+
+    // returns the current element
+    public get current(): T
+    {
+        if (!isUndefinedOrNull(this._current) && this._pointer < this._baseArray.length && this._pointer >= 0)
+        {
+            return this._current;
+        }
+        throw new OutOfBoundsException("internal pointer", 0, this._baseArray.length - 1);
+    }
+
+    public async moveNextAsync(): Promise<boolean>
+    {
+        if (this._pointer < this._baseArray.length)
+        {
+            this._pointer++;
+        }
+
+        if (this._pointer < this._baseArray.length)
+        {
+            this._current = await this._baseArray[this._pointer];
+            return true;
+        }
+        else
+        {
+            this._current = undefined;
+            return false;
+        }
     }
 }

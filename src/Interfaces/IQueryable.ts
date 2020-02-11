@@ -63,6 +63,16 @@ export interface IQueryable<T> extends IEnumerable<T>
      */
     groupBy<TKey>(keySelector: Selector<T, TKey>, comparer: IComparer<TKey>): IQueryable<IQueryableGroup<T, TKey>>;
 
+
+    //   /**
+    //    * Returns a join aggregate of the inner to the current
+    //    * @param inner
+    //    * @param outerKeySelector
+    //    * @param innerKeySelector
+    //    * @param resultSelector
+    //    */
+    //   join<TInner, TKey, TResult>(inner: IQueryable<TInner>, outerKeySelector: (o:T) => TKey, innerKeySelector: (i:TInner) => TKey, resultSelector: (o:T, i:TInner) => TResult): IQueryable<TResult>;
+
     /** Returns the last item in the queryable */
     last(): T;
 

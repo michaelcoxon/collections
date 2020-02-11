@@ -17,7 +17,7 @@ DtsBundlePlugin.prototype.apply = function (compiler)
 
         dts.bundle({
             name: libraryName,
-            main: 'lib/index.d.ts',
+            main: `${libDir}/index.d.ts`,
             out: `.${bundleOutputDir}/index.d.ts`,
             outputAsModuleFolder: true // to use npm in-package typings
         });
@@ -27,7 +27,7 @@ DtsBundlePlugin.prototype.apply = function (compiler)
 
 module.exports = () =>
 {
-    const env = process.env.NODE_ENV.trim();
+    const env = process.env.NODE_ENV && process.env.NODE_ENV.trim();
     const isDevBuild = !(env && env === 'production');
 
     return [{
@@ -51,7 +51,16 @@ module.exports = () =>
                 {
                     test: /\.ts$/,
                     include: /src/,
-                    use: 'awesome-typescript-loader?configFileName=./src/config/es5/tsconfig.json'
+                    use: [
+                        {
+                            loader: 'babel-loader',
+                            options: {
+                                presets: ['@babel/preset-env']
+                                //plugins: ['@babel/plugin-transform-runtime']
+                            }
+                        },
+                        'awesome-typescript-loader?configFileName=./src/config/esnext/tsconfig.json'
+                    ]
                 }
             ]
         },

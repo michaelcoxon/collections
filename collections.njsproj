@@ -4,7 +4,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{89925f06-dee7-4218-ac9c-f28824a53276}</ProjectGuid>
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectHome />
+    <ProjectView>ProjectFiles</ProjectView>
+    <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
@@ -26,9 +28,10 @@
     <Content Include=".nojekyll" />
     <Content Include=".npmignore" />
     <Content Include="src\Comparers\MapComparer.ts" />
-    <Content Include="src\config\es2015\tsconfig.json" />
+    <Content Include="src\config\esnext\tsconfig.json" />
     <Content Include="src\config\es5\tsconfig.json" />
     <Content Include="src\config\es6\tsconfig.json" />
+    <Content Include="test\mocha.opts" />
     <Content Include="tsconfig.json" />
     <Content Include="LICENSE" />
     <Content Include="package.json" />
@@ -39,13 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\config\" />
-    <Folder Include="src\config\es2015\" />
+    <Folder Include="src\config\esnext\" />
     <Folder Include="src\config\es5\" />
     <Folder Include="src\config\es6\" />
     <Folder Include="src\Comparers\" />
     <Folder Include="src\Interfaces\" />
     <Folder Include="src\Queryables\" />
-    <Folder Include="tests\" />
+    <Folder Include="test\" />
     <Folder Include="src\" />
   </ItemGroup>
   <ItemGroup>
@@ -75,29 +78,29 @@
     <TypeScriptCompile Include="src\Set.ts" />
     <TypeScriptCompile Include="src\Types.ts" />
     <TypeScriptCompile Include="src\Utilities.ts" />
-    <TypeScriptCompile Include="tests\Collection.spec.ts">
+    <TypeScriptCompile Include="test\Collection.spec.ts">
       <SubType>Code</SubType>
       <TestFramework>Mocha</TestFramework>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="tests\CaseInsensitiveStringComparer.spec.ts" />
-    <TypeScriptCompile Include="tests\DefaultStringComparer.spec.ts" />
-    <TypeScriptCompile Include="tests\Enumerable.spec.ts">
+    <TypeScriptCompile Include="test\CaseInsensitiveStringComparer.spec.ts" />
+    <TypeScriptCompile Include="test\DefaultStringComparer.spec.ts" />
+    <TypeScriptCompile Include="test\Enumerable.spec.ts">
       <SubType>Code</SubType>
       <TestFramework>Mocha</TestFramework>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="tests\ArrayEnumerator.spec.ts">
+    <TypeScriptCompile Include="test\ArrayEnumerator.spec.ts">
       <SubType>Code</SubType>
       <TestFramework>Mocha</TestFramework>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="tests\List.spec.ts">
+    <TypeScriptCompile Include="test\List.spec.ts">
       <SubType>Code</SubType>
       <TestFramework>Mocha</TestFramework>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="tests\DefaultNumberComparer.spec.ts">
+    <TypeScriptCompile Include="test\DefaultNumberComparer.spec.ts">
       <SubType>Code</SubType>
       <TestFramework>Mocha</TestFramework>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="tests\Queryable.spec.ts">
+    <TypeScriptCompile Include="test\Queryable.spec.ts">
       <SubType>Code</SubType>
       <TestFramework>Mocha</TestFramework>
     </TypeScriptCompile>

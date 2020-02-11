@@ -1,9 +1,8 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "outDir": "../../../lib",
-    "declaration": true,
-    "declarationDir": "../../../lib",
+    "outDir": "../../../lib.es5",
+    "declaration": false,
     "target": "es5"
   },
   "include": [
