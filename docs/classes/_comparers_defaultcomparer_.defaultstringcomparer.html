@@ -81,6 +81,7 @@
 				<h3>Implements</h3>
 				<ul class="tsd-hierarchy">
 					<li><a href="../interfaces/_interfaces_icomparer_.icomparer.html" class="tsd-signature-type">IComparer</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li><a href="../interfaces/_interfaces_iequalitycomparer_.iequalitycomparer.html" class="tsd-signature-type">IEqualityComparer</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -92,6 +93,10 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_comparers_defaultcomparer_.defaultstringcomparer.html#compare" class="tsd-kind-icon">compare</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_comparers_defaultcomparer_.defaultstringcomparer.html#equals" class="tsd-kind-icon">equals</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_comparers_defaultcomparer_.defaultstringcomparer.html#greaterthan" class="tsd-kind-icon">greater<wbr>Than</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_comparers_defaultcomparer_.defaultstringcomparer.html#greaterthanorequal" class="tsd-kind-icon">greater<wbr>Than<wbr>OrEqual</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_comparers_defaultcomparer_.defaultstringcomparer.html#lessthan" class="tsd-kind-icon">less<wbr>Than</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_comparers_defaultcomparer_.defaultstringcomparer.html#lessthanorequal" class="tsd-kind-icon">less<wbr>Than<wbr>OrEqual</a></li>
 							</ul>
 						</section>
 					</div>
@@ -109,7 +114,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Comparers/DefaultComparer.ts#L41">Comparers/DefaultComparer.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Comparers/DefaultComparer.ts#L62">Comparers/DefaultComparer.ts:62</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -135,7 +140,111 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Comparers/DefaultComparer.ts#L56">Comparers/DefaultComparer.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Comparers/DefaultComparer.ts#L77">Comparers/DefaultComparer.ts:77</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>y: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="greaterthan" class="tsd-anchor"></a>
+					<h3>greater<wbr>Than</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">greater<wbr>Than<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Comparers/DefaultComparer.ts#L82">Comparers/DefaultComparer.ts:82</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>y: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="greaterthanorequal" class="tsd-anchor"></a>
+					<h3>greater<wbr>Than<wbr>OrEqual</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">greater<wbr>Than<wbr>OrEqual<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Comparers/DefaultComparer.ts#L87">Comparers/DefaultComparer.ts:87</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>y: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="lessthan" class="tsd-anchor"></a>
+					<h3>less<wbr>Than</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">less<wbr>Than<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Comparers/DefaultComparer.ts#L92">Comparers/DefaultComparer.ts:92</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>y: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="lessthanorequal" class="tsd-anchor"></a>
+					<h3>less<wbr>Than<wbr>OrEqual</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">less<wbr>Than<wbr>OrEqual<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Comparers/DefaultComparer.ts#L97">Comparers/DefaultComparer.ts:97</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -160,9 +269,6 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_basecollections_.html">"<wbr>Base<wbr>Collections"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="../modules/_comparers_caseinsensitivestringcomparer_.html">"<wbr>Comparers/<wbr>Case<wbr>Insensitive<wbr>String<wbr>Comparer"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -176,9 +282,6 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_comparers_reversecomparer_.html">"<wbr>Comparers/<wbr>Reverse<wbr>Comparer"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_dictionary_.html">"<wbr>Dictionary"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_enumerables_.html">"<wbr>Enumerables"</a>
@@ -200,6 +303,9 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interfaces_ienumerator_.html">"<wbr>Interfaces/IEnumerator"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_interfaces_iequalitycomparer_.html">"<wbr>Interfaces/IEquality<wbr>Comparer"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interfaces_ilist_.html">"<wbr>Interfaces/IList"</a>
@@ -244,7 +350,7 @@
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_comparers_defaultcomparer_.defaultnumbercomparer.html" class="tsd-kind-icon">Default<wbr>Number<wbr>Comparer</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="_comparers_defaultcomparer_.defaultobjectcomparer.html" class="tsd-kind-icon">Default<wbr>Object<wbr>Comparer</a>
 					</li>
 				</ul>
@@ -257,6 +363,18 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_comparers_defaultcomparer_.defaultstringcomparer.html#equals" class="tsd-kind-icon">equals</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_comparers_defaultcomparer_.defaultstringcomparer.html#greaterthan" class="tsd-kind-icon">greater<wbr>Than</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_comparers_defaultcomparer_.defaultstringcomparer.html#greaterthanorequal" class="tsd-kind-icon">greater<wbr>Than<wbr>OrEqual</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_comparers_defaultcomparer_.defaultstringcomparer.html#lessthan" class="tsd-kind-icon">less<wbr>Than</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_comparers_defaultcomparer_.defaultstringcomparer.html#lessthanorequal" class="tsd-kind-icon">less<wbr>Than<wbr>OrEqual</a>
 							</li>
 						</ul>
 					</li>
@@ -288,6 +406,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -336,7 +455,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

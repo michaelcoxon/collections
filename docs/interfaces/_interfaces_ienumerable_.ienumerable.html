@@ -108,15 +108,18 @@
 			<section class="tsd-panel">
 				<h3>Implemented by</h3>
 				<ul class="tsd-hierarchy">
-					<li><a href="../classes/_basecollections_.arrayenumerable.html" class="tsd-signature-type">ArrayEnumerable</a></li>
-					<li><a href="../classes/_basecollections_.collection.html" class="tsd-signature-type">Collection</a></li>
-					<li><a href="../classes/_basecollections_.collection.html" class="tsd-signature-type">Collection</a></li>
-					<li><a href="../classes/_dictionary_.dictionary.html" class="tsd-signature-type">Dictionary</a></li>
-					<li><a href="../classes/_enumerables_.enumerable.html" class="tsd-signature-type">Enumerable</a></li>
+					<li><a href="../classes/_enumerables_.aggregateenumerable.html" class="tsd-signature-type">AggregateEnumerable</a></li>
+					<li><a href="../classes/_enumerables_.arrayenumerable.html" class="tsd-signature-type">ArrayEnumerable</a></li>
+					<li><a href="../classes/_enumerables_.collection.html" class="tsd-signature-type">Collection</a></li>
+					<li><a href="../classes/_enumerables_.collection.html" class="tsd-signature-type">Collection</a></li>
+					<li><a href="../classes/_enumerables_.dictionary.html" class="tsd-signature-type">Dictionary</a></li>
+					<li><a href="../classes/_enumerables_.dictionary.html" class="tsd-signature-type">Dictionary</a></li>
+					<li><a href="../classes/_enumerables_.enumerablebase.html" class="tsd-signature-type">EnumerableBase</a></li>
+					<li><a href="../classes/_enumerables_.enumeratorenumerable.html" class="tsd-signature-type">EnumeratorEnumerable</a></li>
 					<li><a href="../classes/_linkedlist_.linkedlist.html" class="tsd-signature-type">LinkedList</a></li>
-					<li><a href="../classes/_basecollections_.list.html" class="tsd-signature-type">List</a></li>
-					<li><a href="../classes/_basecollections_.list.html" class="tsd-signature-type">List</a></li>
-					<li><a href="../classes/_basecollections_.list.html" class="tsd-signature-type">List</a></li>
+					<li><a href="../classes/_enumerables_.list.html" class="tsd-signature-type">List</a></li>
+					<li><a href="../classes/_enumerables_.list.html" class="tsd-signature-type">List</a></li>
+					<li><a href="../classes/_enumerables_.list.html" class="tsd-signature-type">List</a></li>
 					<li><a href="../classes/_enumerables_.rangeenumerable.html" class="tsd-signature-type">RangeEnumerable</a></li>
 					<li><a href="../classes/_enumerables_.selectenumerable.html" class="tsd-signature-type">SelectEnumerable</a></li>
 					<li><a href="../classes/_set_.set.html" class="tsd-signature-type">Set</a></li>
@@ -132,11 +135,15 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_ienumerable_.ienumerable.html#append" class="tsd-kind-icon">append</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_ienumerable_.ienumerable.html#asqueryable" class="tsd-kind-icon">as<wbr>Queryable</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_ienumerable_.ienumerable.html#concat" class="tsd-kind-icon">concat</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_ienumerable_.ienumerable.html#contains" class="tsd-kind-icon">contains</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_ienumerable_.ienumerable.html#foreach" class="tsd-kind-icon">for<wbr>Each</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_ienumerable_.ienumerable.html#getenumerator" class="tsd-kind-icon">get<wbr>Enumerator</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_ienumerable_.ienumerable.html#item" class="tsd-kind-icon">item</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter"><a href="_interfaces_ienumerable_.ienumerable.html#oftype" class="tsd-kind-icon">of<wbr>Type</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_ienumerable_.ienumerable.html#prepend" class="tsd-kind-icon">prepend</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_ienumerable_.ienumerable.html#toarray" class="tsd-kind-icon">to<wbr>Array</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter"><a href="_interfaces_ienumerable_.ienumerable.html#todictionary" class="tsd-kind-icon">to<wbr>Dictionary</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_ienumerable_.ienumerable.html#tolist" class="tsd-kind-icon">to<wbr>List</a></li>
@@ -148,6 +155,29 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="append" class="tsd-anchor"></a>
+					<h3>append</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">append<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IEnumerable.ts#L14">Interfaces/IEnumerable.ts:14</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>item: <span class="tsd-signature-type">T</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="asqueryable" class="tsd-anchor"></a>
 					<h3>as<wbr>Queryable</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
@@ -157,15 +187,56 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Interfaces/IEnumerable.ts#L11">Interfaces/IEnumerable.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IEnumerable.ts#L17">Interfaces/IEnumerable.ts:17</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns the current IEnumerable as a queryable object</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_interfaces_iqueryable_.iqueryable.html" class="tsd-signature-type">IQueryable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="concat" class="tsd-anchor"></a>
+					<h3>concat</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">concat<span class="tsd-signature-symbol">(</span>next<span class="tsd-signature-symbol">: </span><a href="_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IEnumerable.ts#L24">Interfaces/IEnumerable.ts:24</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>next: <a href="_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="contains" class="tsd-anchor"></a>
+					<h3>contains</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">contains<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IEnumerable.ts#L30">Interfaces/IEnumerable.ts:30</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>item: <span class="tsd-signature-type">T</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -179,20 +250,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Interfaces/IEnumerable.ts#L17">Interfaces/IEnumerable.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IEnumerable.ts#L36">Interfaces/IEnumerable.ts:36</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Iterates over the enumerable and performs the callback on each item. Return false to break.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>callback: <span class="tsd-signature-type">function</span></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
 											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
@@ -233,14 +297,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Interfaces/IEnumerable.ts#L20">Interfaces/IEnumerable.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IEnumerable.ts#L39">Interfaces/IEnumerable.ts:39</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>returns an Enumerator for the items</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_interfaces_ienumerator_.ienumerator.html" class="tsd-signature-type">IEnumerator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -255,21 +314,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Interfaces/IEnumerable.ts#L26">Interfaces/IEnumerable.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IEnumerable.ts#L45">Interfaces/IEnumerable.ts:45</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns the item at the specified index</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>index: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The index of the item to return</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Undefinable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -286,14 +337,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Interfaces/IEnumerable.ts#L32">Interfaces/IEnumerable.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IEnumerable.ts#L51">Interfaces/IEnumerable.ts:51</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns the item that match the type</p>
-								</div>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -304,12 +350,32 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>ctor: <span class="tsd-signature-type">ConstructorFor</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>the constructor for the type to match</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="prepend" class="tsd-anchor"></a>
+					<h3>prepend</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">prepend<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IEnumerable.ts#L57">Interfaces/IEnumerable.ts:57</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>item: <span class="tsd-signature-type">T</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -323,14 +389,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Interfaces/IEnumerable.ts#L35">Interfaces/IEnumerable.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IEnumerable.ts#L60">Interfaces/IEnumerable.ts:60</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns the items as an array</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 					</ul>
@@ -345,7 +406,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Interfaces/IEnumerable.ts#L37">Interfaces/IEnumerable.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IEnumerable.ts#L62">Interfaces/IEnumerable.ts:62</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -416,14 +477,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Interfaces/IEnumerable.ts#L40">Interfaces/IEnumerable.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IEnumerable.ts#L65">Interfaces/IEnumerable.ts:65</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns the items as a List</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_interfaces_ilist_.ilist.html" class="tsd-signature-type">IList</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -435,9 +491,6 @@
 				<ul>
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_basecollections_.html">"<wbr>Base<wbr>Collections"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_comparers_caseinsensitivestringcomparer_.html">"<wbr>Comparers/<wbr>Case<wbr>Insensitive<wbr>String<wbr>Comparer"</a>
@@ -453,9 +506,6 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_comparers_reversecomparer_.html">"<wbr>Comparers/<wbr>Reverse<wbr>Comparer"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_dictionary_.html">"<wbr>Dictionary"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_enumerables_.html">"<wbr>Enumerables"</a>
@@ -477,6 +527,9 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interfaces_ienumerator_.html">"<wbr>Interfaces/IEnumerator"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_interfaces_iequalitycomparer_.html">"<wbr>Interfaces/IEquality<wbr>Comparer"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interfaces_ilist_.html">"<wbr>Interfaces/IList"</a>
@@ -521,7 +574,16 @@
 						<a href="_interfaces_ienumerable_.ienumerable.html" class="tsd-kind-icon">IEnumerable</a>
 						<ul>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_interfaces_ienumerable_.ienumerable.html#append" class="tsd-kind-icon">append</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_interfaces_ienumerable_.ienumerable.html#asqueryable" class="tsd-kind-icon">as<wbr>Queryable</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_interfaces_ienumerable_.ienumerable.html#concat" class="tsd-kind-icon">concat</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_interfaces_ienumerable_.ienumerable.html#contains" class="tsd-kind-icon">contains</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_interfaces_ienumerable_.ienumerable.html#foreach" class="tsd-kind-icon">for<wbr>Each</a>
@@ -534,6 +596,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
 								<a href="_interfaces_ienumerable_.ienumerable.html#oftype" class="tsd-kind-icon">of<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_interfaces_ienumerable_.ienumerable.html#prepend" class="tsd-kind-icon">prepend</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_interfaces_ienumerable_.ienumerable.html#toarray" class="tsd-kind-icon">to<wbr>Array</a>
@@ -565,6 +630,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -613,7 +679,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

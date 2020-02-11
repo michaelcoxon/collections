@@ -120,8 +120,10 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_set_.set.html#add" class="tsd-kind-icon">add</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_set_.set.html#append" class="tsd-kind-icon">append</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_set_.set.html#asqueryable" class="tsd-kind-icon">as<wbr>Queryable</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_set_.set.html#clear" class="tsd-kind-icon">clear</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_set_.set.html#concat" class="tsd-kind-icon">concat</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_set_.set.html#contains" class="tsd-kind-icon">contains</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_set_.set.html#copyto" class="tsd-kind-icon">copy<wbr>To</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_set_.set.html#exceptwith" class="tsd-kind-icon">except<wbr>With</a></li>
@@ -133,6 +135,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_set_.set.html#item" class="tsd-kind-icon">item</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_set_.set.html#oftype" class="tsd-kind-icon">of<wbr>Type</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_set_.set.html#overlaps" class="tsd-kind-icon">overlaps</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_set_.set.html#prepend" class="tsd-kind-icon">prepend</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_set_.set.html#remove" class="tsd-kind-icon">remove</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_set_.set.html#setequals" class="tsd-kind-icon">set<wbr>Equals</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_set_.set.html#symmetricexceptwith" class="tsd-kind-icon">symmetric<wbr>Except<wbr>With</a></li>
@@ -151,13 +154,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Set<span class="tsd-signature-symbol">(</span>enumerable<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_set_.set.html" class="tsd-signature-type">Set</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Set<span class="tsd-signature-symbol">(</span>enumerable<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_set_.set.html" class="tsd-signature-type">Set</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L16">Set.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L17">Set.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -179,7 +182,7 @@
 					<div class="tsd-signature tsd-kind-icon">_collection<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_interfaces_icollection_.icollection.html" class="tsd-signature-type">ICollection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L16">Set.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L17">Set.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -189,36 +192,24 @@
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
 					<a name="count" class="tsd-anchor"></a>
 					<h3>count</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> count<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L23">Set.ts:23</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-					</ul>
+					<div class="tsd-signature tsd-kind-icon">count<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#count">count</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L24">Set.ts:24</a></li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
 					<a name="isreadonly" class="tsd-anchor"></a>
 					<h3>is<wbr>Read<wbr>Only</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isReadOnly<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L28">Set.ts:28</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
+					<div class="tsd-signature tsd-kind-icon">is<wbr>Read<wbr>Only<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#isreadonly">isReadOnly</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L29">Set.ts:29</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -234,29 +225,40 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#add">add</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L113">Set.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L129">Set.ts:129</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Adds an item to the ICollection<T>.</p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<dt>throws</dt>
-									<dd><p>{ArgumentException} When the item is already in the collection.</p>
-									</dd>
-								</dl>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>item: <span class="tsd-signature-type">T</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The object to add to the ICollection<T>.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="append" class="tsd-anchor"></a>
+					<h3>append</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">append<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#append">append</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L34">Set.ts:34</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>item: <span class="tsd-signature-type">T</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -271,7 +273,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#asqueryable">asQueryable</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L145">Set.ts:145</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L161">Set.ts:161</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_interfaces_iqueryable_.iqueryable.html" class="tsd-signature-type">IQueryable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -289,10 +291,34 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#clear">clear</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L125">Set.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L141">Set.ts:141</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="concat" class="tsd-anchor"></a>
+					<h3>concat</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">concat<span class="tsd-signature-symbol">(</span>next<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#concat">concat</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L39">Set.ts:39</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>next: <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -305,9 +331,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#contains">contains</a></p>
+								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#contains">contains</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L130">Set.ts:130</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L146">Set.ts:146</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -331,7 +357,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#copyto">copyTo</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L135">Set.ts:135</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L151">Set.ts:151</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -358,7 +384,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_iset_.iset.html">ISet</a>.<a href="../interfaces/_interfaces_iset_.iset.html#exceptwith">exceptWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L33">Set.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L49">Set.ts:49</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -381,7 +407,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L150">Set.ts:150</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L166">Set.ts:166</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -429,7 +455,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#getenumerator">getEnumerator</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L155">Set.ts:155</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L171">Set.ts:171</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_interfaces_ienumerator_.ienumerator.html" class="tsd-signature-type">IEnumerator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -447,7 +473,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_iset_.iset.html">ISet</a>.<a href="../interfaces/_interfaces_iset_.iset.html#intersectwith">intersectWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L46">Set.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L62">Set.ts:62</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -471,7 +497,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_iset_.iset.html">ISet</a>.<a href="../interfaces/_interfaces_iset_.iset.html#issubsetof">isSubsetOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L58">Set.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L74">Set.ts:74</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -495,7 +521,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_iset_.iset.html">ISet</a>.<a href="../interfaces/_interfaces_iset_.iset.html#issupersetof">isSupersetOf</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L64">Set.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L80">Set.ts:80</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -519,7 +545,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#item">item</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L160">Set.ts:160</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L176">Set.ts:176</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -542,7 +568,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L165">Set.ts:165</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L181">Set.ts:181</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -574,7 +600,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_iset_.iset.html">ISet</a>.<a href="../interfaces/_interfaces_iset_.iset.html#overlaps">overlaps</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L70">Set.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L86">Set.ts:86</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -584,6 +610,30 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="prepend" class="tsd-anchor"></a>
+					<h3>prepend</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">prepend<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#prepend">prepend</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L44">Set.ts:44</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>item: <span class="tsd-signature-type">T</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -598,7 +648,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_icollection_.icollection.html">ICollection</a>.<a href="../interfaces/_interfaces_icollection_.icollection.html#remove">remove</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L140">Set.ts:140</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L156">Set.ts:156</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -622,7 +672,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_iset_.iset.html">ISet</a>.<a href="../interfaces/_interfaces_iset_.iset.html#setequals">setEquals</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L76">Set.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L92">Set.ts:92</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -646,7 +696,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_iset_.iset.html">ISet</a>.<a href="../interfaces/_interfaces_iset_.iset.html#symmetricexceptwith">symmetricExceptWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L81">Set.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L97">Set.ts:97</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -670,7 +720,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#toarray">toArray</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L170">Set.ts:170</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L186">Set.ts:186</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -687,7 +737,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L175">Set.ts:175</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L191">Set.ts:191</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -759,7 +809,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#tolist">toList</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L180">Set.ts:180</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L196">Set.ts:196</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_interfaces_ilist_.ilist.html" class="tsd-signature-type">IList</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -777,7 +827,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_iset_.iset.html">ISet</a>.<a href="../interfaces/_interfaces_iset_.iset.html#unionwith">unionWith</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Set.ts#L94">Set.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Set.ts#L110">Set.ts:110</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -799,9 +849,6 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_basecollections_.html">"<wbr>Base<wbr>Collections"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
 						<a href="../modules/_comparers_caseinsensitivestringcomparer_.html">"<wbr>Comparers/<wbr>Case<wbr>Insensitive<wbr>String<wbr>Comparer"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -815,9 +862,6 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_comparers_reversecomparer_.html">"<wbr>Comparers/<wbr>Reverse<wbr>Comparer"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_dictionary_.html">"<wbr>Dictionary"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_enumerables_.html">"<wbr>Enumerables"</a>
@@ -839,6 +883,9 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interfaces_ienumerator_.html">"<wbr>Interfaces/IEnumerator"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_interfaces_iequalitycomparer_.html">"<wbr>Interfaces/IEquality<wbr>Comparer"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interfaces_ilist_.html">"<wbr>Interfaces/IList"</a>
@@ -898,10 +945,16 @@
 								<a href="_set_.set.html#add" class="tsd-kind-icon">add</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_set_.set.html#append" class="tsd-kind-icon">append</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_set_.set.html#asqueryable" class="tsd-kind-icon">as<wbr>Queryable</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_set_.set.html#clear" class="tsd-kind-icon">clear</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_set_.set.html#concat" class="tsd-kind-icon">concat</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_set_.set.html#contains" class="tsd-kind-icon">contains</a>
@@ -935,6 +988,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_set_.set.html#overlaps" class="tsd-kind-icon">overlaps</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_set_.set.html#prepend" class="tsd-kind-icon">prepend</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_set_.set.html#remove" class="tsd-kind-icon">remove</a>
@@ -978,6 +1034,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -1026,7 +1083,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

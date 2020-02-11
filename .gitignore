@@ -67,12 +67,11 @@ bin/
 _NCrunch_collections/
 
 docs/.nojekyll
-dts/
-lib/
-lib.es6/
-lib.es2015/
-dist/
-tests/**/*.js
-tests/**/*.js.map
-src/**/*.js
-src/**/*.js.map
+/dist/
+/lib/
+/lib.es6/
+/lib.es5/
+/test/**/*.js
+/test/**/*.js.map
+/src/**/*.js
+/src/**/*.js.map

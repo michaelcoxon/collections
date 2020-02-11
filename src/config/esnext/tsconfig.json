@@ -1,13 +1,13 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "outDir": "../../../lib.es5",
-    "declaration": false,
-    "target": "es5"
+    "outDir": "../../../lib",
+    "declaration": true,
+    "target": "ESNext"
   },
   "include": [
     "../../../src/**/*"
   ],
-  "exclude": [ "../../../src/**/index.ts" ],
+
   "extends": "../../../base-tsconfig"
 }

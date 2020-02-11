@@ -81,7 +81,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="_enumerables_.enumerable.html" class="tsd-signature-type">Enumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>
+						<a href="_enumerables_.enumerablebase.html" class="tsd-signature-type">EnumerableBase</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">WhereEnumerable</span>
@@ -103,29 +103,31 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_enumerables_.whereenumerable.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_enumerables_.whereenumerable.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-private-protected">
+						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_enumerables_.whereenumerable.html#_baseenumerable" class="tsd-kind-icon">_base<wbr>Enumerable</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_enumerables_.whereenumerable.html#_logger" class="tsd-kind-icon">_logger</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_enumerables_.whereenumerable.html#_enumerable" class="tsd-kind-icon">_enumerable</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_enumerables_.whereenumerable.html#_predicate" class="tsd-kind-icon">_predicate</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_enumerables_.whereenumerable.html#append" class="tsd-kind-icon">append</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_enumerables_.whereenumerable.html#asqueryable" class="tsd-kind-icon">as<wbr>Queryable</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_enumerables_.whereenumerable.html#concat" class="tsd-kind-icon">concat</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_enumerables_.whereenumerable.html#contains" class="tsd-kind-icon">contains</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_enumerables_.whereenumerable.html#foreach" class="tsd-kind-icon">for<wbr>Each</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_enumerables_.whereenumerable.html#getenumerator" class="tsd-kind-icon">get<wbr>Enumerator</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_enumerables_.whereenumerable.html#item" class="tsd-kind-icon">item</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_enumerables_.whereenumerable.html#oftype" class="tsd-kind-icon">of<wbr>Type</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_enumerables_.whereenumerable.html#prepend" class="tsd-kind-icon">prepend</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_enumerables_.whereenumerable.html#toarray" class="tsd-kind-icon">to<wbr>Array</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="_enumerables_.whereenumerable.html#todictionary" class="tsd-kind-icon">to<wbr>Dictionary</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_enumerables_.whereenumerable.html#tolist" class="tsd-kind-icon">to<wbr>List</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_enumerables_.whereenumerable.html#range" class="tsd-kind-icon">range</a></li>
 							</ul>
 						</section>
 					</div>
@@ -133,18 +135,17 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Where<wbr>Enumerable<span class="tsd-signature-symbol">(</span>enumerable<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, predicate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Predicate</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, logger<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">ILogger</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_enumerables_.whereenumerable.html" class="tsd-signature-type">WhereEnumerable</a></li>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Where<wbr>Enumerable<span class="tsd-signature-symbol">(</span>enumerable<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, predicate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Predicate</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_enumerables_.whereenumerable.html" class="tsd-signature-type">WhereEnumerable</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="_enumerables_.enumerable.html">Enumerable</a>.<a href="_enumerables_.enumerable.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Enumerables.ts#L311">Enumerables.ts:311</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L583">Enumerables.ts:583</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -155,36 +156,21 @@
 								<li>
 									<h5>predicate: <span class="tsd-signature-type">Predicate</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> logger: <span class="tsd-signature-type">ILogger</span><span class="tsd-signature-symbol"> =&nbsp;getDefaultLogger()</span></h5>
-								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_enumerables_.whereenumerable.html" class="tsd-signature-type">WhereEnumerable</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-					<a name="_baseenumerable" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _base<wbr>Enumerable</h3>
-					<div class="tsd-signature tsd-kind-icon">_base<wbr>Enumerable<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_enumerable" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _enumerable</h3>
+					<div class="tsd-signature tsd-kind-icon">_enumerable<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_enumerables_.enumerable.html">Enumerable</a>.<a href="_enumerables_.enumerable.html#_baseenumerable">_baseEnumerable</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Enumerables.ts#L15">Enumerables.ts:15</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-					<a name="_logger" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _logger</h3>
-					<div class="tsd-signature tsd-kind-icon">_logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ILogger</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="_enumerables_.enumerable.html">Enumerable</a>.<a href="_enumerables_.enumerable.html#_logger">_logger</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Enumerables.ts#L14">Enumerables.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L582">Enumerables.ts:582</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -194,13 +180,38 @@
 					<div class="tsd-signature tsd-kind-icon">_predicate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Predicate</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Enumerables.ts#L311">Enumerables.ts:311</a></li>
+							<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L583">Enumerables.ts:583</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="append" class="tsd-anchor"></a>
+					<h3>append</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">append<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#append">append</a></p>
+								<p>Inherited from <a href="_enumerables_.enumerablebase.html">EnumerableBase</a>.<a href="_enumerables_.enumerablebase.html#append">append</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L63">Enumerables.ts:63</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>item: <span class="tsd-signature-type">T</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="asqueryable" class="tsd-anchor"></a>
 					<h3>as<wbr>Queryable</h3>
@@ -211,12 +222,62 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#asqueryable">asQueryable</a></p>
-								<p>Inherited from <a href="_enumerables_.enumerable.html">Enumerable</a>.<a href="_enumerables_.enumerable.html#asqueryable">asQueryable</a></p>
+								<p>Inherited from <a href="_enumerables_.enumerablebase.html">EnumerableBase</a>.<a href="_enumerables_.enumerablebase.html#asqueryable">asQueryable</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Enumerables.ts#L23">Enumerables.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L68">Enumerables.ts:68</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_interfaces_iqueryable_.iqueryable.html" class="tsd-signature-type">IQueryable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="concat" class="tsd-anchor"></a>
+					<h3>concat</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">concat<span class="tsd-signature-symbol">(</span>next<span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#concat">concat</a></p>
+								<p>Inherited from <a href="_enumerables_.enumerablebase.html">EnumerableBase</a>.<a href="_enumerables_.enumerablebase.html#concat">concat</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L73">Enumerables.ts:73</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>next: <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="contains" class="tsd-anchor"></a>
+					<h3>contains</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">contains<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#contains">contains</a></p>
+								<p>Inherited from <a href="_enumerables_.enumerablebase.html">EnumerableBase</a>.<a href="_enumerables_.enumerablebase.html#contains">contains</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L78">Enumerables.ts:78</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>item: <span class="tsd-signature-type">T</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -229,9 +290,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_enumerables_.enumerable.html">Enumerable</a>.<a href="_enumerables_.enumerable.html#foreach">forEach</a></p>
+								<p>Inherited from <a href="_enumerables_.enumerablebase.html">EnumerableBase</a>.<a href="_enumerables_.enumerablebase.html#foreach">forEach</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Enumerables.ts#L29">Enumerables.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L94">Enumerables.ts:94</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -278,9 +339,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#getenumerator">getEnumerator</a></p>
-								<p>Overrides <a href="_enumerables_.enumerable.html">Enumerable</a>.<a href="_enumerables_.enumerable.html#getenumerator">getEnumerator</a></p>
+								<p>Overrides <a href="_enumerables_.enumerablebase.html">EnumerableBase</a>.<a href="_enumerables_.enumerablebase.html#getenumerator">getEnumerator</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Enumerables.ts#L319">Enumerables.ts:319</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L592">Enumerables.ts:592</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_interfaces_ienumerator_.ienumerator.html" class="tsd-signature-type">IEnumerator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -297,9 +358,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#item">item</a></p>
-								<p>Inherited from <a href="_enumerables_.enumerable.html">Enumerable</a>.<a href="_enumerables_.enumerable.html#item">item</a></p>
+								<p>Inherited from <a href="_enumerables_.enumerablebase.html">EnumerableBase</a>.<a href="_enumerables_.enumerablebase.html#item">item</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Enumerables.ts#L48">Enumerables.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L109">Enumerables.ts:109</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -316,14 +377,15 @@
 					<a name="oftype" class="tsd-anchor"></a>
 					<h3>of<wbr>Type</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">of<wbr>Type&lt;N&gt;<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">of<wbr>Type&lt;N&gt;<span class="tsd-signature-symbol">(</span>ctor<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ConstructorFor</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_enumerables_.enumerable.html">Enumerable</a>.<a href="_enumerables_.enumerable.html#oftype">ofType</a></p>
+								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#oftype">ofType</a></p>
+								<p>Inherited from <a href="_enumerables_.enumerablebase.html">EnumerableBase</a>.<a href="_enumerables_.enumerablebase.html#oftype">ofType</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Enumerables.ts#L63">Enumerables.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L125">Enumerables.ts:125</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -335,33 +397,35 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>type: <span class="tsd-signature-type">object</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter">
-											<h5>constructor<span class="tsd-signature-symbol">: </span>function</h5>
-											<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon">new __type<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">N</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<aside class="tsd-sources">
-														<ul>
-															<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Enumerables.ts#L63">Enumerables.ts:63</a></li>
-														</ul>
-													</aside>
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">N</span></h4>
-												</li>
-										</ul>        </li>
-									</ul>
+									<h5>ctor: <span class="tsd-signature-type">ConstructorFor</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="prepend" class="tsd-anchor"></a>
+					<h3>prepend</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">prepend<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#prepend">prepend</a></p>
+								<p>Inherited from <a href="_enumerables_.enumerablebase.html">EnumerableBase</a>.<a href="_enumerables_.enumerablebase.html#prepend">prepend</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L130">Enumerables.ts:130</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>item: <span class="tsd-signature-type">T</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -375,9 +439,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#toarray">toArray</a></p>
-								<p>Inherited from <a href="_enumerables_.enumerable.html">Enumerable</a>.<a href="_enumerables_.enumerable.html#toarray">toArray</a></p>
+								<p>Inherited from <a href="_enumerables_.enumerablebase.html">EnumerableBase</a>.<a href="_enumerables_.enumerablebase.html#toarray">toArray</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Enumerables.ts#L70">Enumerables.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L135">Enumerables.ts:135</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -393,9 +457,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_enumerables_.enumerable.html">Enumerable</a>.<a href="_enumerables_.enumerable.html#todictionary">toDictionary</a></p>
+								<p>Inherited from <a href="_enumerables_.enumerablebase.html">EnumerableBase</a>.<a href="_enumerables_.enumerablebase.html#todictionary">toDictionary</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Enumerables.ts#L83">Enumerables.ts:83</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L145">Enumerables.ts:145</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -466,42 +530,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html">IEnumerable</a>.<a href="../interfaces/_interfaces_ienumerable_.ienumerable.html#tolist">toList</a></p>
-								<p>Inherited from <a href="_enumerables_.enumerable.html">Enumerable</a>.<a href="_enumerables_.enumerable.html#tolist">toList</a></p>
+								<p>Inherited from <a href="_enumerables_.enumerablebase.html">EnumerableBase</a>.<a href="_enumerables_.enumerablebase.html#tolist">toList</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Enumerables.ts#L88">Enumerables.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerables.ts#L155">Enumerables.ts:155</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_interfaces_ilist_.ilist.html" class="tsd-signature-type">IList</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a name="range" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> range</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">range<span class="tsd-signature-symbol">(</span>start<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, count<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, logger<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">ILogger</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="_enumerables_.enumerable.html">Enumerable</a>.<a href="_enumerables_.enumerable.html#range">range</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/4589a69/src/Enumerables.ts#L93">Enumerables.ts:93</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>start: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>count: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> logger: <span class="tsd-signature-type">ILogger</span><span class="tsd-signature-symbol"> =&nbsp;getDefaultLogger()</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_interfaces_ienumerable_.ienumerable.html" class="tsd-signature-type">IEnumerable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -512,9 +546,6 @@
 				<ul>
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_basecollections_.html">"<wbr>Base<wbr>Collections"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_comparers_caseinsensitivestringcomparer_.html">"<wbr>Comparers/<wbr>Case<wbr>Insensitive<wbr>String<wbr>Comparer"</a>
@@ -530,9 +561,6 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_comparers_reversecomparer_.html">"<wbr>Comparers/<wbr>Reverse<wbr>Comparer"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_dictionary_.html">"<wbr>Dictionary"</a>
 					</li>
 					<li class="current tsd-kind-external-module">
 						<a href="../modules/_enumerables_.html">"<wbr>Enumerables"</a>
@@ -554,6 +582,9 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interfaces_ienumerator_.html">"<wbr>Interfaces/IEnumerator"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_interfaces_iequalitycomparer_.html">"<wbr>Interfaces/IEquality<wbr>Comparer"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interfaces_ilist_.html">"<wbr>Interfaces/IList"</a>
@@ -593,7 +624,28 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerables_.aggregateenumerable.html" class="tsd-kind-icon">Aggregate<wbr>Enumerable</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerables_.arrayenumerable.html" class="tsd-kind-icon">Array<wbr>Enumerable</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerables_.collection.html" class="tsd-kind-icon">Collection</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerables_.dictionary.html" class="tsd-kind-icon">Dictionary</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_enumerables_.enumerable.html" class="tsd-kind-icon">Enumerable</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerables_.enumerablebase.html" class="tsd-kind-icon">Enumerable<wbr>Base</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerables_.enumeratorenumerable.html" class="tsd-kind-icon">Enumerator<wbr>Enumerable</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerables_.list.html" class="tsd-kind-icon">List</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_enumerables_.rangeenumerable.html" class="tsd-kind-icon">Range<wbr>Enumerable</a>
@@ -612,20 +664,26 @@
 					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="_enumerables_.whereenumerable.html" class="tsd-kind-icon">Where<wbr>Enumerable</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="_enumerables_.whereenumerable.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_enumerables_.whereenumerable.html#_baseenumerable" class="tsd-kind-icon">_base<wbr>Enumerable</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_enumerables_.whereenumerable.html#_logger" class="tsd-kind-icon">_logger</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_enumerables_.whereenumerable.html#_enumerable" class="tsd-kind-icon">_enumerable</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_enumerables_.whereenumerable.html#_predicate" class="tsd-kind-icon">_predicate</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_enumerables_.whereenumerable.html#append" class="tsd-kind-icon">append</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_enumerables_.whereenumerable.html#asqueryable" class="tsd-kind-icon">as<wbr>Queryable</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_enumerables_.whereenumerable.html#concat" class="tsd-kind-icon">concat</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_enumerables_.whereenumerable.html#contains" class="tsd-kind-icon">contains</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_enumerables_.whereenumerable.html#foreach" class="tsd-kind-icon">for<wbr>Each</a>
@@ -640,6 +698,9 @@
 								<a href="_enumerables_.whereenumerable.html#oftype" class="tsd-kind-icon">of<wbr>Type</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_enumerables_.whereenumerable.html#prepend" class="tsd-kind-icon">prepend</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_enumerables_.whereenumerable.html#toarray" class="tsd-kind-icon">to<wbr>Array</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
@@ -647,9 +708,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_enumerables_.whereenumerable.html#tolist" class="tsd-kind-icon">to<wbr>List</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-								<a href="_enumerables_.whereenumerable.html#range" class="tsd-kind-icon">range</a>
 							</li>
 						</ul>
 					</li>
@@ -672,6 +730,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -720,7 +779,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

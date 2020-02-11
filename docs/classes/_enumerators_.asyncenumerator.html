@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IComparer | @michaelcoxon/collections</title>
+	<title>AsyncEnumerator | @michaelcoxon/collections</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_interfaces_icomparer_.html">&quot;Interfaces/IComparer&quot;</a>
+					<a href="../modules/_enumerators_.html">&quot;Enumerators&quot;</a>
 				</li>
 				<li>
-					<a href="_interfaces_icomparer_.icomparer.html">IComparer</a>
+					<a href="_enumerators_.asyncenumerator.html">AsyncEnumerator</a>
 				</li>
 			</ul>
-			<h1>Interface IComparer&lt;T&gt;</h1>
+			<h1>Class AsyncEnumerator&lt;T&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -81,21 +81,14 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">IComparer</span>
+						<span class="target">AsyncEnumerator</span>
 					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel">
-				<h3>Implemented by</h3>
+				<h3>Implements</h3>
 				<ul class="tsd-hierarchy">
-					<li><a href="../classes/_comparers_caseinsensitivestringcomparer_.caseinsensitivestringcomparer.html" class="tsd-signature-type">CaseInsensitiveStringComparer</a></li>
-					<li><a href="../classes/_comparers_customcomparer_.customcomparer.html" class="tsd-signature-type">CustomComparer</a></li>
-					<li><a href="../classes/_comparers_defaultcomparer_.defaultcomparer.html" class="tsd-signature-type">DefaultComparer</a></li>
-					<li><a href="../classes/_comparers_defaultcomparer_.defaultnumbercomparer.html" class="tsd-signature-type">DefaultNumberComparer</a></li>
-					<li><a href="../classes/_comparers_defaultcomparer_.defaultobjectcomparer.html" class="tsd-signature-type">DefaultObjectComparer</a></li>
-					<li><a href="../classes/_comparers_defaultcomparer_.defaultstringcomparer.html" class="tsd-signature-type">DefaultStringComparer</a></li>
-					<li><a href="../classes/_comparers_mapcomparer_.mapcomparer.html" class="tsd-signature-type">MapComparer</a></li>
-					<li><a href="../classes/_comparers_reversecomparer_.reversecomparer.html" class="tsd-signature-type">ReverseComparer</a></li>
+					<li><a href="../interfaces/_interfaces_ienumerator_.iasyncenumerator.html" class="tsd-signature-type">IAsyncEnumerator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -103,174 +96,124 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_enumerators_.asyncenumerator.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_enumerators_.asyncenumerator.html#_basearray" class="tsd-kind-icon">_base<wbr>Array</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_enumerators_.asyncenumerator.html#_current" class="tsd-kind-icon">_current</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_enumerators_.asyncenumerator.html#_pointer" class="tsd-kind-icon">_pointer</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_enumerators_.asyncenumerator.html#current" class="tsd-kind-icon">current</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_icomparer_.icomparer.html#compare" class="tsd-kind-icon">compare</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_icomparer_.icomparer.html#equals" class="tsd-kind-icon">equals</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_icomparer_.icomparer.html#greaterthan" class="tsd-kind-icon">greater<wbr>Than</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_icomparer_.icomparer.html#greaterthanorequal" class="tsd-kind-icon">greater<wbr>Than<wbr>OrEqual</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_icomparer_.icomparer.html#lessthan" class="tsd-kind-icon">less<wbr>Than</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_interfaces_icomparer_.icomparer.html#lessthanorequal" class="tsd-kind-icon">less<wbr>Than<wbr>OrEqual</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_enumerators_.asyncenumerator.html#movenextasync" class="tsd-kind-icon">move<wbr>Next<wbr>Async</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Async<wbr>Enumerator<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promisable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_enumerators_.asyncenumerator.html" class="tsd-signature-type">AsyncEnumerator</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerators.ts#L520">Enumerators.ts:520</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>array: <span class="tsd-signature-type">Promisable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_enumerators_.asyncenumerator.html" class="tsd-signature-type">AsyncEnumerator</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_basearray" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _base<wbr>Array</h3>
+					<div class="tsd-signature tsd-kind-icon">_base<wbr>Array<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promisable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerators.ts#L516">Enumerators.ts:516</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_current" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagOptional">Optional</span> _current</h3>
+					<div class="tsd-signature tsd-kind-icon">_current<span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type">T</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerators.ts#L520">Enumerators.ts:520</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_pointer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _pointer</h3>
+					<div class="tsd-signature tsd-kind-icon">_pointer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;-1</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerators.ts#L519">Enumerators.ts:519</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="current" class="tsd-anchor"></a>
+					<h3>current</h3>
+					<div class="tsd-signature tsd-kind-icon">current<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/_interfaces_ienumerator_.iasyncenumerator.html">IAsyncEnumerator</a>.<a href="../interfaces/_interfaces_ienumerator_.iasyncenumerator.html#current">current</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerators.ts#L528">Enumerators.ts:528</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="compare" class="tsd-anchor"></a>
-					<h3>compare</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">compare<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="movenextasync" class="tsd-anchor"></a>
+					<h3>move<wbr>Next<wbr>Async</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">move<wbr>Next<wbr>Async<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_interfaces_ienumerator_.iasyncenumerator.html">IAsyncEnumerator</a>.<a href="../interfaces/_interfaces_ienumerator_.iasyncenumerator.html#movenextasync">moveNextAsync</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IComparer.ts#L3">Interfaces/IComparer.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Enumerators.ts#L537">Enumerators.ts:537</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>x: <span class="tsd-signature-type">T</span></h5>
-								</li>
-								<li>
-									<h5>y: <span class="tsd-signature-type">T</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="equals" class="tsd-anchor"></a>
-					<h3>equals</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">equals<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IComparer.ts#L5">Interfaces/IComparer.ts:5</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>x: <span class="tsd-signature-type">T</span></h5>
-								</li>
-								<li>
-									<h5>y: <span class="tsd-signature-type">T</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="greaterthan" class="tsd-anchor"></a>
-					<h3>greater<wbr>Than</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">greater<wbr>Than<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IComparer.ts#L7">Interfaces/IComparer.ts:7</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>x: <span class="tsd-signature-type">T</span></h5>
-								</li>
-								<li>
-									<h5>y: <span class="tsd-signature-type">T</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="greaterthanorequal" class="tsd-anchor"></a>
-					<h3>greater<wbr>Than<wbr>OrEqual</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">greater<wbr>Than<wbr>OrEqual<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IComparer.ts#L9">Interfaces/IComparer.ts:9</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>x: <span class="tsd-signature-type">T</span></h5>
-								</li>
-								<li>
-									<h5>y: <span class="tsd-signature-type">T</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="lessthan" class="tsd-anchor"></a>
-					<h3>less<wbr>Than</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">less<wbr>Than<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IComparer.ts#L11">Interfaces/IComparer.ts:11</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>x: <span class="tsd-signature-type">T</span></h5>
-								</li>
-								<li>
-									<h5>y: <span class="tsd-signature-type">T</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="lessthanorequal" class="tsd-anchor"></a>
-					<h3>less<wbr>Than<wbr>OrEqual</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">less<wbr>Than<wbr>OrEqual<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/michaelcoxon/collections/blob/01add55/src/Interfaces/IComparer.ts#L13">Interfaces/IComparer.ts:13</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>x: <span class="tsd-signature-type">T</span></h5>
-								</li>
-								<li>
-									<h5>y: <span class="tsd-signature-type">T</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -300,13 +243,13 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_enumerables_.html">"<wbr>Enumerables"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_enumerators_.html">"<wbr>Enumerators"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interfaces_icollection_.html">"<wbr>Interfaces/ICollection"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interfaces_icomparer_.html">"<wbr>Interfaces/IComparer"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -358,33 +301,60 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerators_.aggregateenumerator.html" class="tsd-kind-icon">Aggregate<wbr>Enumerator</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerators_.appendenumerator.html" class="tsd-kind-icon">Append<wbr>Enumerator</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerators_.arrayenumerator.html" class="tsd-kind-icon">Array<wbr>Enumerator</a>
+					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_interfaces_icomparer_.icomparer.html" class="tsd-kind-icon">IComparer</a>
+					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerators_.asyncenumerator.html" class="tsd-kind-icon">Async<wbr>Enumerator</a>
 						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_interfaces_icomparer_.icomparer.html#compare" class="tsd-kind-icon">compare</a>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="_enumerators_.asyncenumerator.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_interfaces_icomparer_.icomparer.html#equals" class="tsd-kind-icon">equals</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_enumerators_.asyncenumerator.html#_basearray" class="tsd-kind-icon">_base<wbr>Array</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_interfaces_icomparer_.icomparer.html#greaterthan" class="tsd-kind-icon">greater<wbr>Than</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_enumerators_.asyncenumerator.html#_current" class="tsd-kind-icon">_current</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_interfaces_icomparer_.icomparer.html#greaterthanorequal" class="tsd-kind-icon">greater<wbr>Than<wbr>OrEqual</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_enumerators_.asyncenumerator.html#_pointer" class="tsd-kind-icon">_pointer</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_interfaces_icomparer_.icomparer.html#lessthan" class="tsd-kind-icon">less<wbr>Than</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_enumerators_.asyncenumerator.html#current" class="tsd-kind-icon">current</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_interfaces_icomparer_.icomparer.html#lessthanorequal" class="tsd-kind-icon">less<wbr>Than<wbr>OrEqual</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_enumerators_.asyncenumerator.html#movenextasync" class="tsd-kind-icon">move<wbr>Next<wbr>Async</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerators_.dictionaryenumerator.html" class="tsd-kind-icon">Dictionary<wbr>Enumerator</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_enumerators_.rangeenumerator.html" class="tsd-kind-icon">Range<wbr>Enumerator</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerators_.selectenumerator.html" class="tsd-kind-icon">Select<wbr>Enumerator</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerators_.skipenumerator.html" class="tsd-kind-icon">Skip<wbr>Enumerator</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerators_.takeenumerator.html" class="tsd-kind-icon">Take<wbr>Enumerator</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_enumerators_.whereenumerator.html" class="tsd-kind-icon">Where<wbr>Enumerator</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

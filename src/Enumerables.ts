@@ -600,7 +600,7 @@ export class AggregateEnumerable<T, TReturn> extends EnumerableBase<TReturn>
     private readonly _enumerable: IEnumerable<T>;
     private readonly _aggregateFunction: (acumulate: TReturn, current: T) => TReturn;
 
-    constructor(enumerable: IEnumerable<T>, aggregateFunction: (acumulate: TReturn, current: T) => TReturn) 
+    constructor(enumerable: IEnumerable<T>, aggregateFunction: (acumulate: TReturn, current: T) => TReturn)
     {
         super();
         this._enumerable = enumerable;

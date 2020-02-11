@@ -137,7 +137,7 @@ export class DefaultNumberComparer implements IComparer<number>, IEqualityCompar
     }
 }
 
-export class DefaultObjectComparer<T = any> implements IComparer<T>, IEqualityComparer<T>
+export class DefaultObjectComparer<T extends any = any> implements IComparer<T>, IEqualityComparer<T>
 {
     public compare(x: T, y: T): number
     {

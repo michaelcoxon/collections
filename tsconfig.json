@@ -5,10 +5,9 @@
   "exclude": [
     "node_modules",
     "lib",
-    "lib.es2015",
+    "lib.esnext",
     "lib.es6",
     "src",
-    "dist",
-    "dts"
+    "dist"
   ]
 }
