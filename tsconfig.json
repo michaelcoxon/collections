@@ -1,6 +1,6 @@
 {
   "extends": "./base-tsconfig",
-
+  
   "compileOnSave": true,
   "exclude": [
     "node_modules",

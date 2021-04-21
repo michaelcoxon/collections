@@ -1,7 +1,7 @@
 ﻿import { Undefinable } from "@michaelcoxon/utilities";
 
 
-export interface IEnumerator<T>
+export interface IEnumerator<T> extends Iterator<T, any, undefined>
 {
     /** value of the current element */
     readonly current: T

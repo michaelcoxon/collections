@@ -1,4 +1,4 @@
-﻿import { Collection } from "../src/Enumerables";
+﻿import Collection from "../src/Enumerables/Collection";
 import { expect, assert } from 'chai';
 import 'mocha';
 import { ArgumentException } from "@michaelcoxon/utilities";

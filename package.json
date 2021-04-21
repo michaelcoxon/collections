@@ -77,7 +77,7 @@
   "dependencies": {
     "@babel/runtime": "^7.5.5",
     "@michaelcoxon/utilities": "^1.8.1",
-    "tslib": "^1.10.0"
+    "tslib": "^2.2.0"
   },
   "-vs-binding": {
     "ProjectOpened": [

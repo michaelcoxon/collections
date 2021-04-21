@@ -3,7 +3,8 @@
 import { getDefaultLogger, Numbers } from "@michaelcoxon/utilities";
 import { assert, expect } from 'chai';
 import 'mocha';
-import { Enumerable, ArrayEnumerable } from "../src/Enumerables";
+import Enumerable from "../src/Enumerables/Enumerable";
+import ArrayEnumerable from "../src/Enumerables/ArrayEnumerable";
 /*
 setDefaultLogger(new ConsoleLogger(console, {
     loggingVerbosity: LogLevel.Trace,
@@ -200,6 +201,7 @@ describe("Queryable.firstOrDefault", () =>
         expect(null).to.eq(result.firstOrDefault());
     });
 });
+
 /*
 describe("Queryable.join", () =>
 {
@@ -211,11 +213,30 @@ describe("Queryable.join", () =>
         const qOuter = new ArrayEnumerable(outer).asQueryable();
         const qInner = new ArrayEnumerable(inner).asQueryable();
 
-        const result = qOuter.join(qInner, o => o, i => i, (o, i) => ({ o, i }));
+        const outerKeySelector: (o: number) => number = o =>
+        {
+            console.log('o', o);
+            return o;
+        };
+        const innerKeySelector: (i: number) => number = i =>
+        {
+            console.log('i', i);
+            return i;
+        };
+        const resultSelector: (o: number, i: number) => { o: number, i: number } = (o, i) =>
+        {
+            console.log('{o,i}', { o, i });
+            return { o, i };
+        };
 
-        expect(result.count()).to.eq(10);
+        const result = qOuter.join(qInner, outerKeySelector, innerKeySelector, resultSelector);
 
-        result.forEach(i => assert.equal(i.i,i.o));
+        console.log('count', result.count());
+
+        expect(result.count(), "eq 10").to.eq(10);
+
+
+        result.forEach(i => assert.equal(i.i, i.o, 'awee bugger'));
     });
 });
 */
@@ -468,6 +489,53 @@ describe("Queryable.select", () =>
         }
     });
 });
+
+describe("Queryable.selectMany", () =>
+{
+    it("should return a flat map of the set 1", () =>
+    {
+        const array = [[1], [2], [3], [4]];
+        const query = new ArrayEnumerable(array).asQueryable();
+        const expected = [1, 2, 3, 4];
+
+        const result = query.selectMany(i => new ArrayEnumerable(i));
+
+        for (let i = 0; i < result.count(); i++)
+        {
+            expect(result.item(i)).eq(expected[i], `index ${i} is not the same`);
+        }
+    });
+
+    it("should return a flat map of the set 1.2", () =>
+    {
+        const array = [new ArrayEnumerable([1, 2, 3]), new ArrayEnumerable([4, 5])];
+        const query = new ArrayEnumerable(array).asQueryable();
+        const expected = [1, 2, 3, 4, 5];
+
+        const result = query.selectMany(i => i);
+
+        for (let i = 0; i < result.count(); i++)
+        {
+            expect(result.item(i)).eq(expected[i], `index ${i} is not the same`);
+        }
+    });
+    /*
+        it("should return a flat map of the set 2", () =>
+        {
+            const array = [[1,2], [2,3], [3,4], [4,5]];
+            const query = new ArrayEnumerable(array).asQueryable();
+            const expected = [2, 4, 6, 8];
+    
+            const result = query.selectMany((i) => i * 2);
+    
+            for (let i = 0; i < result.count(); i++)
+            {
+                expect(expected[i]).eq(result.item(i), `index ${i} is not the same`);
+            }
+        });    
+        */
+});
+
 
 describe("Queryable.sum", () =>
 {

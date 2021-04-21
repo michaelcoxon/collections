@@ -5,7 +5,7 @@ import { IDictionary } from "./IDictionary";
 import { ConstructorFor, Undefinable } from "@michaelcoxon/utilities";
 
 
-export interface IEnumerable<T>
+export interface IEnumerable<T> extends Iterable<T>
 {
     /**
      * Adds a value to the end of the sequence.

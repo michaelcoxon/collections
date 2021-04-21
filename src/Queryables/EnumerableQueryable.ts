@@ -1,8 +1,8 @@
-﻿import { ConstructorFor, isUndefinedOrNull, Predicate, Selector, Undefinable, Utilities, NotImplementedException } from "@michaelcoxon/utilities";
+﻿import { ConstructorFor, isUndefinedOrNull, Predicate, Selector, Undefinable, Utilities } from "@michaelcoxon/utilities";
 import { DefaultComparer } from "../Comparers/DefaultComparer";
 import { MapComparer } from "../Comparers/MapComparer";
 import { ReverseComparer } from "../Comparers/ReverseComparer";
-import { SelectEnumerable, SkipEnumerable, TakeEnumerable, WhereEnumerable, Enumerable, EnumeratorEnumerable, ArrayEnumerable } from "../Enumerables";
+
 import { IComparer } from "../Interfaces/IComparer";
 import { IDictionary } from "../Interfaces/IDictionary";
 import { IEnumerable } from "../Interfaces/IEnumerable";
@@ -11,9 +11,21 @@ import { IList } from "../Interfaces/IList";
 import { IQueryable } from "../Interfaces/IQueryable";
 import { IQueryableGroup } from "../Interfaces/IQueryableGroup";
 
+//import ArrayEnumerable from "../Enumerables/ArrayEnumerable";
+import SelectEnumerable from "../Enumerables/SelectEnumerable";
+import SelectManyEnumerable from "../Enumerables/SelectManyEnumerable";
+import SkipEnumerable from "../Enumerables/SkipEnumerable";
+import TakeEnumerable from "../Enumerables/TakeEnumerable";
+import WhereEnumerable from "../Enumerables/WhereEnumerable";
 
-export class EnumerableQueryable<T> implements IQueryable<T>
+
+
+export default class EnumerableQueryable<T> implements IQueryable<T>
 {
+    [Symbol.iterator](): Iterator<T, any, undefined>
+    {
+        return this.getEnumerator();
+    }
     private readonly _enumerable: IEnumerable<T>;
 
     constructor(enumerable: IEnumerable<T>)
@@ -167,19 +179,14 @@ export class EnumerableQueryable<T> implements IQueryable<T>
         return keySet.select((key) => new QueryableGroup(this, key, selector, comparer));
     }
     /*
-    public join<TInner, TKey, TResult>(
-        inner: IQueryable<TInner>,
-        outerKeySelector: (o: T) => TKey,
-        innerKeySelector: (i: TInner) => TKey,
-        resultSelector: (o: T, i: TInner) => TResult): IQueryable<TResult>
-    {
-        return this
-            .selectMany(o => inner
-                .where(i => innerKeySelector(i) === outerKeySelector(o))
-                .select(i => resultSelector(o, i))
-            )
-            ;
-    }
+        public join<TInner, TKey, TResult>(
+            inner: IQueryable<TInner>,
+            outerKeySelector: (o: T) => TKey,
+            innerKeySelector: (i: TInner) => TKey,
+            resultSelector: (o: T, i: TInner) => TResult): IQueryable<TResult>
+        {
+            return inner.selectMany(i => this.select(o => resultSelector(o, i)));
+        }
     */
     public last(): T;
     public last(predicate: Predicate<T>): T;
@@ -285,14 +292,9 @@ export class EnumerableQueryable<T> implements IQueryable<T>
         return new SelectEnumerable<T, TOut>(this._enumerable, selector).asQueryable();
     }
 
-    public selectMany<TOut>(selector: Selector<T, IEnumerable<TOut>>): IQueryable<TOut>;
-    public selectMany<TOut>(selector: Selector<T, TOut[]>): IQueryable<TOut>;
-    public selectMany<TOut>(selector: Selector<T, IEnumerable<TOut> | TOut[]>): IQueryable<TOut>
+    public selectMany<TOut>(selector: Selector<T, IEnumerable<TOut>>): IQueryable<TOut>
     {
-        let enumerable = Enumerable.empty<TOut>();
-        this.select(i => new EnumeratorEnumerable(Enumerable.asEnumerable(selector(i)).getEnumerator()))
-
-        return enumerable.asQueryable();
+        return new SelectManyEnumerable<T, TOut>(this._enumerable, selector).asQueryable();
     }
 
     public single(): T;
@@ -426,8 +428,10 @@ export class EnumerableQueryable<T> implements IQueryable<T>
 
     private internalOrderBy<R>(selector: (a: T) => R, comparer: IComparer<R>): IQueryable<T>
     {
-        let mapComparer = new MapComparer(comparer, selector);
-        return new ArrayEnumerable<T>([...this._enumerable.toArray()].sort((a, b) => mapComparer.compare(a, b))).asQueryable();
+        const list = this._enumerable.toList();
+        const mapComparer = new MapComparer(comparer, selector);
+        list.sort(mapComparer);
+        return list.asQueryable();
     }
 }
 
