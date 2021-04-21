@@ -3,7 +3,7 @@
 export interface ICollection<T> extends IEnumerable<T>
 {
     /** Gets the number of elements contained in the ICollection<T>. */
-    readonly count: number;
+    readonly length: number;
 
     /** Gets a value indicating whether the ICollection<T> is read-only. */
     readonly isReadOnly: boolean;

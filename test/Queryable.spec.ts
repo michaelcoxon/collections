@@ -3,8 +3,7 @@
 import { getDefaultLogger, Numbers } from "@michaelcoxon/utilities";
 import { assert, expect } from 'chai';
 import 'mocha';
-import Enumerable from "../src/Enumerables/Enumerable";
-import ArrayEnumerable from "../src/Enumerables/ArrayEnumerable";
+import Enumerable, {ArrayEnumerable} from "../src/Enumerables";
 /*
 setDefaultLogger(new ConsoleLogger(console, {
     loggingVerbosity: LogLevel.Trace,
@@ -13,12 +12,12 @@ setDefaultLogger(new ConsoleLogger(console, {
 */
 const logger = getDefaultLogger();
 
-describe("ArrayEnumerable.asQueryable", () =>
+describe("ArrayEnumerable", () =>
 {
-    it("should return a Queryable with the array items in the same order", () =>
+    it("should return a Enumerable with the array items in the same order", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(array.length).eq(result.count());
 
@@ -28,10 +27,10 @@ describe("ArrayEnumerable.asQueryable", () =>
         }
     });
 
-    it("should return a Queryable with the List items in the same order", () =>
+    it("should return an Enumerable with the List items in the same order", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(array.length).eq(result.count());
 
@@ -42,12 +41,12 @@ describe("ArrayEnumerable.asQueryable", () =>
     });
 });
 
-describe("Queryable.all", () =>
+describe("Enumerable.all", () =>
 {
     it("should return true if all items match the predicate", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(result.all((i) => i > 0)).to.eq(true);
     });
@@ -55,26 +54,26 @@ describe("Queryable.all", () =>
     it("should return false if one item doesnt match the predicate", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(result.all((i) => i > 1)).to.eq(false);
     });
 });
 
-describe("Queryable.any", () =>
+describe("Enumerable.any", () =>
 {
-    it("should return true if the queryable has items", () =>
+    it("should return true if the Enumerable has items", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(result.any()).to.eq(true);
     });
 
-    it("should return false if the queryable is empty", () =>
+    it("should return false if the Enumerable is empty", () =>
     {
         const array = [];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(result.any()).to.eq(false);
     });
@@ -82,7 +81,7 @@ describe("Queryable.any", () =>
     it("should return true if any of the items match the predicate", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(result.any((i) => i === 2)).to.eq(true);
     });
@@ -90,18 +89,18 @@ describe("Queryable.any", () =>
     it("should return false if none of the items match the predicate", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(result.any((i) => i === -1)).to.eq(false);
     });
 });
 
-describe("Queryable.average", () =>
+describe("Enumerable.average", () =>
 {
     it("should return the average of the numbers", () =>
     {
         const array = [1, 2, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
 
         const result = query.average((i) => i);
 
@@ -109,12 +108,12 @@ describe("Queryable.average", () =>
     });
 });
 
-describe("Queryable.count", () =>
+describe("Enumerable.count", () =>
 {
-    it("should return the number of items in the queryable", () =>
+    it("should return the number of items in the Enumerable", () =>
     {
         const array = [1, 2, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
 
         const result = query.count();
 
@@ -122,12 +121,12 @@ describe("Queryable.count", () =>
     });
 });
 
-describe("Queryable.distinct", () =>
+describe("Enumerable.distinct", () =>
 {
     it("should return only unique items in the collection", () =>
     {
         const array = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
         const expected = [1, 2, 3, 4];
 
         expect(query.count()).eq(array.length);
@@ -143,75 +142,75 @@ describe("Queryable.distinct", () =>
     });
 });
 
-describe("Queryable.first", () =>
+describe("Enumerable.first", () =>
 {
-    it("should return the first item in the Queryable", () =>
+    it("should return the first item in the Enumerable", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(result.first()).to.eq(1);
     });
 
-    it("should return the first item in the Queryable after applying the filter", () =>
+    it("should return the first item in the Enumerable after applying the filter", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(result.first(i => i % 2 === 0)).to.eq(2);
     });
 
-    it("should throw an exception if the Queryable is empty", () =>
+    it("should throw an exception if the Enumerable is empty", () =>
     {
         const array = [];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         try
         {
             result.first();
-            assert.fail(undefined, undefined, "For some reason the Queryable is not empty");
+            assert.fail(undefined, undefined, "For some reason the Enumerable is not empty");
         }
         catch (ex) { }
     });
 });
 
-describe("Queryable.firstOrDefault", () =>
+describe("Enumerable.firstOrDefault", () =>
 {
-    it("should return the first item in the Queryable", () =>
+    it("should return the first item in the Enumerable", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(1).to.eq(result.firstOrDefault());
     });
 
-    it("should return the first item in the Queryable after applying the filter", () =>
+    it("should return the first item in the Enumerable after applying the filter", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(2).to.eq(result.firstOrDefault(i => i % 2 === 0));
     });
 
-    it("should return null if the Queryable is empty", () =>
+    it("should return null if the Enumerable is empty", () =>
     {
         const array = [];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(null).to.eq(result.firstOrDefault());
     });
 });
 
 /*
-describe("Queryable.join", () =>
+describe("Enumerable.join", () =>
 {
     it("should return the items joined by the selector", () =>
     {
         const outer = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         const inner = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-        const qOuter = new ArrayEnumerable(outer).asQueryable();
-        const qInner = new ArrayEnumerable(inner).asQueryable();
+        const qOuter = new ArrayEnumerable(outer);
+        const qInner = new ArrayEnumerable(inner);
 
         const outerKeySelector: (o: number) => number = o =>
         {
@@ -241,12 +240,12 @@ describe("Queryable.join", () =>
 });
 */
 
-describe("Queryable.groupBy", () =>
+describe("Enumerable.groupBy", () =>
 {
     it("should return the items grouped by the selector", () =>
     {
         const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
 
         const result = query.groupBy(i => i % 2);
 
@@ -260,71 +259,71 @@ describe("Queryable.groupBy", () =>
     });
 });
 
-describe("Queryable.last", () =>
+describe("Enumerable.last", () =>
 {
-    it("should return the last item in the Queryable", () =>
+    it("should return the last item in the Enumerable", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(4).to.eq(result.last());
     });
 
-    it("should return the last item in the Queryable after applying the filter", () =>
+    it("should return the last item in the Enumerable after applying the filter", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(3).to.eq(result.last(i => i % 2 !== 0));
     });
 
-    it("should throw an exception if the Queryable is empty", () =>
+    it("should throw an exception if the Enumerable is empty", () =>
     {
         const array = [];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         try
         {
             result.last();
-            assert.fail(undefined, undefined, "For some reason the Queryable is not empty");
+            assert.fail(undefined, undefined, "For some reason the Enumerable is not empty");
         }
         catch (ex) { }
     });
 });
 
-describe("Queryable.lastOrDefault", () =>
+describe("Enumerable.lastOrDefault", () =>
 {
-    it("should return the last item in the Queryable", () =>
+    it("should return the last item in the Enumerable", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(4).to.eq(result.lastOrDefault());
     });
 
-    it("should return the last item in the Queryable after applying the filter", () =>
+    it("should return the last item in the Enumerable after applying the filter", () =>
     {
         const array = [1, 2, 3, 4];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(4).to.eq(result.lastOrDefault(i => i % 2 === 0));
     });
 
-    it("should return null if the Queryable is empty", () =>
+    it("should return null if the Enumerable is empty", () =>
     {
         const array = [];
-        const result = new ArrayEnumerable(array).asQueryable();
+        const result = new ArrayEnumerable(array);
 
         expect(null).to.eq(result.lastOrDefault());
     });
 });
 
-describe("Queryable.max", () =>
+describe("Enumerable.max", () =>
 {
     it("should return the max of the numbers", () =>
     {
         const array = [1, 2, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
 
         const result = query.max((i) => i);
 
@@ -332,12 +331,12 @@ describe("Queryable.max", () =>
     });
 });
 
-describe("Queryable.min", () =>
+describe("Enumerable.min", () =>
 {
     it("should return the min of the numbers", () =>
     {
         const array = [1, 2, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
 
         const result = query.min((i) => i);
 
@@ -345,7 +344,7 @@ describe("Queryable.min", () =>
     });
 });
 
-describe("Queryable.ofType", () =>
+describe("Enumerable.ofType", () =>
 {
     class BaseClass
     {
@@ -372,7 +371,7 @@ describe("Queryable.ofType", () =>
             new DerivedClass()
         ];
 
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
         const result = query.ofType(DerivedClass);
 
         expect(result.count()).to.eq(3);
@@ -383,12 +382,12 @@ describe("Queryable.ofType", () =>
     });
 });
 
-describe("Queryable.orderBy", () =>
+describe("Enumerable.orderBy", () =>
 {
     it("should return the items in ascending order", () =>
     {
         const array = [1, 4, 2, 3];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
         const expected = [1, 2, 3, 4];
 
         const result = query.orderBy((i) => i);
@@ -402,7 +401,7 @@ describe("Queryable.orderBy", () =>
     it("should return the items in descending order", () =>
     {
         const array = [1, 4, 2, 3];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
         const expected = [4, 3, 2, 1];
 
         const result = query.orderByDescending((i) => i);
@@ -414,12 +413,12 @@ describe("Queryable.orderBy", () =>
     });
 });
 
-describe("Queryable.skip", () =>
+describe("Enumerable.skip", () =>
 {
     it("should return the items after the skip length (2)", () =>
     {
         const array = [1, 2, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
         const expected = [3, 4];
 
         const result = query.skip(2);
@@ -433,7 +432,7 @@ describe("Queryable.skip", () =>
     it("should return the items after the skip length (0)", () =>
     {
         const array = [1, 2, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
         const expected = [1, 2, 3, 4];
 
         const result = query.skip(0);
@@ -447,7 +446,7 @@ describe("Queryable.skip", () =>
     it("should return the items after the skip length (4)", () =>
     {
         const array = [1, 2, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
         const expected = [];
 
         const result = query.skip(4);
@@ -459,12 +458,12 @@ describe("Queryable.skip", () =>
     });
 });
 
-describe("Queryable.select", () =>
+describe("Enumerable.select", () =>
 {
     it("should return a map of the set 1", () =>
     {
         const array = [1, 2, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
         const expected = [1, 2, 3, 4];
 
         const result = query.select((i) => i);
@@ -478,7 +477,7 @@ describe("Queryable.select", () =>
     it("should return a map of the set 2", () =>
     {
         const array = [1, 2, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
         const expected = [2, 4, 6, 8];
 
         const result = query.select((i) => i * 2);
@@ -490,12 +489,12 @@ describe("Queryable.select", () =>
     });
 });
 
-describe("Queryable.selectMany", () =>
+describe("Enumerable.selectMany", () =>
 {
     it("should return a flat map of the set 1", () =>
     {
         const array = [[1], [2], [3], [4]];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
         const expected = [1, 2, 3, 4];
 
         const result = query.selectMany(i => new ArrayEnumerable(i));
@@ -509,7 +508,7 @@ describe("Queryable.selectMany", () =>
     it("should return a flat map of the set 1.2", () =>
     {
         const array = [new ArrayEnumerable([1, 2, 3]), new ArrayEnumerable([4, 5])];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
         const expected = [1, 2, 3, 4, 5];
 
         const result = query.selectMany(i => i);
@@ -523,7 +522,7 @@ describe("Queryable.selectMany", () =>
         it("should return a flat map of the set 2", () =>
         {
             const array = [[1,2], [2,3], [3,4], [4,5]];
-            const query = new ArrayEnumerable(array).asQueryable();
+            const query = new ArrayEnumerable(array);
             const expected = [2, 4, 6, 8];
     
             const result = query.selectMany((i) => i * 2);
@@ -537,12 +536,12 @@ describe("Queryable.selectMany", () =>
 });
 
 
-describe("Queryable.sum", () =>
+describe("Enumerable.sum", () =>
 {
     it("should return the sum of the numbers", () =>
     {
         const array = [1, 2, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
 
         const result = query.sum((i) => i);
 
@@ -550,12 +549,12 @@ describe("Queryable.sum", () =>
     });
 });
 
-describe("Queryable.take", () =>
+describe("Enumerable.take", () =>
 {
     it("should return a subset of items of the specified length (2)", () =>
     {
         const array = [1, 2, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
         const expected = [1, 2];
 
         const result = query.take(2);
@@ -569,7 +568,7 @@ describe("Queryable.take", () =>
     it("should return a subset of items of the specified length (0)", () =>
     {
         const array = [1, 2, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
         const expected = [];
 
         const result = query.take(0);
@@ -583,7 +582,7 @@ describe("Queryable.take", () =>
     it("should return a subset of items of the specified length (4)", () =>
     {
         const array = [1, 2, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
         const expected = [1, 2, 3, 4];
 
         const result = query.take(4);
@@ -595,12 +594,12 @@ describe("Queryable.take", () =>
     });
 });
 
-describe("Queryable.where", () =>
+describe("Enumerable.where", () =>
 {
     it("should return the items that match the predicate", () =>
     {
         const array = [1, 2, 3, 4];
-        const query = new ArrayEnumerable(array).asQueryable();
+        const query = new ArrayEnumerable(array);
 
         const result = query.where((i) => Numbers.isEven(i));
 
@@ -611,7 +610,7 @@ describe("Queryable.where", () =>
     });
 });
 
-describe("Queryable Big sets", () =>
+describe("Enumerable Big sets", () =>
 {
     it("should select all even numbers", (done) =>
     {
@@ -620,7 +619,7 @@ describe("Queryable Big sets", () =>
         const enumerable = Enumerable.range(1, 1000000);
         logger.trace(`enumerable: ${new Date().getTime()}`);
 
-        const query = enumerable.asQueryable();
+        const query = enumerable;
         logger.trace(`query: ${new Date().getTime()}`);
 
         const evenNumbers = query.where(i => Numbers.isEven(i))

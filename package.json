@@ -1,6 +1,6 @@
 {
   "name": "@michaelcoxon/collections",
-  "version": "2.1.0",
+  "version": "3.0.0-alpha",
   "description": "Collections for JS and TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -1,8 +1,8 @@
 export * from './Types';
 export * from './Utilities';
 export * from './Set';
-export * from './Enumerables';
-export * from './Enumerators';
+//export * from './Enumerables/';
+//export * from './Enumerators';
 export * from './LinkedList';
 
 export * from './Comparers/CaseInsensitiveStringComparer';
@@ -18,9 +18,5 @@ export * from './Interfaces/IEnumerable';
 export * from './Interfaces/IEnumerator';
 export * from './Interfaces/IEqualityComparer';
 export * from './Interfaces/IList';
-export * from './Interfaces/IQueryable';
-export * from './Interfaces/IQueryableGroup';
 export * from './Interfaces/IReadOnlyCollection';
 export * from './Interfaces/ISet';
-
-export * from './Queryables/EnumerableQueryable';

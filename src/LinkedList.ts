@@ -1,14 +1,20 @@
 ﻿import { ICollection } from "./Interfaces/ICollection";
 import { IEnumerable } from "./Interfaces/IEnumerable";
 import { IEnumerableOrArray } from "./Types";
-import { IQueryable } from "./Interfaces/IQueryable";
 import { IEnumerator } from "./Interfaces/IEnumerator";
 import { IDictionary } from "./Interfaces/IDictionary";
 import { IList } from "./Interfaces/IList";
-import { EnumerableQueryable } from "./Queryables/EnumerableQueryable";
 import { Undefinable, Exception } from "@michaelcoxon/utilities";
-import { EnumeratorEnumerable, List, ArrayEnumerable, Dictionary, Enumerable } from './Enumerables';
-import { AppendEnumerator } from './Enumerators';
+
+import EnumeratorEnumerable from './Enumerables/EnumeratorEnumerable';
+import List from './Enumerables/List';
+import Dictionary from './Enumerables/Dictionary';
+import Enumerable from './Enumerables/Enumerable';
+import ArrayEnumerable from './Enumerables/ArrayEnumerable';
+import AppendEnumerator from './Enumerators/AppendEnumerator';
+import EnumerableBase from "./Enumerables/EnumerableBase";
+import EnumeratorBase from "./Enumerators/EnumeratorBase";
+
 
 interface LinkedListItem<T>
 {
@@ -16,7 +22,7 @@ interface LinkedListItem<T>
     next?: LinkedListItem<T>;
 }
 
-export class LinkedList<T> implements ICollection<T>, IEnumerable<T>
+export class LinkedList<T> extends EnumerableBase<T> implements ICollection<T>, IEnumerable<T>
 {
     private _root?: LinkedListItem<T>;
     private _current?: LinkedListItem<T>;
@@ -24,6 +30,8 @@ export class LinkedList<T> implements ICollection<T>, IEnumerable<T>
 
     constructor(enumerableOrArray?: IEnumerableOrArray<T>)
     {
+        super();
+        
         this._count = 0;
 
         if (enumerableOrArray)
@@ -50,7 +58,7 @@ export class LinkedList<T> implements ICollection<T>, IEnumerable<T>
         return new ArrayEnumerable([item]).concat(this);
     }
 
-    public get count(): number
+    public get length(): number
     {
         return this._count;
     }
@@ -108,11 +116,6 @@ export class LinkedList<T> implements ICollection<T>, IEnumerable<T>
         throw new Error("Method not implemented.");
     }
 
-    asQueryable(): IQueryable<T>
-    {
-        return new EnumerableQueryable<T>(this);
-    }
-
     forEach(callback: (value: T, index: number) => boolean | void): void
     {
         let index = 0;
@@ -161,9 +164,7 @@ export class LinkedList<T> implements ICollection<T>, IEnumerable<T>
 
     ofType<N extends T>(ctor: new (...args: any[]) => N): IEnumerable<N>
     {
-        return this
-            .asQueryable()
-            .where((item) => item instanceof ctor).select((item) => item as N);
+        return this.where((item) => item instanceof ctor).select((item) => item as N);
     }
 
     toArray(): T[]
@@ -206,7 +207,7 @@ export class LinkedList<T> implements ICollection<T>, IEnumerable<T>
     }
 }
 
-class LinkedListEnumerator<T> implements IEnumerator<T>
+class LinkedListEnumerator<T> extends EnumeratorBase<T> implements IEnumerator<T>
 {
     private readonly _linkedList: LinkedList<T>;
 
@@ -214,6 +215,7 @@ class LinkedListEnumerator<T> implements IEnumerator<T>
 
     constructor(linkedList: LinkedList<T>)
     {
+        super();
         this._linkedList = linkedList;
         this._currentIndex = -1;
     }

@@ -1,7 +1,7 @@
 ﻿import { setDefaultLogger, ConsoleLogger, LogLevel } from '@michaelcoxon/utilities';
 import { expect, assert } from 'chai';
 import 'mocha';
-import Enumerable  from "../src/Enumerables/Enumerable";
+import Enumerable from "../src/Enumerables";
 /*
 setDefaultLogger(new ConsoleLogger(console, {
     loggingVerbosity: LogLevel.Trace,

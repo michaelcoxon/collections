@@ -4,26 +4,27 @@ import { ICollection } from "./Interfaces/ICollection";
 import { IList } from "./Interfaces/IList";
 import { IDictionary } from "./Interfaces/IDictionary";
 import { IEnumerator } from "./Interfaces/IEnumerator";
-import { IQueryable } from "./Interfaces/IQueryable";
 import { ArgumentException, Undefinable } from "@michaelcoxon/utilities";
-import { EnumeratorEnumerable , Collection, ArrayEnumerable} from './Enumerables';
-import { AppendEnumerator } from './Enumerators';
+import EnumeratorEnumerable from './Enumerables/EnumeratorEnumerable';
+import Collection from './Enumerables/Collection';
+import ArrayEnumerable from './Enumerables/ArrayEnumerable';
+import AppendEnumerator from './Enumerators/AppendEnumerator';
 
 
 // all of this needs to be optimised
 
-export class Set<T> implements ISet<T>, ICollection<T>, IEnumerable<T>
+export class Set<T> extends Collection<T> implements ISet<T>, ICollection<T>, IEnumerable<T>
 {
     private readonly _collection: ICollection<T>
 
     constructor(enumerable?: IEnumerable<T>)
     {
-        this._collection = new Collection<T>(enumerable);
+        super(enumerable);
     }
 
-    public get count(): number
+    public get length(): number
     {
-        return this._collection.count;
+        return this._collection.length;
     }
 
     public get isReadOnly(): boolean
@@ -156,11 +157,6 @@ export class Set<T> implements ISet<T>, ICollection<T>, IEnumerable<T>
     remove(item: T): boolean
     {
         return this._collection.remove(item);
-    }
-
-    asQueryable(): IQueryable<T>
-    {
-        return this._collection.asQueryable();
     }
 
     forEach(callback: (value: T, index: number) => boolean | void): void
