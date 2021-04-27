@@ -1,6 +1,6 @@
 ﻿import { assert, expect } from 'chai';
 import 'mocha';
-import { DefaultNumberComparer } from '../src/Comparers/DefaultComparer';
+import { DefaultComparers } from '../src/Comparers/DefaultComparer';
 
 describe("DefaultNumberComparer.compare", () =>
 {
@@ -8,7 +8,7 @@ describe("DefaultNumberComparer.compare", () =>
     {
         const x = 10;
         const y = 0;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.compare(x, y);
 
@@ -19,7 +19,7 @@ describe("DefaultNumberComparer.compare", () =>
     {
         const x = 10;
         const y = 10;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.compare(x, y);
 
@@ -30,7 +30,7 @@ describe("DefaultNumberComparer.compare", () =>
     {
         const x = 0;
         const y = 10;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.compare(x, y);
 
@@ -44,7 +44,7 @@ describe("DefaultNumberComparer.equals", () =>
     {
         const x = 1;
         const y = 1;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.equals(x, y);
 
@@ -55,7 +55,7 @@ describe("DefaultNumberComparer.equals", () =>
     {
         const x = 1;
         const y = 2;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.equals(x, y);
 
@@ -69,7 +69,7 @@ describe("DefaultNumberComparer.greaterThan", () =>
     {
         const x = 110;
         const y = 10;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.greaterThan(x, y);
 
@@ -80,7 +80,7 @@ describe("DefaultNumberComparer.greaterThan", () =>
     {
         const x = 10;
         const y = 110;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.greaterThan(x, y);
 
@@ -91,7 +91,7 @@ describe("DefaultNumberComparer.greaterThan", () =>
     {
         const x = 10;
         const y = 10;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.greaterThan(x, y);
 
@@ -105,7 +105,7 @@ describe("DefaultNumberComparer.greaterThanOrEqual", () =>
     {
         const x = 110;
         const y = 10;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.greaterThanOrEqual(x, y);
 
@@ -116,7 +116,7 @@ describe("DefaultNumberComparer.greaterThanOrEqual", () =>
     {
         const x = 10;
         const y = 110;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.greaterThanOrEqual(x, y);
 
@@ -127,7 +127,7 @@ describe("DefaultNumberComparer.greaterThanOrEqual", () =>
     {
         const x = 10;
         const y = 10;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.greaterThanOrEqual(x, y);
 
@@ -141,7 +141,7 @@ describe("DefaultNumberComparer.lessThan", () =>
     {
         const x = 110;
         const y = 10;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.lessThan(x, y);
 
@@ -152,7 +152,7 @@ describe("DefaultNumberComparer.lessThan", () =>
     {
         const x = 10;
         const y = 110;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.lessThan(x, y);
 
@@ -163,7 +163,7 @@ describe("DefaultNumberComparer.lessThan", () =>
     {
         const x = 10;
         const y = 10;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.lessThan(x, y);
 
@@ -177,7 +177,7 @@ describe("DefaultNumberComparer.lessThanOrEqual", () =>
     {
         const x = 110;
         const y = 10;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.lessThanOrEqual(x, y);
 
@@ -188,7 +188,7 @@ describe("DefaultNumberComparer.lessThanOrEqual", () =>
     {
         const x = 10;
         const y = 110;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.lessThanOrEqual(x, y);
 
@@ -199,7 +199,7 @@ describe("DefaultNumberComparer.lessThanOrEqual", () =>
     {
         const x = 10;
         const y = 10;
-        const comparer = new DefaultNumberComparer();
+        const comparer = DefaultComparers.NumberComparer;
 
         const result = comparer.lessThanOrEqual(x, y);
 

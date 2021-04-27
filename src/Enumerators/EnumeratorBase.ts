@@ -1,4 +1,4 @@
-import { Undefinable } from "@michaelcoxon/utilities";
+import { Undefinable } from "@michaelcoxon/utilities/lib/Types";
 import { IEnumerator } from "../Interfaces/IEnumerator";
 
 

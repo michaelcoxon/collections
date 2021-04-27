@@ -1,6 +1,8 @@
 import { IEnumerator } from "../Interfaces/IEnumerator";
-import { Undefinable, Exception, Predicate } from "@michaelcoxon/utilities";
+import { Undefinable, Predicate } from "@michaelcoxon/utilities/lib/Types";
 import EnumeratorBase from "./EnumeratorBase";
+import Exception from '@michaelcoxon/utilities/lib/Exceptions/Exception';
+
 
 export default class WhereEnumerator<T> extends EnumeratorBase<T> implements IEnumerator<T> {
 

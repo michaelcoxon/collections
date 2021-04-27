@@ -1,9 +1,11 @@
 import { IEnumerator } from "../Interfaces/IEnumerator";
-import { Undefinable, isUndefinedOrNull, NullReferenceException } from "@michaelcoxon/utilities";
+import NullReferenceException from "@michaelcoxon/utilities/lib/Exceptions/NullReferenceException";
+import { isUndefinedOrNull } from "@michaelcoxon/utilities/lib/TypeHelpers";
+import { Undefinable } from "@michaelcoxon/utilities/lib/Types";
 import EnumeratorBase from "./EnumeratorBase";
 
 
-export default  class AggregateEnumerator<T, TReturn> extends EnumeratorBase<TReturn> implements IEnumerator<TReturn>
+export default class AggregateEnumerator<T, TReturn> extends EnumeratorBase<TReturn> implements IEnumerator<TReturn>
 {
     private readonly _enumerator: IEnumerator<T>;
     private readonly _aggregateFunction: (acumulate: TReturn, current: T) => TReturn;

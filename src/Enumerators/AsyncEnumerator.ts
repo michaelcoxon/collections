@@ -1,8 +1,10 @@
 import { IAsyncEnumerator } from "../Interfaces/IEnumerator";
-import { OutOfBoundsException, isUndefinedOrNull, Promisable } from "@michaelcoxon/utilities";
+import { Promisable } from "@michaelcoxon/utilities/lib/Types";
+import { isUndefinedOrNull } from "@michaelcoxon/utilities/lib/TypeHelpers";
+import OutOfBoundsException from '@michaelcoxon/utilities/lib/Exceptions/OutOfBoundsException';
 
 
-export default  class AsyncEnumerator<T> implements IAsyncEnumerator<T>
+export default class AsyncEnumerator<T> implements IAsyncEnumerator<T>
 {
     // the internal array
     private readonly _baseArray: Promisable<T>[];

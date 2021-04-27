@@ -1,6 +1,7 @@
 import { IEnumerator } from "../Interfaces/IEnumerator";
-import { Undefinable, Exception, Selector } from "@michaelcoxon/utilities";
+import { Undefinable, Selector } from "@michaelcoxon/utilities/lib/Types";
 import EnumeratorBase from "./EnumeratorBase";
+import Exception from '@michaelcoxon/utilities/lib/Exceptions/Exception';
 
 
 export default class SelectEnumerator<T, TReturn> extends EnumeratorBase<TReturn> implements IEnumerator<TReturn>

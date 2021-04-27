@@ -1,7 +1,7 @@
 ﻿import { IComparer } from "../Interfaces/IComparer";
 import { IEqualityComparer } from '../Interfaces/IEqualityComparer';
 
-export class MapComparer<T, M> implements IComparer<T>, IEqualityComparer<T>
+export default class MapComparer<T, M> implements IComparer<T>, IEqualityComparer<T>
 {
     private readonly _comparer: IComparer<M>;
     private readonly _selector: (a: T) => M;

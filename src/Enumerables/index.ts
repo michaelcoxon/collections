@@ -2,27 +2,34 @@ import { IEnumerable } from "../Interfaces/IEnumerable";
 import { IEnumerator } from "../Interfaces/IEnumerator";
 import { IList } from "../Interfaces/IList";
 import { IDictionary } from "../Interfaces/IDictionary";
-import { DefaultComparer } from "../Comparers/DefaultComparer";
-import { MapComparer } from "../Comparers/MapComparer";
-import { ReverseComparer } from "../Comparers/ReverseComparer";
+import { DefaultComparers } from "../Comparers/DefaultComparer";
+import MapComparer from "../Comparers/MapComparer";
+import ReverseComparer from "../Comparers/ReverseComparer";
 import { IComparer } from "../Interfaces/IComparer";
 import { IEnumerableGroup } from "../Interfaces/IEnumerableGroup";
-import { IEnumerableOrArray, KeyValuePair } from '../Types';
-import { ICollection } from '../Interfaces/ICollection';
+import { IEnumerableOrArray, KeyValuePair } from "../Types";
+import { ICollection } from "../Interfaces/ICollection";
 
 import AppendEnumerator from "../Enumerators/AppendEnumerator";
 import ArrayEnumerator from "../Enumerators/ArrayEnumerator";
 
-import DictionaryEnumerator from '../Enumerators/DictionaryEnumerator';
-import RangeEnumerator from '../Enumerators/RangeEnumerator';
-import SelectEnumerator from '../Enumerators/SelectEnumerator';
-import SelectManyEnumerator from '../Enumerators/SelectManyEnumerator';
-import SkipEnumerator from '../Enumerators/SkipEnumerator';
-import TakeEnumerator from '../Enumerators/TakeEnumerator';
-import WhereEnumerator from '../Enumerators/WhereEnumerator';
-import AggregateEnumerator from '../Enumerators/AggregateEnumerator';
-import { Undefinable, Predicate, Selector, Utilities, ConstructorFor, isUndefinedOrNull, ArgumentException, KeyAlreadyDefinedException, KeyNotFoundException } from '@michaelcoxon/utilities';
-
+import DictionaryEnumerator from "../Enumerators/DictionaryEnumerator";
+import RangeEnumerator from "../Enumerators/RangeEnumerator";
+import SelectEnumerator from "../Enumerators/SelectEnumerator";
+import SelectManyEnumerator from "../Enumerators/SelectManyEnumerator";
+import SkipEnumerator from "../Enumerators/SkipEnumerator";
+import TakeEnumerator from "../Enumerators/TakeEnumerator";
+import WhereEnumerator from "../Enumerators/WhereEnumerator";
+import AggregateEnumerator from "../Enumerators/AggregateEnumerator";
+import LinkedListEnumerator from "../Enumerators/LinkedListEnumerator";
+import { Undefinable, Predicate, Selector, ConstructorFor } from "@michaelcoxon/utilities/lib/Types";
+import { isUndefinedOrNull } from "@michaelcoxon/utilities/lib/TypeHelpers";
+import ArgumentException from '@michaelcoxon/utilities/lib/Exceptions/ArgumentException';
+import KeyAlreadyDefinedException from '@michaelcoxon/utilities/lib/Exceptions/KeyAlreadyDefinedException';
+import KeyNotFoundException from '@michaelcoxon/utilities/lib/Exceptions/KeyNotFoundException';
+import Utilities from '@michaelcoxon/utilities/lib/Utilities';
+import NullReferenceException from '@michaelcoxon/utilities/lib/Exceptions/NullReferenceException';
+import InvalidOperationException from '@michaelcoxon/utilities/lib/Exceptions/InvalidOperationException';
 
 export default class Enumerable
 {
@@ -267,7 +274,7 @@ abstract class EnumerableBase<T> implements IEnumerable<T>
 
     public groupBy<TKey>(selector: Selector<T, TKey>): IEnumerable<IEnumerableGroup<T, TKey>>;
     public groupBy<TKey>(selector: Selector<T, TKey>, comparer: IComparer<TKey>): IEnumerable<IEnumerableGroup<T, TKey>>;
-    public groupBy<TKey>(selector: Selector<T, TKey>, comparer: IComparer<TKey> = new DefaultComparer<TKey>()): IEnumerable<IEnumerableGroup<T, TKey>>
+    public groupBy<TKey>(selector: Selector<T, TKey>, comparer: IComparer<TKey> = DefaultComparers.DefaultComparer): IEnumerable<IEnumerableGroup<T, TKey>>
     {
         let keySet = this.select(selector).distinct((k) => k).orderBy(k => k);
         return keySet.select((key) => new EnumerableGroup(this, key, selector, comparer));
@@ -368,12 +375,12 @@ abstract class EnumerableBase<T> implements IEnumerable<T>
 
     public orderBy<R>(selector: (a: T) => R, comparer?: IComparer<R>): IEnumerable<T>
     {
-        return this.internalOrderBy(selector, comparer || new DefaultComparer<R>());
+        return this.internalOrderBy(selector, comparer || DefaultComparers.DefaultComparer);
     }
 
     public orderByDescending<R>(selector: (a: T) => R, comparer?: IComparer<R>): IEnumerable<T>
     {
-        return this.internalOrderBy(selector, new ReverseComparer(comparer || new DefaultComparer<R>()));
+        return this.internalOrderBy(selector, new ReverseComparer(comparer || DefaultComparers.DefaultComparer));
     }
 
     public select<TOut>(selector: Selector<T, TOut>): IEnumerable<TOut>
@@ -405,14 +412,14 @@ abstract class EnumerableBase<T> implements IEnumerable<T>
         {
             if (!isUndefinedOrNull(returnValue))
             {
-                throw new Error("More than one match in the collection!");
+                throw new InvalidOperationException("More than one match in the collection!");
             }
             returnValue = en.current;
         }
 
         if (isUndefinedOrNull(returnValue))
         {
-            throw new Error("The collection is empty!");
+            throw new NullReferenceException("The result is undefined!");
         }
 
         return returnValue;
@@ -437,6 +444,7 @@ abstract class EnumerableBase<T> implements IEnumerable<T>
         {
             if (!isUndefinedOrNull(returnValue))
             {
+                // TODO: should this throw here?  throw new InvalidOperationException("More than one match in the collection!");
                 return null;
             }
             returnValue = en.current;
@@ -517,29 +525,6 @@ abstract class EnumerableBase<T> implements IEnumerable<T>
         const mapComparer = new MapComparer(comparer, selector);
         list.sort(mapComparer);
         return list;
-    }
-}
-
-class EnumerableGroup<T, TKey> extends EnumerableBase<T> implements IEnumerableGroup<T, TKey>
-{
-    private readonly _key: TKey;
-    private readonly _enumerable: IEnumerable<T>;
-
-    constructor(parentEnumerable: IEnumerable<T>, key: TKey, keySelector: Selector<T, TKey>, keyComparer: IComparer<TKey>)
-    {
-        super();
-        this._enumerable = parentEnumerable.where(item => keyComparer.equals(keySelector(item), key));
-        this._key = key;
-    }
-
-    public get key(): TKey 
-    {
-        return this._key;
-    }
-
-    public getEnumerator(): IEnumerator<T>
-    {
-        return this._enumerable.getEnumerator();
     }
 }
 
@@ -792,6 +777,200 @@ export class EnumeratorEnumerable<T> extends EnumerableBase<T>
     }
 }
 
+interface LinkedListItem<T>
+{
+    value: T;
+    next?: LinkedListItem<T>;
+}
+
+export class LinkedList<T> extends EnumerableBase<T> implements ICollection<T>, IEnumerable<T>
+{
+    private _root?: LinkedListItem<T>;
+    private _current?: LinkedListItem<T>;
+    private _count: number;
+
+    constructor(enumerableOrArray?: IEnumerableOrArray<T>)
+    {
+        super();
+
+        this._count = 0;
+
+        if (enumerableOrArray)
+        {
+            for (var item of Enumerable.asArray(enumerableOrArray))
+            {
+                this.add(item);
+            }
+        }
+    }
+
+    append(item: T): IEnumerable<T>
+    {
+        return this.concat(new ArrayEnumerable([item]));
+    }
+
+    concat(next: IEnumerable<T>): IEnumerable<T>
+    {
+        return new EnumeratorEnumerable(new AppendEnumerator(this.getEnumerator(), next.getEnumerator()));
+    }
+
+    prepend(item: T): IEnumerable<T>
+    {
+        return new ArrayEnumerable([item]).concat(this);
+    }
+
+    public get length(): number
+    {
+        return this._count;
+    }
+
+    public get isReadOnly(): boolean
+    {
+        return false;
+    }
+
+    add(item: T): void
+    {
+        const listItem: LinkedListItem<T> = {
+            value: item
+        };
+
+        if (this._current === undefined)
+        {
+            this._current = this._root = listItem;
+        }
+        else
+        {
+            this._current.next = listItem;
+            this._current = listItem;
+        }
+
+        this._count++;
+    }
+
+    clear(): void
+    {
+        this._current = this._root = undefined;
+    }
+
+    contains(item: T): boolean
+    {
+        if (this._root === undefined)
+        {
+            return false;
+        }
+
+        let result = false;
+
+        this.traverse(this._root, node => !(result = (node.value === item)));
+
+        return result;
+    }
+
+    copyTo(array: T[], arrayIndex: number): void
+    {
+        // TODO:   throw new Error("Method not implemented.");
+        throw new Error("Method not implemented.");
+    }
+
+    remove(item: T): boolean
+    {
+        // TODO:   throw new Error("Method not implemented.");
+        throw new Error("Method not implemented.");
+    }
+
+    forEach(callback: (value: T, index: number) => boolean | void): void
+    {
+        let index = 0;
+
+        if (this._root === undefined)
+        {
+            return;
+        }
+
+        return this.traverse(this._root, node => callback(node.value, index++));
+    }
+
+    getEnumerator(): IEnumerator<T>
+    {
+        return new LinkedListEnumerator<T>(this);
+    }
+
+    item(index: number): Undefinable<T>
+    {
+        if (this._root !== undefined)
+        {
+            if (index == 0)
+            {
+                return this._root.value;
+            }
+
+            let count = 0;
+            let result: Undefinable<T>;
+
+            this.traverse(this._root, node =>
+            {
+                if (count == index)
+                {
+                    result = node.value;
+                }
+                count++;
+            });
+
+            return result;
+        }
+        else
+        {
+            return undefined;
+        }
+    }
+
+    ofType<N extends T>(ctor: new (...args: any[]) => N): IEnumerable<N>
+    {
+        return this.where((item) => item instanceof ctor).select((item) => item as N);
+    }
+
+    toArray(): T[]
+    {
+        const result: T[] = [];
+        const en = this.getEnumerator();
+        let index = 0;
+
+        while (en.moveNext())
+        {
+            result.push(en.current);
+        }
+
+        return result;
+    }
+
+    toDictionary<TKey, TValue>(keySelector: (a: T) => TKey, valueSelector: (a: T) => TValue): IDictionary<TKey, TValue>
+    {
+        return new Dictionary(this.toArray().map(i => ({ key: keySelector(i), value: valueSelector(i) })));
+    }
+
+    toList(): IList<T>
+    {
+        return new List(this);
+    }
+
+    /**
+     * Traverse the collection, return false in the callback to break. return true or undefined to continue.
+     * @param node
+     * @param callback
+     */
+    private traverse(node: LinkedListItem<T>, callback: ((node: LinkedListItem<T>) => boolean | void)): void
+    {
+        const cont = callback(node);
+
+        if (cont !== false && node.next !== undefined)
+        {
+            return this.traverse(node.next, callback);
+        }
+    }
+}
+
+
 export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, IEnumerable<T>
 {
     public addRange(array: T[]): void;
@@ -902,13 +1081,36 @@ export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, 
         this._array.splice(index, 1);
     }
 
-    public sort(comparer: IComparer<T> = new DefaultComparer<T>()): void
+    public sort(comparer: IComparer<T> = DefaultComparers.DefaultComparer): void
     {
         this._array.sort((a, b) => comparer.compare(a, b));
     }
 }
 
-export class RangeEnumerable extends EnumerableBase<number>
+class EnumerableGroup<T, TKey> extends EnumerableBase<T> implements IEnumerableGroup<T, TKey>
+{
+    private readonly _key: TKey;
+    private readonly _enumerable: IEnumerable<T>;
+
+    constructor(parentEnumerable: IEnumerable<T>, key: TKey, keySelector: Selector<T, TKey>, keyComparer: IComparer<TKey>)
+    {
+        super();
+        this._enumerable = parentEnumerable.where(item => keyComparer.equals(keySelector(item), key));
+        this._key = key;
+    }
+
+    public get key(): TKey 
+    {
+        return this._key;
+    }
+
+    public getEnumerator(): IEnumerator<T>
+    {
+        return this._enumerable.getEnumerator();
+    }
+}
+
+class RangeEnumerable extends EnumerableBase<number>
 {
     private readonly _start: number;
     private readonly _count: number;
@@ -926,7 +1128,7 @@ export class RangeEnumerable extends EnumerableBase<number>
     }
 }
 
-export class SelectEnumerable<T, TReturn> extends EnumerableBase<TReturn>
+class SelectEnumerable<T, TReturn> extends EnumerableBase<TReturn>
 {
     private readonly _enumerable: IEnumerable<T>;
     private readonly _selector: Selector<T, TReturn>;
@@ -944,7 +1146,7 @@ export class SelectEnumerable<T, TReturn> extends EnumerableBase<TReturn>
     }
 }
 
-export class SelectManyEnumerable<T, TReturn> extends EnumerableBase<TReturn>
+class SelectManyEnumerable<T, TReturn> extends EnumerableBase<TReturn>
 {
     private readonly _enumerable: IEnumerable<T>;
     private readonly _selector: Selector<T, IEnumerable<TReturn>>;
@@ -962,7 +1164,7 @@ export class SelectManyEnumerable<T, TReturn> extends EnumerableBase<TReturn>
     }
 }
 
-export class SkipEnumerable<T> extends EnumerableBase<T>
+class SkipEnumerable<T> extends EnumerableBase<T>
 {
     private readonly _enumerable: IEnumerable<T>;
     private _itemsToSkip: number;
@@ -980,7 +1182,7 @@ export class SkipEnumerable<T> extends EnumerableBase<T>
     }
 }
 
-export class TakeEnumerable<T> extends EnumerableBase<T>
+class TakeEnumerable<T> extends EnumerableBase<T>
 {
     private readonly _enumerable: IEnumerable<T>;
     private _itemsToTake: number;
@@ -998,7 +1200,7 @@ export class TakeEnumerable<T> extends EnumerableBase<T>
     }
 }
 
-export class WhereEnumerable<T> extends EnumerableBase<T>
+class WhereEnumerable<T> extends EnumerableBase<T>
 {
     private readonly _enumerable: IEnumerable<T>;
     private readonly _predicate: Predicate<T>;

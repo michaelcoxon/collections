@@ -1,9 +1,11 @@
 import { IEnumerator } from "../Interfaces/IEnumerator";
-import { Undefinable, ArgumentException, Exception } from "@michaelcoxon/utilities";
+import { Undefinable } from "@michaelcoxon/utilities/lib/Types";
 import EnumeratorBase from "./EnumeratorBase";
+import ArgumentException from '@michaelcoxon/utilities/lib/Exceptions/ArgumentException';
+import Exception from '@michaelcoxon/utilities/lib/Exceptions/Exception';
 
 
-export default  class RangeEnumerator extends EnumeratorBase<number> implements IEnumerator<number>
+export default class RangeEnumerator extends EnumeratorBase<number> implements IEnumerator<number>
 {
     private readonly _start: number;
     private readonly _count: number;

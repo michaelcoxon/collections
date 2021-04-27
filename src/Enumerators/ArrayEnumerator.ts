@@ -1,9 +1,10 @@
 import { IEnumerator } from "../Interfaces/IEnumerator";
-import { Undefinable, OutOfBoundsException } from "@michaelcoxon/utilities";
+import { Undefinable } from "@michaelcoxon/utilities/lib/Types";
 import EnumeratorBase from "./EnumeratorBase";
+import OutOfBoundsException from '@michaelcoxon/utilities/lib/Exceptions/OutOfBoundsException';
 
 
-export default  class ArrayEnumerator<T> extends EnumeratorBase<T> implements IEnumerator<T>
+export default class ArrayEnumerator<T> extends EnumeratorBase<T> implements IEnumerator<T>
 {
     // the internal array
     private readonly _baseArray: T[];
@@ -14,7 +15,7 @@ export default  class ArrayEnumerator<T> extends EnumeratorBase<T> implements IE
     constructor(array: T[])
     {
         super();
-        this._baseArray = array;        
+        this._baseArray = array;
     }
 
     // returns the current element

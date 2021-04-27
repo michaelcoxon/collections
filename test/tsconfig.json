@@ -1,13 +1,15 @@
 {
-  "extends": "./base-tsconfig",
-
+  "extends": "../base-tsconfig",
+  "compilerOptions": {
+    "outDir": "./dist/modules",
+    "sourceMap": true,
+  },
   "compileOnSave": true,
   "exclude": [
     "node_modules",
     "lib",
     "lib.esnext",
     "lib.es6",
-    "src",
     "dist"
   ]
 }

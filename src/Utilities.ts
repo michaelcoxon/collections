@@ -1,4 +1,5 @@
-﻿import { NotSupportedException, Selector } from "@michaelcoxon/utilities";
+﻿import NotSupportedException from '@michaelcoxon/utilities/lib/Exceptions/NotSupportedException';
+import { Selector } from "@michaelcoxon/utilities/lib/Types";
 
 export function createSelector<T, K extends keyof T, R>(propertyNameOrSelector: K | Selector<T, R>): Selector<T, R | T[K]>
 {
@@ -11,7 +12,7 @@ export function createSelector<T, K extends keyof T, R>(propertyNameOrSelector: 
                 throw new NotSupportedException(`property names that are functions ('${propertyNameOrSelector}')`);
             }
             return a[propertyNameOrSelector];
-        }
+        };
     }
     else
     {

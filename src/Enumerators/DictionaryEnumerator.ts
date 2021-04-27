@@ -1,6 +1,6 @@
 import { IEnumerator } from "../Interfaces/IEnumerator";
 import { KeyValuePair } from "../Types";
-import { Undefinable } from "@michaelcoxon/utilities";
+import { Undefinable } from "@michaelcoxon/utilities/lib/Types";
 import { IDictionary } from "../Interfaces/IDictionary";
 import ArrayEnumerator from "./ArrayEnumerator";
 import EnumeratorBase from "./EnumeratorBase";

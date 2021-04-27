@@ -1,13 +1,16 @@
 ﻿import { IComparer } from "../Interfaces/IComparer";
-import { IEqualityComparer } from '../Interfaces/IEqualityComparer';
+import { IEqualityComparer } from "../Interfaces/IEqualityComparer";
 
 export class CaseInsensitiveStringComparer implements IComparer<string>, IEqualityComparer<string>
 {
     public compare(x: string, y: string): number
     {
+        /*
         if (String.prototype.localeCompare)
         {
-            return x.localeCompare(y, undefined, { sensitivity: 'accent' });
+        */
+        return x.localeCompare(y, undefined, { sensitivity: 'accent' });
+        /*
         }
         else
         {
@@ -26,6 +29,7 @@ export class CaseInsensitiveStringComparer implements IComparer<string>, IEquali
 
             return 0;
         }
+        */
     }
 
     public equals(x: string, y: string): boolean

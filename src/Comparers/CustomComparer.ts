@@ -1,6 +1,6 @@
-﻿import { IComparer } from "../Interfaces/IComparer";
-import { ArgumentUndefinedException } from "@michaelcoxon/utilities";
-import { IEqualityComparer } from '../Interfaces/IEqualityComparer';
+﻿import ArgumentUndefinedException from '@michaelcoxon/utilities/lib/Exceptions/ArgumentUndefinedException';
+import { IComparer } from "../Interfaces/IComparer";
+import { IEqualityComparer } from "../Interfaces/IEqualityComparer";
 
 export class CustomComparer<T> implements IComparer<T>, IEqualityComparer<T>
 {

@@ -1,7 +1,7 @@
 ﻿import { IEnumerator } from "./IEnumerator";
 import { IList } from "./IList";
 import { IDictionary } from "./IDictionary";
-import { ConstructorFor, Predicate, Selector, Undefinable } from "@michaelcoxon/utilities";
+import { ConstructorFor, Predicate, Selector, Undefinable } from "@michaelcoxon/utilities/lib/Types";
 import { IComparer } from "./IComparer";
 import { IEnumerableGroup } from "./IEnumerableGroup";
 

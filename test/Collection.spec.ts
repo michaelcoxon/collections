@@ -1,7 +1,7 @@
 ﻿import { Collection } from "../src/Enumerables";
 import { expect, assert } from 'chai';
 import 'mocha';
-import { ArgumentException } from "@michaelcoxon/utilities";
+import ArgumentException from '@michaelcoxon/utilities/lib/Exceptions/ArgumentException';
 
 describe("Collection.constructor", () =>
 {

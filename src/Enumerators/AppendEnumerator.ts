@@ -1,6 +1,8 @@
 import { IEnumerator } from "../Interfaces/IEnumerator";
-import { Undefinable, isUndefinedOrNull, NullReferenceException } from "@michaelcoxon/utilities";
+import { isUndefinedOrNull } from "@michaelcoxon/utilities/lib/TypeHelpers";
+import { Undefinable } from "@michaelcoxon/utilities/lib/Types";
 import EnumeratorBase from "./EnumeratorBase";
+import NullReferenceException from '@michaelcoxon/utilities/lib/Exceptions/NullReferenceException';
 
 
 export default class AppendEnumerator<T> extends EnumeratorBase<T> implements IEnumerator<T>
