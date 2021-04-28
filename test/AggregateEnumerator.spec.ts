@@ -1,5 +1,4 @@
 ﻿import NullReferenceException from '@michaelcoxon/utilities/lib/Exceptions/NullReferenceException';
-import OutOfBoundsException from '@michaelcoxon/utilities/lib/Exceptions/OutOfBoundsException';
 import { isNumber } from '@michaelcoxon/utilities/lib/TypeHelpers';
 import { expect, assert } from 'chai';
 import 'mocha';
