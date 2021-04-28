@@ -9,14 +9,17 @@ export default class AggregateEnumerator<T, TReturn> extends EnumeratorBase<TRet
 {
     private readonly _enumerator: IEnumerator<T>;
     private readonly _aggregateFunction: (acumulate: TReturn, current: T) => TReturn;
+    private readonly _initialValue?: TReturn;
 
     private _accumulate?: TReturn;
 
-    constructor(enumerator: IEnumerator<T>, aggregateFunction: (acumulate: TReturn, current: T) => TReturn)
+    constructor(enumerator: IEnumerator<T>, aggregateFunction: (acumulate: TReturn, current: T) => TReturn, initialValue?: TReturn)
     {
         super();
         this._enumerator = enumerator;
         this._aggregateFunction = aggregateFunction;
+        this._accumulate = initialValue;
+        this._initialValue = initialValue;
     }
 
     public get current(): TReturn
@@ -30,9 +33,9 @@ export default class AggregateEnumerator<T, TReturn> extends EnumeratorBase<TRet
 
     moveNext(): boolean
     {
-        this._accumulate = this.peek();
+        const currentValue = this._accumulate = this.peek();
 
-        if (this._accumulate === undefined)
+        if (currentValue === undefined)
         {
             return false;
         }
@@ -55,6 +58,6 @@ export default class AggregateEnumerator<T, TReturn> extends EnumeratorBase<TRet
     reset(): void
     {
         this._enumerator.reset();
-        this._accumulate = undefined;
+        this._accumulate = this._initialValue;
     }
 }

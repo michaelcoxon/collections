@@ -12,9 +12,8 @@ export default abstract class EnumeratorBase<T> implements IEnumerator<T>
     public readonly throw?: (e?: any) => IteratorResult<T, any>;
     public next(...args: []): IteratorResult<T, T>
     {
-        return {
-            done: this.moveNext(),
-            value: this.current
-        };
+        const done = !this.moveNext();
+        const value = done ? undefined : this.current;
+        return { done, value: value! };
     }
 }

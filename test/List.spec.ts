@@ -163,6 +163,24 @@ describe("List.find", () =>
 
         expect(undefined).eq(result);
     });
+
+    it("(isEquivilent) should return the item if it is in the List", () =>
+    {
+        const array = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+        const list = new List(array);
+        const result = list.find({ id: 4 }, true);
+
+        expect({ id: 4 }.id).eq(result!.id);
+    });
+
+    it("(isEquivilent) should return undefined if it is not in the List", () =>
+    {
+        const array = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+        const list = new List(array);
+        const result = list.find({ id: 5 }, true);
+
+        expect(undefined).eq(result);
+    });
 });
 
 describe("List.indexOf", () =>
@@ -181,6 +199,24 @@ describe("List.indexOf", () =>
         const array = [1, 2, 3, 4];
         const list = new List(array);
         const result = list.indexOf(5);
+
+        expect(undefined).eq(result);
+    });
+
+    it("(isEquivilent) should return the index of the item if it is in the List", () =>
+    {
+        const array = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+        const list = new List(array);
+        const result = list.indexOf({ id: 4 }, true);
+
+        expect(3).eq(result);
+    });
+
+    it("(isEquivilent) should return undefined if it is not in the List", () =>
+    {
+        const array = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+        const list = new List(array);
+        const result = list.indexOf({ id: 5 }, true);
 
         expect(undefined).eq(result);
     });

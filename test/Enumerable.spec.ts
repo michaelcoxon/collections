@@ -12,7 +12,7 @@ setDefaultLogger(new ConsoleLogger(console, {
 */
 const logger = getDefaultLogger();
 
-describe("ArrayEnumerable", () =>
+describe("Enumerable", () =>
 {
     it("should return a Enumerable with the array items in the same order", () =>
     {
@@ -38,6 +38,21 @@ describe("ArrayEnumerable", () =>
         {
             expect(result.item(i)).eq(array[i], `index ${i} is not the same`);
         }
+    });
+
+    it("should be able to be enumerated with for(..of..)", () =>
+    {
+        const array = [1, 2, 3, 4];
+        const result = new ArrayEnumerable(array);
+
+        expect(array.length).eq(result.count());
+        let i = 0;
+        for (const value of result)
+        {
+            expect(value).eq(array[i], `index ${i} is not the same`);
+            i++;
+        }
+        expect(i).eq(array.length);
     });
 });
 
@@ -518,21 +533,21 @@ describe("Enumerable.selectMany", () =>
             expect(result.item(i)).eq(expected[i], `index ${i} is not the same`);
         }
     });
-    /*
-        it("should return a flat map of the set 2", () =>
+
+    it("should return a flat map of the set 2", () =>
+    {
+        const array = [[1, 2], [2, 3], [3, 4], [4, 5]];
+        const query = new ArrayEnumerable(array);
+        const expected = [1, 2, 2, 3, 3, 4, 4, 5];
+
+        const result = query.selectMany(i => new ArrayEnumerable(i));
+
+        for (let i = 0; i < result.count(); i++)
         {
-            const array = [[1,2], [2,3], [3,4], [4,5]];
-            const query = new ArrayEnumerable(array);
-            const expected = [2, 4, 6, 8];
-    
-            const result = query.selectMany((i) => i * 2);
-    
-            for (let i = 0; i < result.count(); i++)
-            {
-                expect(expected[i]).eq(result.item(i), `index ${i} is not the same`);
-            }
-        });    
-        */
+            expect(expected[i]).eq(result.item(i), `index ${i} is not the same`);
+        }
+    });
+
 });
 
 

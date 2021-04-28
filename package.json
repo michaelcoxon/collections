@@ -10,7 +10,7 @@
     "build-typescript": "tsc -p src\\config\\es5\\tsconfig.json&& tsc -p src\\config\\es6\\tsconfig.json&& tsc -p src\\config\\esnext\\tsconfig.json",
     "version": "npm -v && node -v",
     "test": "mocha ./test/**/*.spec.ts",
-    "coverage": "nyc --reporter=html --reporter=text mocha ./test/**/*.spec.ts",
+    "coverage": "nyc mocha ./test/**/*.spec.ts",
     "build-dev": "SET NODE_ENV=development&& webpack",
     "build-prod": "SET NODE_ENV=production&& webpack",
     "prepack": "npm-run-all -s build-typescript build-prod test build-doc",
@@ -32,9 +32,10 @@
       "**/*.d.ts"
     ],
     "reporter": [
-      "html"
+      "html",
+      "text"
     ],
-    "all": true
+    "all": false
   },
   "repository": {
     "type": "git",

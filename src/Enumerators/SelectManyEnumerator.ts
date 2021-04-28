@@ -5,7 +5,7 @@ import EnumeratorBase from "./EnumeratorBase";
 import Exception from '@michaelcoxon/utilities/lib/Exceptions/Exception';
 
 
-export default  class SelectManyEnumerator<T, TReturn> extends EnumeratorBase<TReturn> implements IEnumerator<TReturn>
+export default class SelectManyEnumerator<T, TReturn> extends EnumeratorBase<TReturn> implements IEnumerator<TReturn>
 {
     private _currentSetEnumerator?: IEnumerator<TReturn>;
     private readonly _enumerator: IEnumerator<T>;

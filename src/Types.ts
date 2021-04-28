@@ -7,4 +7,4 @@ export type IEnumerableOrArray<T> = T[] | IEnumerable<T>;
 export type KeySelector<T, K extends keyof T> = (propertyName: K) => T[K];
 
 /** A key and value pair */
-export type KeyValuePair<TKey, TValue> = { readonly key: TKey; value: TValue; };
+export type KeyValuePair<TKey, TValue> = { readonly key: TKey; readonly value: TValue; };

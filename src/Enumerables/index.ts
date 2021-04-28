@@ -532,17 +532,19 @@ export class AggregateEnumerable<T, TReturn> extends EnumerableBase<TReturn>
 {
     private readonly _enumerable: IEnumerable<T>;
     private readonly _aggregateFunction: (acumulate: TReturn, current: T) => TReturn;
+    private readonly _initialValue: TReturn;
 
-    constructor(enumerable: IEnumerable<T>, aggregateFunction: (acumulate: TReturn, current: T) => TReturn)
+    constructor(enumerable: IEnumerable<T>, aggregateFunction: (acumulate: TReturn, current: T) => TReturn, initialValue: TReturn)
     {
         super();
         this._enumerable = enumerable;
         this._aggregateFunction = aggregateFunction;
+        this._initialValue = initialValue;
     }
 
     public getEnumerator(): IEnumerator<TReturn>
     {
-        return new AggregateEnumerator(this._enumerable.getEnumerator(), this._aggregateFunction);
+        return new AggregateEnumerator(this._enumerable.getEnumerator(), this._aggregateFunction, this._initialValue);
     }
 }
 
@@ -851,6 +853,7 @@ export class LinkedList<T> extends EnumerableBase<T> implements ICollection<T>, 
     clear(): void
     {
         this._current = this._root = undefined;
+        this._count = 0;
     }
 
     contains(item: T): boolean
@@ -987,19 +990,12 @@ export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, 
         {
             for (let item of this._array)
             {
-                var found = false;
-
-                if (isEquivilent)
-                {
-                    found = Utilities.equals(item, obj);
-                }
-                if (found)
+                if (Utilities.equals(item, obj))
                 {
                     return item;
                 }
             }
         }
-
         else
         {
             let index = this.indexOf(obj);
@@ -1007,7 +1003,6 @@ export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, 
             {
                 return this.item(index);
             }
-
             else
             {
                 return undefined;
@@ -1015,7 +1010,7 @@ export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, 
         }
     }
 
-    public indexOf(obj: T, isEquivilent: boolean = false): number | undefined
+    public indexOf(value: T, isEquivilent: boolean = false): number | undefined
     {
         if (isEquivilent)
         {
@@ -1023,18 +1018,7 @@ export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, 
 
             this.forEach((item, i) =>
             {
-                let found = false;
-
-                if (isEquivilent)
-                {
-                    found = Utilities.equals(item, obj);
-                }
-
-                else
-                {
-                    found = item == obj;
-                }
-                if (found)
+                if (Utilities.equals(item, value))
                 {
                     index = i;
                     return false;
@@ -1043,10 +1027,9 @@ export class List<T> extends Collection<T> implements IList<T>, ICollection<T>, 
 
             return index;
         }
-
         else
         {
-            let index = this._array.indexOf(obj);
+            let index = this._array.indexOf(value);
             if (index == -1)
             {
                 return undefined;
