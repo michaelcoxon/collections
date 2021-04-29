@@ -281,12 +281,15 @@ abstract class EnumerableBase<T> implements IEnumerable<T>
     }
     /*
         public join<TInner, TKey, TResult>(
-            inner: IQueryable<TInner>,
+            inner: IEnumerable<TInner>,
             outerKeySelector: (o: T) => TKey,
             innerKeySelector: (i: TInner) => TKey,
-            resultSelector: (o: T, i: TInner) => TResult): IQueryable<TResult>
+            resultSelector: (o: T, i: TInner) => TResult): IEnumerable<TResult>
         {
-            return inner.selectMany(i => this.select(o => resultSelector(o, i)));
+            return this.select(o => ({ o, v: outerKeySelector(o) }))
+                .selectMany(o => inner.select(i => ({ i, o: o.o, v: innerKeySelector(i) })).where(i => i.v == o.v))
+                .select(j => resultSelector(j.o, j.i))
+                ;
         }
     */
     public last(): T;
@@ -522,7 +525,7 @@ abstract class EnumerableBase<T> implements IEnumerable<T>
     {
         // HACK: this could be better...
         const list = this.toList();
-        const mapComparer = new MapComparer(comparer, selector);
+        const mapComparer = new MapComparer(selector, comparer);
         list.sort(mapComparer);
         return list;
     }

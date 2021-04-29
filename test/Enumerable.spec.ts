@@ -221,8 +221,9 @@ describe("Enumerable.join", () =>
 {
     it("should return the items joined by the selector", () =>
     {
-        const outer = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        const inner = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        const outer = [1, 2, 3, 4, 5, 6];
+        const inner = [2, 4, 6, 8];
+        const expected = [2, 4, 6];
 
         const qOuter = new ArrayEnumerable(outer);
         const qInner = new ArrayEnumerable(inner);
@@ -237,7 +238,7 @@ describe("Enumerable.join", () =>
             console.log('i', i);
             return i;
         };
-        const resultSelector: (o: number, i: number) => { o: number, i: number } = (o, i) =>
+        const resultSelector: (o: number, i: number) => { o: number, i: number; } = (o, i) =>
         {
             console.log('{o,i}', { o, i });
             return { o, i };
@@ -245,10 +246,7 @@ describe("Enumerable.join", () =>
 
         const result = qOuter.join(qInner, outerKeySelector, innerKeySelector, resultSelector);
 
-        console.log('count', result.count());
-
-        expect(result.count(), "eq 10").to.eq(10);
-
+        expect(result.count()).to.eq(expected.length);
 
         result.forEach(i => assert.equal(i.i, i.o, 'awee bugger'));
     });

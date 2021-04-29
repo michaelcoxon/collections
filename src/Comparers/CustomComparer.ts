@@ -1,14 +1,20 @@
-﻿import ArgumentUndefinedException from '@michaelcoxon/utilities/lib/Exceptions/ArgumentUndefinedException';
+﻿import ArgumentException from '@michaelcoxon/utilities/lib/Exceptions/ArgumentException';
+import ArgumentUndefinedException from '@michaelcoxon/utilities/lib/Exceptions/ArgumentUndefinedException';
+import { isUndefinedOrNull } from '@michaelcoxon/utilities/lib/TypeHelpers';
 import { IComparer } from "../Interfaces/IComparer";
 import { IEqualityComparer } from "../Interfaces/IEqualityComparer";
 
-export class CustomComparer<T> implements IComparer<T>, IEqualityComparer<T>
+export default class CustomComparer<T> implements IComparer<T>, IEqualityComparer<T>
 {
     private readonly _comparer?: (a: T, b: T) => number;
     private readonly _equalityComparer?: (x: T, y: T) => boolean;
 
     constructor(comparer?: (a: T, b: T) => number, equalityComparer?: (x: T, y: T) => boolean)
     {
+        if (isUndefinedOrNull(comparer) && isUndefinedOrNull(equalityComparer))
+        {
+            throw new ArgumentException("You must provide at least one argument.");
+        }
         this._comparer = comparer;
         this._equalityComparer = equalityComparer;
     }

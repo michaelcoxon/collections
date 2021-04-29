@@ -1,15 +1,19 @@
 ﻿import { IComparer } from "../Interfaces/IComparer";
 import { IEqualityComparer } from '../Interfaces/IEqualityComparer';
 
-export default class MapComparer<T, M> implements IComparer<T>, IEqualityComparer<T>
+/**
+ * Compares objects of the same type using a custom selector and 
+ * a comparer for the selector's return value.
+ */
+export default class MapComparer<T, TProperty> implements IComparer<T>, IEqualityComparer<T>
 {
-    private readonly _comparer: IComparer<M>;
-    private readonly _selector: (a: T) => M;
+    private readonly _selector: (a: T) => TProperty;
+    private readonly _comparer: IComparer<TProperty>;
 
-    constructor(comparer: IComparer<M>, selector: (a: T) => M)
+    constructor(selector: (a: T) => TProperty,comparer: IComparer<TProperty>)
     {
-        this._comparer = comparer;
         this._selector = selector;
+        this._comparer = comparer;
     }
 
     public compare(x: T, y: T): number

@@ -2,7 +2,7 @@
 import { IComparer } from "../Interfaces/IComparer";
 import { IEqualityComparer } from '../Interfaces/IEqualityComparer';
 
-class DefaultComparer<T> implements IComparer<T>, IEqualityComparer<T>
+export class DefaultComparer<T> implements IComparer<T>, IEqualityComparer<T>
 {
     public compare(x: T, y: T): number
     {
@@ -57,7 +57,7 @@ class DefaultComparer<T> implements IComparer<T>, IEqualityComparer<T>
     }
 }
 
-class DefaultStringComparer implements IComparer<string>, IEqualityComparer<string>
+export class DefaultStringComparer implements IComparer<string>, IEqualityComparer<string>
 {
     public compare(x: string, y: string): number
     {
@@ -100,7 +100,7 @@ class DefaultStringComparer implements IComparer<string>, IEqualityComparer<stri
     }
 }
 
-class DefaultNumberComparer implements IComparer<number>, IEqualityComparer<number>
+export class DefaultNumberComparer implements IComparer<number>, IEqualityComparer<number>
 {
     public compare(x: number, y: number): number
     {
@@ -137,7 +137,7 @@ class DefaultNumberComparer implements IComparer<number>, IEqualityComparer<numb
     }
 }
 
-class DefaultObjectComparer<T extends any = any> implements IComparer<T>, IEqualityComparer<T>
+export class DefaultObjectComparer<T extends any = any> implements IComparer<T>, IEqualityComparer<T>
 {
     public compare(x: T, y: T): number
     {

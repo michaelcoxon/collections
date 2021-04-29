@@ -1,4 +1,4 @@
-﻿import { CustomComparer } from "../src/Comparers/CustomComparer";
+﻿import CustomComparer from "../src/Comparers/CustomComparer";
 import { expect, assert } from 'chai';
 import 'mocha';
 
