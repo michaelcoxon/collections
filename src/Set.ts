@@ -4,31 +4,30 @@ import { ICollection } from "./Interfaces/ICollection";
 import { IList } from "./Interfaces/IList";
 import { IDictionary } from "./Interfaces/IDictionary";
 import { IEnumerator } from "./Interfaces/IEnumerator";
-import { IQueryable } from "./Interfaces/IQueryable";
-import { ArgumentException, Undefinable } from "@michaelcoxon/utilities";
-import { EnumeratorEnumerable , Collection, ArrayEnumerable} from './Enumerables';
-import { AppendEnumerator } from './Enumerators';
+import { Undefinable } from "@michaelcoxon/utilities/lib/Types";
+import { EnumeratorEnumerable, Collection, ArrayEnumerable } from "./Enumerables";
+
+import AppendEnumerator from './Enumerators/AppendEnumerator';
+import ArgumentException from '@michaelcoxon/utilities/lib/Exceptions/ArgumentException';
 
 
 // all of this needs to be optimised
 
-export class Set<T> implements ISet<T>, ICollection<T>, IEnumerable<T>
+export default class Set<T> extends Collection<T> implements ISet<T>, ICollection<T>, IEnumerable<T>
 {
-    private readonly _collection: ICollection<T>
-
     constructor(enumerable?: IEnumerable<T>)
     {
-        this._collection = new Collection<T>(enumerable);
+        super(enumerable);
     }
 
-    public get count(): number
+    public get length(): number
     {
-        return this._collection.count;
+        return this.length;
     }
 
     public get isReadOnly(): boolean
     {
-        return this._collection.isReadOnly;
+        return super.isReadOnly;
     }
 
     append(item: T): IEnumerable<T>
@@ -116,7 +115,7 @@ export class Set<T> implements ISet<T>, ICollection<T>, IEnumerable<T>
             const item = en.current;
             if (!this.contains(item))
             {
-                this._collection.add(item);
+                this.add(item);
             }
         }
     }
@@ -130,7 +129,7 @@ export class Set<T> implements ISet<T>, ICollection<T>, IEnumerable<T>
     {
         if (!this.contains(item))
         {
-            this._collection.add(item);
+            this.add(item);
         }
         else
         {
@@ -140,61 +139,56 @@ export class Set<T> implements ISet<T>, ICollection<T>, IEnumerable<T>
 
     clear(): void
     {
-        this._collection.clear();
+        this.clear();
     }
 
     contains(item: T): boolean
     {
-        return this._collection.contains(item);
+        return this.contains(item);
     }
 
     copyTo(array: T[], arrayIndex: number): void
     {
-        this._collection.copyTo(array, arrayIndex);
+        this.copyTo(array, arrayIndex);
     }
 
     remove(item: T): boolean
     {
-        return this._collection.remove(item);
-    }
-
-    asQueryable(): IQueryable<T>
-    {
-        return this._collection.asQueryable();
+        return this.remove(item);
     }
 
     forEach(callback: (value: T, index: number) => boolean | void): void
     {
-        this._collection.forEach(callback);
+        this.forEach(callback);
     }
 
     getEnumerator(): IEnumerator<T>
     {
-        return this._collection.getEnumerator();
+        return this.getEnumerator();
     }
 
     item(index: number): Undefinable<T>
     {
-        return this._collection.item(index);
+        return this.item(index);
     }
 
     ofType<N extends T>(ctor: new (...args: any[]) => N): IEnumerable<N>
     {
-        return this._collection.ofType(ctor);
+        return this.ofType(ctor);
     }
 
     toArray(): T[]
     {
-        return this._collection.toArray();
+        return this.toArray();
     }
 
     toDictionary<TKey, TValue>(keySelector: (a: T) => TKey, valueSelector: (a: T) => TValue): IDictionary<TKey, TValue>
     {
-        return this._collection.toDictionary(keySelector, valueSelector);
+        return this.toDictionary(keySelector, valueSelector);
     }
 
     toList(): IList<T>
     {
-        return this._collection.toList();
+        return this.toList();
     }
 }

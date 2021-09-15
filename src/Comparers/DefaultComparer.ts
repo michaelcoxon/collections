@@ -1,5 +1,5 @@
-﻿import { IComparer } from "../Interfaces/IComparer";
-import { Utilities } from "@michaelcoxon/utilities";
+﻿import Utilities from '@michaelcoxon/utilities/lib/Utilities';
+import { IComparer } from "../Interfaces/IComparer";
 import { IEqualityComparer } from '../Interfaces/IEqualityComparer';
 
 export class DefaultComparer<T> implements IComparer<T>, IEqualityComparer<T>
@@ -8,15 +8,15 @@ export class DefaultComparer<T> implements IComparer<T>, IEqualityComparer<T>
     {
         if (typeof x == 'string' && typeof y == 'string')
         {
-            return _stringComparer.compare(x, y);
+            return DefaultComparers.StringComparer.compare(x, y);
         }
         else if (typeof x == 'number' && typeof y == 'number')
         {
-            return _numberComparer.compare(x, y);
+            return DefaultComparers.NumberComparer.compare(x, y);
         }
         else
         {
-            return _objectComparer.compare(x, y);
+            return DefaultComparers.ObjectComparer.compare(x, y);
         }
     }
 
@@ -24,15 +24,15 @@ export class DefaultComparer<T> implements IComparer<T>, IEqualityComparer<T>
     {
         if (typeof x == 'string' && typeof y == 'string')
         {
-            return _stringComparer.equals(x, y);
+            return DefaultComparers.StringComparer.equals(x, y);
         }
         else if (typeof x == 'number' && typeof y == 'number')
         {
-            return _numberComparer.equals(x, y);
+            return DefaultComparers.NumberComparer.equals(x, y);
         }
         else
         {
-            return _objectComparer.equals(x, y);
+            return DefaultComparers.ObjectComparer.equals(x, y);
         }
     }
 
@@ -141,13 +141,20 @@ export class DefaultObjectComparer<T extends any = any> implements IComparer<T>,
 {
     public compare(x: T, y: T): number
     {
-        if (x.toString() !== {}.toString() && y.toString() !== {}.toString())
+        const toStringMethodName = 'toString';
+        const x_toString = x[toStringMethodName]?.call(x);
+        const y_toString = y[toStringMethodName]?.call(y);
+
+        if (x_toString !== undefined          // if there is no toString(), lets serialize it with a hash
+            && x_toString !== {}.toString()   // if it is an object type, lets serialize it with a hash
+            && y_toString !== undefined       // if there is no toString(), lets serialize it with a hash
+            && y_toString !== {}.toString())  // if it is an object type, lets serialize it with a hash
         {
-            return _stringComparer.compare(x.toString(), y.toString());
+            return DefaultComparers.StringComparer.compare(x_toString, y_toString);
         }
         else
         {
-            return _stringComparer.compare(Utilities.getHash(x), Utilities.getHash(y));
+            return DefaultComparers.StringComparer.compare(Utilities.getHash(x), Utilities.getHash(y));
         }
     }
 
@@ -177,6 +184,18 @@ export class DefaultObjectComparer<T extends any = any> implements IComparer<T>,
     }
 }
 
-const _stringComparer: IComparer<string> = new DefaultStringComparer();
-const _numberComparer: IComparer<number> = new DefaultNumberComparer();
-const _objectComparer: IComparer<any> = new DefaultObjectComparer();
+interface Defaults
+{
+    DefaultComparer: IComparer<any>
+    StringComparer: IComparer<string>;
+    NumberComparer: IComparer<number>;
+    ObjectComparer: IComparer<any>;
+
+}
+
+export const DefaultComparers: Defaults = {
+    DefaultComparer: new DefaultComparer<any>(),
+    StringComparer: new DefaultStringComparer(),
+    NumberComparer: new DefaultNumberComparer(),
+    ObjectComparer: new DefaultObjectComparer(),
+};

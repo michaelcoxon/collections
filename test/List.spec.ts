@@ -1,6 +1,7 @@
-﻿import { CustomComparer } from "../src/Comparers/CustomComparer";
+﻿import CustomComparer from "../src/Comparers/CustomComparer";
 import { expect, assert } from 'chai';
 import 'mocha';
+
 import { List, Collection } from "../src/Enumerables";
 
 
@@ -12,9 +13,9 @@ describe("List.constructor", () =>
         const array = [1, 2, 3, 4];
         const result = new List(array);
 
-        expect(array.length).eq(result.count);
+        expect(array.length).eq(result.length);
 
-        for (let i = 0; i < result.count; i++)
+        for (let i = 0; i < result.length; i++)
         {
             expect(array[i]).eq(result.item(i), `index ${i} is not the same`);
         }
@@ -25,9 +26,9 @@ describe("List.constructor", () =>
         const collection = new List([1, 2, 3, 4]);
         const result = new List(collection);
 
-        expect(collection.count).eq(result.count);
+        expect(collection.length).eq(result.length);
 
-        for (let i = 0; i < result.count; i++)
+        for (let i = 0; i < result.length; i++)
         {
             expect(collection.item(i)).eq(result.item(i), `index ${i} is not the same`);
         }
@@ -44,9 +45,9 @@ describe("List.add", () =>
 
         list.add(new_item);
 
-        expect(array.length + 1).eq(list.count);
+        expect(array.length + 1).eq(list.length);
 
-        for (let i = 0; i < list.count; i++)
+        for (let i = 0; i < list.length; i++)
         {
             if (i < 4)
             {
@@ -70,9 +71,9 @@ describe("List.addRange", () =>
 
         result.addRange(new_array);
 
-        expect(array.length + new_array.length).eq(result.count);
+        expect(array.length + new_array.length).eq(result.length);
 
-        for (let i = 0; i < result.count; i++)
+        for (let i = 0; i < result.length; i++)
         {
             if (i < 4)
             {
@@ -93,9 +94,9 @@ describe("List.addRange", () =>
 
         result.addRange(new_coll);
 
-        expect(array.length + new_coll.count).eq(result.count);
+        expect(array.length + new_coll.length).eq(result.length);
 
-        for (let i = 0; i < result.count; i++)
+        for (let i = 0; i < result.length; i++)
         {
             if (i < 4)
             {
@@ -116,11 +117,11 @@ describe("List.clear", () =>
         const array = [1, 2, 3, 4];
         const list = new List(array);
 
-        expect(array.length).eq(list.count);
+        expect(array.length).eq(list.length);
 
         list.clear();
 
-        expect(0).eq(list.count);
+        expect(0).eq(list.length);
     });
 });
 
@@ -162,6 +163,24 @@ describe("List.find", () =>
 
         expect(undefined).eq(result);
     });
+
+    it("(isEquivilent) should return the item if it is in the List", () =>
+    {
+        const array = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+        const list = new List(array);
+        const result = list.find({ id: 4 }, true);
+
+        expect({ id: 4 }.id).eq(result!.id);
+    });
+
+    it("(isEquivilent) should return undefined if it is not in the List", () =>
+    {
+        const array = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+        const list = new List(array);
+        const result = list.find({ id: 5 }, true);
+
+        expect(undefined).eq(result);
+    });
 });
 
 describe("List.indexOf", () =>
@@ -183,6 +202,24 @@ describe("List.indexOf", () =>
 
         expect(undefined).eq(result);
     });
+
+    it("(isEquivilent) should return the index of the item if it is in the List", () =>
+    {
+        const array = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+        const list = new List(array);
+        const result = list.indexOf({ id: 4 }, true);
+
+        expect(3).eq(result);
+    });
+
+    it("(isEquivilent) should return undefined if it is not in the List", () =>
+    {
+        const array = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
+        const list = new List(array);
+        const result = list.indexOf({ id: 5 }, true);
+
+        expect(undefined).eq(result);
+    });
 });
 
 describe("List.insert", () =>
@@ -196,9 +233,9 @@ describe("List.insert", () =>
 
         list.insert(new_item, 0);
 
-        expect(array.length + 1).eq(list.count);
+        expect(array.length + 1).eq(list.length);
 
-        for (let i = 0; i < list.count; i++)
+        for (let i = 0; i < list.length; i++)
         {
             expect(expected[i]).eq(list.item(i), `index ${i} is not the same`);
         }
@@ -213,9 +250,9 @@ describe("List.insert", () =>
 
         list.insert(new_item, 2);
 
-        expect(array.length + 1).eq(list.count);
+        expect(array.length + 1).eq(list.length);
 
-        for (let i = 0; i < list.count; i++)
+        for (let i = 0; i < list.length; i++)
         {
             expect(expected[i]).eq(list.item(i), `index ${i} is not the same`);
         }
@@ -231,9 +268,9 @@ describe("List.insert", () =>
 
         list.insert(new_item, 3);
 
-        expect(array.length + 1).eq(list.count);
+        expect(array.length + 1).eq(list.length);
 
-        for (let i = 0; i < list.count; i++)
+        for (let i = 0; i < list.length; i++)
         {
             expect(expected[i]).eq(list.item(i), `index ${i} is not the same`);
         }
@@ -252,9 +289,9 @@ describe("List.prepend", () =>
 
         list.prepend(new_item);
 
-        expect(array.length + 1).eq(list.count);
+        expect(array.length + 1).eq(list.length);
 
-        for (let i = 0; i < list.count; i++)
+        for (let i = 0; i < list.length; i++)
         {
             expect(expected[i]).eq(list.item(i), `index ${i} is not the same`);
         }
@@ -272,9 +309,9 @@ describe("List.prependRange", () =>
 
         list.prependRange(new_items);
 
-        expect(array.length + new_items.length).eq(list.count);
+        expect(array.length + new_items.length).eq(list.length);
 
-        for (let i = 0; i < list.count; i++)
+        for (let i = 0; i < list.length; i++)
         {
             expect(expected[i]).eq(list.item(i), `index ${i} is not the same`);
         }
@@ -289,9 +326,9 @@ describe("List.prependRange", () =>
 
         list.prependRange(new_items);
 
-        expect(array.length + new_items.count).eq(list.count);
+        expect(array.length + new_items.length).eq(list.length);
 
-        for (let i = 0; i < list.count; i++)
+        for (let i = 0; i < list.length; i++)
         {
             expect(expected[i]).eq(list.item(i), `index ${i} is not the same`);
         }
@@ -309,9 +346,9 @@ describe("List.remove", () =>
 
         list.remove(item);
 
-        expect(array.length - 1).eq(list.count);
+        expect(array.length - 1).eq(list.length);
 
-        for (let i = 0; i < list.count; i++)
+        for (let i = 0; i < list.length; i++)
         {
             expect(expected[i]).eq(list.item(i), `index ${i} is not the same`);
         }
@@ -344,9 +381,9 @@ describe("List.removeAt", () =>
 
         list.removeAt(0);
 
-        expect(array.length - 1).eq(list.count);
+        expect(array.length - 1).eq(list.length);
 
-        for (let i = 0; i < list.count; i++)
+        for (let i = 0; i < list.length; i++)
         {
             expect(expected[i]).eq(list.item(i), `index ${i} is not the same`);
         }
@@ -360,9 +397,9 @@ describe("List.removeAt", () =>
 
         list.removeAt(2);
 
-        expect(array.length - 1).eq(list.count);
+        expect(array.length - 1).eq(list.length);
 
-        for (let i = 0; i < list.count; i++)
+        for (let i = 0; i < list.length; i++)
         {
             expect(expected[i]).eq(list.item(i), `index ${i} is not the same`);
         }
@@ -377,9 +414,9 @@ describe("List.removeAt", () =>
 
         list.removeAt(3);
 
-        expect(array.length - 1).eq(list.count);
+        expect(array.length - 1).eq(list.length);
 
-        for (let i = 0; i < list.count; i++)
+        for (let i = 0; i < list.length; i++)
         {
             expect(expected[i]).eq(list.item(i), `index ${i} is not the same`);
         }
@@ -397,7 +434,7 @@ describe("List.sort", () =>
 
         list.sort();
 
-        for (let i = 0; i < list.count; i++)
+        for (let i = 0; i < list.length; i++)
         {
             expect(expected[i]).eq(list.item(i), `index ${i} is not the same`);
         }
@@ -411,7 +448,7 @@ describe("List.sort", () =>
 
         list.sort(new CustomComparer<number>((a, b) => b - a));
 
-        for (let i = 0; i < list.count; i++)
+        for (let i = 0; i < list.length; i++)
         {
             expect(expected[i]).eq(list.item(i), `index ${i} is not the same`);
         }

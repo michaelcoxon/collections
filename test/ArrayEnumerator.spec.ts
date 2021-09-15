@@ -1,7 +1,8 @@
-﻿import { expect, assert } from 'chai';
+﻿import OutOfBoundsException from '@michaelcoxon/utilities/lib/Exceptions/OutOfBoundsException';
+import { expect, assert } from 'chai';
 import 'mocha';
-import { Collection } from "../src/Enumerables";
-import { ArrayEnumerator } from "../src/Enumerators";
+import { Collection } from "../src/Enumerables/";
+import ArrayEnumerator from "../src/Enumerators/ArrayEnumerator";
 
 describe("ArrayEnumerator.constructor", () =>
 {
@@ -153,3 +154,38 @@ describe("ArrayEnumerator.reset", () =>
     });
 });
 
+describe("ArrayEnumerator.throwOutOfBoundsException", () =>
+{
+    it("should throw OutOfBoundsException", () =>
+    {
+        const array = [1, 2, 3, 4];
+        const coll = new Collection(array);
+        const en = new ArrayEnumerator(coll.toArray());
+
+        assert.throws(() =>
+        {
+            en.current;
+        },
+            OutOfBoundsException);
+    });
+});
+
+describe("ArrayEnumerator.Iterator", () =>
+{
+    it("should iterate", () =>
+    {
+        const array = [1, 2, 3, 4];
+        const coll = new Collection(array);
+        const en = new ArrayEnumerator(coll.toArray());
+
+        let count = 0;
+
+        let result = en.next();
+        while (!result.done)
+        {
+            expect(coll.item(count)).eq(en.current, `index ${count} is not the same`);
+            result = en.next();
+            count++;
+        }
+    });
+});

@@ -2,7 +2,7 @@
 import { IEqualityComparer } from '../Interfaces/IEqualityComparer';
 
 /** reverses the comparer provided */
-export class ReverseComparer<T> implements IComparer<T>, IEqualityComparer<T>
+export default class ReverseComparer<T> implements IComparer<T>, IEqualityComparer<T>
 {
     private readonly _comparer: IComparer<T>;
 

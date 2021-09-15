@@ -1,6 +1,6 @@
 ﻿import { assert, expect } from 'chai';
 import 'mocha';
-import { DefaultStringComparer } from '../src/Comparers/DefaultComparer';
+import { DefaultComparers } from '../src/Comparers/DefaultComparer';
 
 describe("DefaultStringComparer.compare", () =>
 {
@@ -8,7 +8,7 @@ describe("DefaultStringComparer.compare", () =>
     {
         const x = 'bcd';
         const y = 'abc';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.compare(x, y);
 
@@ -19,7 +19,7 @@ describe("DefaultStringComparer.compare", () =>
     {
         const x = 'abc';
         const y = 'abc';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.compare(x, y);
 
@@ -30,7 +30,7 @@ describe("DefaultStringComparer.compare", () =>
     {
         const x = 'abc';
         const y = 'bcd';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.compare(x, y);
 
@@ -44,7 +44,7 @@ describe("DefaultStringComparer.equals", () =>
     {
         const x = 'abc';
         const y = 'abc';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.equals(x, y);
 
@@ -55,7 +55,7 @@ describe("DefaultStringComparer.equals", () =>
     {
         const x = 'abc';
         const y = 'cba';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.equals(x, y);
 
@@ -69,7 +69,7 @@ describe("DefaultStringComparer.greaterThan", () =>
     {
         const x = 'bcd';
         const y = 'abc';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.greaterThan(x, y);
 
@@ -80,7 +80,7 @@ describe("DefaultStringComparer.greaterThan", () =>
     {
         const x = 'abc';
         const y = 'bcd';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.greaterThan(x, y);
 
@@ -91,7 +91,7 @@ describe("DefaultStringComparer.greaterThan", () =>
     {
         const x = 'abc';
         const y = 'abc';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.greaterThan(x, y);
 
@@ -105,7 +105,7 @@ describe("DefaultStringComparer.greaterThanOrEqual", () =>
     {
         const x = 'bcd';
         const y = 'abc';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.greaterThanOrEqual(x, y);
 
@@ -116,7 +116,7 @@ describe("DefaultStringComparer.greaterThanOrEqual", () =>
     {
         const x = 'abc';
         const y = 'bcd';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.greaterThanOrEqual(x, y);
 
@@ -127,7 +127,7 @@ describe("DefaultStringComparer.greaterThanOrEqual", () =>
     {
         const x = 'abc';
         const y = 'abc';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.greaterThanOrEqual(x, y);
 
@@ -141,7 +141,7 @@ describe("DefaultStringComparer.lessThan", () =>
     {
         const x = 'bcd';
         const y = 'abc';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.lessThan(x, y);
 
@@ -152,7 +152,7 @@ describe("DefaultStringComparer.lessThan", () =>
     {
         const x = 'abc';
         const y = 'bcd';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.lessThan(x, y);
 
@@ -163,7 +163,7 @@ describe("DefaultStringComparer.lessThan", () =>
     {
         const x = 'bcd';
         const y = 'bcd';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.lessThan(x, y);
 
@@ -177,7 +177,7 @@ describe("DefaultStringComparer.lessThanOrEqual", () =>
     {
         const x = 'bcd';
         const y = 'abc';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.lessThanOrEqual(x, y);
 
@@ -188,7 +188,7 @@ describe("DefaultStringComparer.lessThanOrEqual", () =>
     {
         const x = 'abc';
         const y = 'bcd';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.lessThanOrEqual(x, y);
 
@@ -199,7 +199,7 @@ describe("DefaultStringComparer.lessThanOrEqual", () =>
     {
         const x = 'abc';
         const y = 'abc';
-        const comparer = new DefaultStringComparer();
+        const comparer = DefaultComparers.StringComparer;
 
         const result = comparer.lessThanOrEqual(x, y);
 

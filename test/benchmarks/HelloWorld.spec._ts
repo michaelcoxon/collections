@@ -1,0 +1,109 @@
+import 'mocha';
+import { expect, assert } from 'chai';
+import { Suite } from 'benchmark';
+import Enumerable, { ArrayEnumerable, List } from '../../src/Enumerables';
+
+const one = Enumerable.range(0, 1).toArray();
+const ten = Enumerable.range(0, 10).toArray();
+const hund = Enumerable.range(0, 100).toArray();
+const thou = Enumerable.range(0, 1_000).toArray();
+const t_th = Enumerable.range(0, 10_000).toArray();
+const h_th = Enumerable.range(0, 100_000).toArray();
+const mill = Enumerable.range(0, 1_000_000).toArray();
+const t_ml = Enumerable.range(0, 10_000_000).toArray();
+// const h_ml = Enumerable.range(0, 100_000_000).toArray();
+// const bill = Enumerable.range(0, 1_000_000_000).toArray();
+// const t_bl = Enumerable.range(0, 10_000_000_000).toArray();
+// const h_bl = Enumerable.range(0, 100_000_000_000).toArray();
+// const tril = Enumerable.range(0, 1_000_000_000_000).toArray();
+
+
+addSuite('0-100', hund,
+    // native-js
+    a =>
+    {
+        a.filter(i => i % 2 > 0);
+    },
+    // collections
+    a =>
+    {
+        new ArrayEnumerable(a).where(i => i % 2 > 0).toArray();
+    }
+);
+
+addSuite('0-100,000', h_th,
+    // native-js
+    a =>
+    {
+        a.filter(i => i % 2 > 0);
+    },
+    // collections
+    a =>
+    {
+        new ArrayEnumerable(a).where(i => i % 2 > 0).toArray();
+    }
+);
+
+
+addSuite('0-100:more complicated', hund,
+    // native-js
+    a =>
+    {
+        a.filter(i => i % 2 > 0)
+        .filter(f => f % 4 > 0);
+    },
+    // collections
+    a =>
+    {
+        new ArrayEnumerable(a)
+        .where(i => i % 2 > 0)
+        .where(i => i % 4 > 0)
+        .toArray();
+    }
+);
+
+addSuite('0-100,000:more complicated', h_th,
+    // native-js
+    a =>
+    {
+        a.filter(i => i % 2 > 0);
+    },
+    // collections
+    a =>
+    {
+        new ArrayEnumerable(a).where(i => i % 2 > 0).toArray();
+    }
+);
+
+
+function addSuite<T>(name: string, array: T[], jsAction: (a: T[]) => void, collectionsAction: (a: T[]) => void)
+{
+    const suite = new Suite;
+
+    // add tests
+    suite
+        .add(`${name}#native-js`, () =>
+        {
+            jsAction(array);
+        })
+        .add(`${name}#collections`, () =>
+        {
+            collectionsAction(array);
+        })
+        // add listeners
+        .on('cycle', (event) =>
+        {
+            console.log(String(event.target));
+        })
+        .on('complete', () =>
+        {
+            console.log('Fastest is ' + suite.filter('fastest').map('name'));
+        })
+        // run async
+        .run({ 'async': true });
+
+    // logs:
+    // => RegExp#test x 4,161,532 +-0.99% (59 cycles)
+    // => String#indexOf x 6,139,623 +-1.00% (131 cycles)
+    // => Fastest is String#indexOf
+}

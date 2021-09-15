@@ -15,11 +15,14 @@
     "target": "es5",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "pretty": true
+    "pretty": true,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true
   },
 
   "compileOnSave": true,
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "example"
   ]
 }

@@ -3,5 +3,5 @@
 
 export interface IReadOnlyCollection<T> extends IEnumerable<T>
 {
-    readonly count: number;
+    readonly length: number;
 }

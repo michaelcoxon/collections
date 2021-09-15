@@ -1,7 +1,7 @@
 ﻿import { Collection } from "../src/Enumerables";
 import { expect, assert } from 'chai';
 import 'mocha';
-import { ArgumentException } from "@michaelcoxon/utilities";
+import ArgumentException from '@michaelcoxon/utilities/lib/Exceptions/ArgumentException';
 
 describe("Collection.constructor", () =>
 {
@@ -10,9 +10,9 @@ describe("Collection.constructor", () =>
         const array = [1, 2, 3, 4];
         const result = new Collection(array);
 
-        expect(array.length).eq(result.count);
+        expect(array.length).eq(result.length);
 
-        for (let i = 0; i < result.count; i++)
+        for (let i = 0; i < result.length; i++)
         {
             expect(array[i]).eq(result.item(i), `index ${i} is not the same`);
         }
@@ -23,9 +23,9 @@ describe("Collection.constructor", () =>
         const collection = new Collection([1, 2, 3, 4]);
         const result = new Collection(collection);
 
-        expect(collection.count).eq(result.count);
+        expect(collection.length).eq(result.length);
 
-        for (let i = 0; i < result.count; i++)
+        for (let i = 0; i < result.length; i++)
         {
             expect(collection.item(i)).eq(result.item(i), `index ${i} is not the same`);
         }
@@ -43,7 +43,7 @@ describe("Collection.copyTo", () =>
 
         coll1.copyTo(array, 0);
 
-        for (let i = 0; i < expected.count; i++)
+        for (let i = 0; i < expected.length; i++)
         {
             expect(expected.item(i)).eq(array[i], `index ${i} is not the same. got ${expected.item(i)} != ${array[i]}`);
         }
@@ -54,16 +54,19 @@ describe("Collection.copyTo", () =>
         const coll1 = new Collection([1, 2, 3, 4, 5, 6, 7, 8, 9]);
         const array = [-4, -3, -2, -1, 0];
 
+        assert(coll1.length == 9);
+        assert(array.length == 5);
+
         try
         {
             coll1.copyTo(array, 0);
-            assert.fail();
+            assert.fail(undefined, undefined, "did not throw");
         }
         catch (ex)
         {
             if (!(ex instanceof ArgumentException))
             {
-                assert.fail();
+                assert.fail(ex, undefined, "Not an ArgumentException");
             }
         }
         done();
@@ -77,13 +80,13 @@ describe("Collection.copyTo", () =>
         try
         {
             coll1.copyTo(array, 2);
-            assert.fail();
+            assert.fail(undefined, undefined, "did not throw");
         }
         catch (ex)
         {
             if (!(ex instanceof ArgumentException))
             {
-                assert.fail();
+                assert.fail(ex, undefined, "Not an ArgumentException");
             }
         }
         done();
