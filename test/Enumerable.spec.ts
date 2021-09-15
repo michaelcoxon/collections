@@ -54,6 +54,13 @@ describe("Enumerable", () =>
         }
         expect(i).eq(array.length);
     });
+
+    it("should return an empty enumerable", () =>
+    {
+        const source = Enumerable.empty();
+
+        expect(source.count()).eq(0);
+    });
 });
 
 describe("Enumerable.all", () =>

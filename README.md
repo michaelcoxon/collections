@@ -3,9 +3,14 @@
 [![npm](https://img.shields.io/npm/dt/@michaelcoxon/collections.svg)](https://www.npmjs.com/package/@michaelcoxon/collections)
 
 
+# Everything here is continued in @michaelcoxon/utilities I merged the libraries.
+
+
 Collections for JS and TypeScript
 
 Check out the tests for a more comprehesive doco.
+
+This entire project is based around the API's of .NET and the way it does enumerables, collections and fluent LINQ.
 
 ### Note for TypeScript
 If you are using TypeScript, the classes herein are generics. This means
@@ -29,7 +34,7 @@ below will still work fine.
 
 
 # Collection
-This is the base class for `List` and `Queryable`. 
+This is the base class for `List`. 
 
 A collection is immutable meaning you cannot modify it once it is created. 
 It only provides ways of iterating items and copying items to a new collection
@@ -57,12 +62,12 @@ let myCollection2 = new Collection(myCollection);
 ```
 
 ## Properties
-### count: number
+### length: number
 > Returns to number of items in the Collection.
 
 This will return a number greater than or equal to 0.
 
-`myCollection.count;`
+`myCollection.length;`
 
 ## Methods
 ### copyTo(into: Collection): void
@@ -79,7 +84,6 @@ myCollection.copyTo(myCollection2);
 
 // the contents of myCollection2 will now be: [-1, 0, 1, 2, 3, 4]
 ```
-
 ### forEach(callback: (value: any, index: number) => boolean | void): void
 > Iterates over each item in the collection, performing the callback on 
 > each item.
@@ -407,25 +411,25 @@ myList.removeAt(2); // will now be [1, 2]
 
 
 
-# Queryable
-The Queryable class is mostly fluent by design and allows chaining of 
+# Enumerable
+The Enumerable class is mostly fluent by design and allows chaining of 
 *query-like* methods to filter or aggregate an array or collection.
 
  - It has been modelled off of the .NET Fluent LINQ extension methods.
  - It inherits from Collection.
- - As with collections, queryables are immutable - **Every method returns 
-   a new Queryable if it returns a Queryable**
+ - As with collections, enumerables are immutable - **Every method returns 
+   a new Enumerable if it returns a Enumerable**
 
 ## Predicate type
-A Predicate is a delegate method that takes an item of the queryable as
+A Predicate is a delegate method that takes an item of the enumerable as
 the argument, and returns a boolean value.
 
-This is used on the `all`, `any` and `where` methods of Queryable.
+This is used on the `all`, `any` and `where` methods of Enumerable.
 
 `Predicate = (item: any) => boolean`
 
 ## Constructors
-You can create a new Queryable from either a current 
+You can create a new Enumerable from either a current 
 Collection, an array or nothing.
 
 ### Default constructor
@@ -436,14 +440,14 @@ let myList = new List();
 ### Array constructor
 ```js
 let myArray = [1, 2, 3, 4];
-let myQueryable = new Queryable(myArray);
+let myEnumerable = new Enumerable(myArray);
 ```
 
 ### Collection constructor
 ```js
 let myArray = [1, 2, 3, 4];
 let myCollection = new Collection(myArray);
-let myQueryable = new Queryable(myCollection);
+let myEnumerable = new Enumerable(myCollection);
 ```
 
 ## Properties
@@ -456,45 +460,45 @@ Inherits all methods from Collection.
 > Returns `true` if all the items match the `predicate`.
 
 ### any(): boolean
-> Returns `true` if the Queryable contains elements
+> Returns `true` if the Enumerable contains elements
 
 ```js
-if(myQueryable.any())
+if(myEnumerable.any())
 {
-  // do something because the queryable has elements
+  // do something because the enumerable has elements
 }
 ```
 ### any(predicate: Predicate): boolean
 > Returns `true` if any of the elements satisfy the `predicate`.
 
 ```js
-let myQueryable = new Queryable([1, 2, 3, 4]);
-if(myQueryable.any((i) => i == 2))
+let myEnumerable = new ArrayEnumerable([1, 2, 3, 4]);
+if(myEnumerable.any((i) => i == 2))
 {
-  // the queryable contains a '2'
+  // the enumerable contains a '2'
 }
 ```
 ### average(propertyName: string): number
 ### average(selector: (a: any) => number)
-### clone(): Queryable
-### distinct(propertyName: string): Queryable
-### distinct(selector: (a: any) => any): Queryable
+### clone(): Enumerable
+### distinct(propertyName: string): Enumerable
+### distinct(selector: (a: any) => any): Enumerable
 ### first(): any
 ### firstOrDefault(): any | null
-### groupBy(propertyName: string): Queryable
-### groupBy(keySelector: (a: any) => any): Queryable
+### groupBy(propertyName: string): Enumerable
+### groupBy(keySelector: (a: any) => any): Enumerable
 ### max(propertyName: string): number
 ### max(selector: (a: any) => number): number
 ### min(propertyName: string): number
 ### min(selector: (a: any) => number): number
-### ofType(ctor: Constructor): Queryable
-### orderBy(propertyName: K, comparer?: IComparer): Queryable
-### orderBy(selector: (a: T) => R, comparer?: IComparer): Queryable
-### orderByDescending(propertyName: K, comparer?: IComparer): Queryable
-### orderByDescending(selector: (a: any) => any, comparer?: IComparer): Queryable
-### skip(count: number): Queryable
-### select(propertyName: string): Queryable
-### select(selector: (a: any) => any): Queryable
+### ofType(ctor: Constructor): Enumerable
+### orderBy(propertyName: K, comparer?: IComparer): Enumerable
+### orderBy(selector: (a: T) => R, comparer?: IComparer): Enumerable
+### orderByDescending(propertyName: K, comparer?: IComparer): Enumerable
+### orderByDescending(selector: (a: any) => any, comparer?: IComparer): Enumerable
+### skip(count: number): Enumerable
+### select(propertyName: string): Enumerable
+### select(selector: (a: any) => any): Enumerable
 ### sum(propertyName: string): number
 > Returns the sum of numbers designated by the `propertyName`.
 
@@ -505,10 +509,10 @@ Useful for getting totals of a dataset.
 
 Useful for getting totals of a dataset.
 
-### take(count: number): Queryable
-> Returns a Queryable that subset of the items from 0 to `count`
+### take(count: number): Enumerable
+> Returns a Enumerable that subset of the items from 0 to `count`
 
-### where(predicate: Predicate): Queryable
-> Returns a Queryable of the items that match the predicate
+### where(predicate: Predicate): Enumerable
+> Returns a Enumerable of the items that match the predicate
 
 Used to filter a dataset.
